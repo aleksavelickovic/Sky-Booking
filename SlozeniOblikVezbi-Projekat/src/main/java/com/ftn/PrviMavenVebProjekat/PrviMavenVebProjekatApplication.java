@@ -16,6 +16,6 @@ public class PrviMavenVebProjekatApplication extends SpringBootServletInitialize
 	public static void main(String[] args) {
 		SpringApplication.run(PrviMavenVebProjekatApplication.class, args);
 	}
-}
+} //test
 
 
