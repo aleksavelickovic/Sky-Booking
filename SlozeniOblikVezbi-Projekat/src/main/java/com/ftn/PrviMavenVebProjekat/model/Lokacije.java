@@ -29,7 +29,7 @@ public class Lokacije {
 				Long id = Long.parseLong(tokens[0]);
 				String grad = tokens[1];
 				String drzava = tokens[2];
-				String kontinent = tokens[3];
+				Kontinenti kontinent = Kontinenti.valueOf(tokens[3]);
 				
 				lokacije.put(id, new Lokacija(id, grad, drzava, kontinent));
 				

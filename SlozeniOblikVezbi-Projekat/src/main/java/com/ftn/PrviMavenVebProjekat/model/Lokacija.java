@@ -5,9 +5,9 @@ public class Lokacija {
 	private Long id;
 	private String Grad;
 	private String Drzava;
-	private String Kontinent;
+	private Kontinenti Kontinent;
 
-	public Lokacija(Long id, String grad, String drzava, String kontinent) {
+	public Lokacija(Long id, String grad, String drzava, Kontinenti kontinent) {
 		super();
 		this.id = id;
 		Grad = grad;
@@ -15,7 +15,7 @@ public class Lokacija {
 		Kontinent = kontinent;
 	}
 
-	public Lokacija(String grad, String drzava, String kontinent) {
+	public Lokacija(String grad, String drzava, Kontinenti kontinent) {
 		super();
 		Grad = grad;
 		Drzava = drzava;
@@ -46,12 +46,17 @@ public class Lokacija {
 		Drzava = drzava;
 	}
 
-	public String getKontinent() {
+	public Kontinenti getKontinent() {
 		return Kontinent;
 	}
 
-	public void setKontinent(String kontinent) {
+	public void setKontinent(Kontinenti kontinent) {
 		Kontinent = kontinent;
+	}
+
+	@Override
+	public String toString() {
+		return id + ";" + Grad + ";" + Drzava + ";" + Kontinent;
 	}
 
 }

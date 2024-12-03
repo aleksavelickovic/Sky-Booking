@@ -1,3 +1,0 @@
-1;Beograd;Srbija;Evropa
-2;Los Angeles;USA;Amerika
-3;Peking;Kina;Azija
