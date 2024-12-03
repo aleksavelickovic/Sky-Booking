@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Dodaj lokaciju</title>
+</head>
+<body>
+
+<form action="/PrviMavenVebProjekat/lokacije/add" method="post">
+		<label for="grad">Grad: </label>
+		<input type = "text" name= "grad" /> <br>
+		<label for="Drzava">Drzava: </label>
+		<input type = "text" name= "drzava" /> <br>
+		<select name="kontinent">
+		<option value="Evropa">Evropa</option>
+  		<option value="Amerika">Amerika</option>
+  		<option value="Azija">Azija</option>
+  		<option value="Australija">Australija</option>
+  		<option value="Afrika">Afrika</option>
+  		<option value="Antartik">Antartik</option>
+		</select>
+		 <input type="submit" value="Potvrdi">
+	</form>
+
+</body>
+</html>
