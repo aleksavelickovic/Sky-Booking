@@ -61,15 +61,15 @@ public class LokacijeController implements ApplicationContextAware {
 		List<Lokacija> lokacijeList = service.findAll();
 		String retHTML = "";
 		retHTML += "<!DOCTYPE html>\r\n" + "<html>\r\n" + "<head>\r\n" + "<meta charset=\"UTF-8\"> \r\n"
-				+ "<title>Knjige</title>\r\n"
+				+ "<title>Lokacije</title>\r\n"
 				+ "<link rel=\"stylesheet\" type=\"text/css\" href=\"/PrviMavenVebProjekat/css/StiloviTabela.css\"/>\r\n"
 				+ "<link rel=\"stylesheet\" type=\"text/css\" href=\"/PrviMavenVebProjekat/css/StiloviHorizontalniMeni.css\"/>		\r\n"
 				+ "</head>\r\n" + "<body>";
 
 		for (int i = 0; i < lokacijeList.size(); i++) {
-			int ivece = i + 1;
+//			int ivece = i + 1;
 			Lokacija lokacija = lokacijeList.get(i);
-			retHTML += "<h1>Lokacija broj: " + ivece + "</h1>" + "<p>Grad: " + lokacija.getGrad() + "</p>"
+			retHTML += "<h1>Lokacija broj: " + (i + 1) + "</h1>" + "<p>Grad: " + lokacija.getGrad() + "</p>"
 					+ "<p>Drzava: " + lokacija.getDrzava() + "</p>" + "<p>Kontinent: " + lokacija.getKontinent()
 					+ "</p>" + "<form action=\"/PrviMavenVebProjekat/lokacije/delete?id=" + lokacija.getId() + "\" method=\"post\">"
 					+ "<a href=\"lokacije/edit?id="+lokacija.getId()+"\">Izmeni lokaciju</a>"
