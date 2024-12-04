@@ -42,7 +42,6 @@ public class LokacijaServiceImpl implements LokacijaService {
 
 				String[] tokens = line.split(";");
 				Long id = Long.parseLong(tokens[0]);
-				// todo
 				String grad = tokens[1];
 				String drzava = tokens[2];
 				Kontinenti kontinent = Kontinenti.valueOf(tokens[3]);
@@ -69,11 +68,11 @@ public class LokacijaServiceImpl implements LokacijaService {
 			List<String> lines = new ArrayList<>();
 
 			for (Lokacija Lokacija : lokacije.values()) {
-				String line = Lokacija.toString(); // todo upis linije u fajl
+				String line = Lokacija.toString();
 				lines.add(line);
 				lokacijeReturn.put(Lokacija.getId(), Lokacija);
 			}
-			// pisanje svih redova za filmove
+
 			Files.write(path, lines, Charset.forName("UTF-8"));
 
 		} catch (Exception e) {
@@ -115,15 +114,21 @@ public class LokacijaServiceImpl implements LokacijaService {
 	@Override
 	public Lokacija update(Lokacija lokacija) {
 		// TODO Auto-generated method stub
-		return null;
+		Map<Long, Lokacija> lokacije = readFromFile();
+		lokacije.replace(lokacija.getId(), lokacija);
+		saveToFile(lokacije);
+		return lokacija;
 	}
 
 	@Override
-	public Lokacija delete(Long id) {
+	public void delete(Long id) {
 		// TODO Auto-generated method stub
-		return null;
+		Map<Long, Lokacija> knjige = readFromFile();
+		knjige.remove(id);
+		saveToFile(knjige);
+		return;
 	}
-	
+
 	private Long nextId(Map<Long, Lokacija> map) {
 		Long nextId = 0L;
 

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ftn.PrviMavenVebProjekat.bean.SecondConfiguration.ApplicationMemory;
 import com.ftn.PrviMavenVebProjekat.model.Lokacija;
 import com.ftn.PrviMavenVebProjekat.model.Lokacije;
+import com.ftn.PrviMavenVebProjekat.service.LokacijaService;
 
 @Controller
 @RequestMapping(value = "/lokacije")
@@ -38,6 +39,9 @@ public class LokacijeController implements ApplicationContextAware {
 
 	@Autowired
 	private ApplicationMemory memorijaAplikacije;
+	
+	@Autowired
+	private LokacijaService service;
 
 	/** pristup ApplicationContext */
 	@Override
@@ -63,8 +67,7 @@ public class LokacijeController implements ApplicationContextAware {
 	@GetMapping
 	@ResponseBody
 	public String index() {
-		Lokacije lokacije = (Lokacije) memorijaAplikacije.get(LOKACIJE_KEY);
-		List<Lokacija> lokacijeList = lokacije.findAll();
+		List<Lokacija> lokacijeList = service.findAll();
 		String retHTML = "";
 		retHTML += "<!DOCTYPE html>\r\n" + "<html>\r\n" + "<head>\r\n" + "<meta charset=\"UTF-8\"> \r\n"
 				+ "<title>Knjige</title>\r\n"
