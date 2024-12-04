@@ -38,9 +38,6 @@ public class LokacijeController implements ApplicationContextAware {
 	private ApplicationContext applicationContext;
 
 	@Autowired
-	private ApplicationMemory memorijaAplikacije;
-	
-	@Autowired
 	private LokacijaService service;
 
 	/** pristup ApplicationContext */
@@ -50,11 +47,10 @@ public class LokacijeController implements ApplicationContextAware {
 	}
 
 	/** inicijalizacija podataka za kontroler */
-	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init() {
 		bURL = servletContext.getContextPath() + "/";
-		memorijaAplikacije = applicationContext.getBean(ApplicationMemory.class);
+		applicationContext.getBean(ApplicationMemory.class);
 	}
 
 	/** pribavnjanje HTML stanice za prikaz svih entiteta, get zahtev */

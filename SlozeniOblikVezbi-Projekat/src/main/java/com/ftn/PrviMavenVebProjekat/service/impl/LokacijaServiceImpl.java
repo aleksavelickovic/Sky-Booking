@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.ftn.PrviMavenVebProjekat.model.Knjiga;
 import com.ftn.PrviMavenVebProjekat.model.Kontinenti;
 import com.ftn.PrviMavenVebProjekat.model.Lokacija;
 import com.ftn.PrviMavenVebProjekat.service.LokacijaService;
