@@ -6,6 +6,8 @@ public class Lokacija {
 	private String Grad;
 	private String Drzava;
 	private Kontinenti Kontinent;
+	
+	public Lokacija() {} //Default construcor mora postojati zbog @ModelAttribute
 
 	public Lokacija(Long id, String grad, String drzava, Kontinenti kontinent) {
 		super();

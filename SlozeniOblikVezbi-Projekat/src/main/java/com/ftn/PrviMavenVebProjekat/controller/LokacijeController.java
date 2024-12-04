@@ -131,6 +131,7 @@ public class LokacijeController implements ApplicationContextAware {
 				+ "  		<option value=\"Antartika\""+("Antartika".equals(lokacijaZaEdit.getKontinent().toString()) ? "selected" : "")+">Antartikak</option>\r\n"
 				+ "  		<option value=\"Okeanija\""+("Okeanija".equals(lokacijaZaEdit.getKontinent().toString()) ? "selected" : "")+">Okeanija</option>\r\n"
 				+ "		</select>\r\n"
+				+ "		<input type=\"hidden\" name=\"id\" value=\""+lokacijaZaEdit.getId()+"\">"
 				+ "		 <input type=\"submit\" value=\"Potvrdi\">\r\n"
 				+ "	</form>\r\n"
 				+ "\r\n"
@@ -143,8 +144,10 @@ public class LokacijeController implements ApplicationContextAware {
 	/** obrada podataka forme za izmenu postojećeg entiteta, post zahtev */
 	// POST: lokacije/edit
 	@PostMapping(value = "/edit")
-	public void edit(@ModelAttribute Lokacija LokacijaEdited, HttpServletResponse response) throws IOException {
-
+	public void edit(@ModelAttribute Lokacija lokacijaEdited, HttpServletResponse response) throws IOException {
+//		Lokacija lokacijaEdited = service.findOne(id);
+		service.update(lokacijaEdited);
+		response.sendRedirect(bURL + "lokacije");
 	}
 
 	/** obrada podataka forme za za brisanje postojećeg entiteta, post zahtev */

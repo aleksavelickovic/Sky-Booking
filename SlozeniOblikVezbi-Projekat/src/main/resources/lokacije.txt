@@ -1,4 +1,4 @@
 4;Belgrade;Srbija;Evropa
-6;Peking;Kina;Azija
+6;HongKong;Kina;Azija
 7;New York;USA;Amerika
 8;Maputo;Mozambik;Azija
