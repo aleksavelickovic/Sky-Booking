@@ -1,2 +1,4 @@
-4;New York;USA;Okeanija
-6;dsfgsdfg;sdfgsdfg;Azija
+4;Belgrade;Srbija;Evropa
+6;Peking;Kina;Azija
+7;New York;USA;Amerika
+8;Maputo;Mozambik;Azija
