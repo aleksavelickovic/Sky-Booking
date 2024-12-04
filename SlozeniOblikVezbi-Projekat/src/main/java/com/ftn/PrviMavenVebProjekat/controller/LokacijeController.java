@@ -40,21 +40,20 @@ public class LokacijeController implements ApplicationContextAware {
 	@Autowired
 	private LokacijaService service;
 
-	/** pristup ApplicationContext */
+
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		this.applicationContext = applicationContext;
 	}
 
-	/** inicijalizacija podataka za kontroler */
+	
 	@PostConstruct
 	public void init() {
 		bURL = servletContext.getContextPath() + "/";
 		applicationContext.getBean(ApplicationMemory.class);
 	}
 
-	/** pribavnjanje HTML stanice za prikaz svih entiteta, get zahtev */
-	// GET: lokacije
+
 	@GetMapping
 	@ResponseBody
 	public String index() {
@@ -67,7 +66,6 @@ public class LokacijeController implements ApplicationContextAware {
 				+ "</head>\r\n" + "<body>";
 
 		for (int i = 0; i < lokacijeList.size(); i++) {
-//			int ivece = i + 1;
 			Lokacija lokacija = lokacijeList.get(i);
 			retHTML += "<h1>Lokacija broj: " + (i + 1) + "</h1>" + "<p>Grad: " + lokacija.getGrad() + "</p>"
 					+ "<p>Drzava: " + lokacija.getDrzava() + "</p>" + "<p>Kontinent: " + lokacija.getKontinent()
@@ -81,15 +79,13 @@ public class LokacijeController implements ApplicationContextAware {
 		return retHTML;
 	}
 
-	/** pribavnjanje HTML stanice za unos novog entiteta, get zahtev */
-	// GET: lokacije/dodaj
+
 	@GetMapping(value = "/add")
 	public String create() {
 		return "/dodaj-lokaciju.html";
 	}
 
-	/** obrada podataka forme za unos novog entiteta, post zahtev */
-	// POST: lokacije/add
+
 	@PostMapping(value = "/add")
 	public void create(@RequestParam String grad, @RequestParam String drzava, @RequestParam Kontinenti kontinent,
 			HttpServletResponse response) throws IOException {
@@ -141,8 +137,7 @@ public class LokacijeController implements ApplicationContextAware {
 		return retHTML;
 	}
 
-	/** obrada podataka forme za izmenu postojećeg entiteta, post zahtev */
-	// POST: lokacije/edit
+
 	@PostMapping(value = "/edit")
 	public void edit(@ModelAttribute Lokacija lokacijaEdited, HttpServletResponse response) throws IOException {
 		if (lokacijaEdited.getDrzava().equals("") || lokacijaEdited.getGrad().equals("")) {
@@ -153,16 +148,13 @@ public class LokacijeController implements ApplicationContextAware {
 		response.sendRedirect(bURL + "lokacije");
 	}
 
-	/** obrada podataka forme za za brisanje postojećeg entiteta, post zahtev */
-	// POST: lokacije/delete
 	@PostMapping(value = "/delete")
 	public void delete(@RequestParam Long id, HttpServletResponse response) throws IOException {
 		service.delete(id);
 		response.sendRedirect(bURL + "lokacije");
 	}
 
-	/** pribavnjanje HTML stanice za prikaz određenog entiteta , get zahtev */
-	// GET: lokacije/details?id=1
+
 	@GetMapping(value = "/details")
 	@ResponseBody
 	public void details(@RequestParam Long id) {

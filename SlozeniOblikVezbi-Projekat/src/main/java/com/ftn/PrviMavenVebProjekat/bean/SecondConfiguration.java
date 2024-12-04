@@ -14,6 +14,7 @@ public class SecondConfiguration {
 		return new ApplicationMemory();
 	}
 	
+	@SuppressWarnings("serial")
 	public class ApplicationMemory extends HashMap {
 		
 		@Override

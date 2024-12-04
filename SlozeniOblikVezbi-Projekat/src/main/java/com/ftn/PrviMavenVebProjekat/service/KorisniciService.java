@@ -5,7 +5,7 @@ import java.util.List;
 import com.ftn.PrviMavenVebProjekat.model.Korisnik;
 
 public interface KorisniciService {
-	
+
 	Korisnik findOne(Long id);
 
 	List<Korisnik> findAll();

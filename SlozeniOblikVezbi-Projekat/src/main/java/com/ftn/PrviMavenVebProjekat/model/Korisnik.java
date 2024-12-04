@@ -1,7 +1,6 @@
 package com.ftn.PrviMavenVebProjekat.model;
 
 import java.time.LocalDateTime;
-import java.time.LocalDateTime;
 
 public class Korisnik {
 

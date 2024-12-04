@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ftn.PrviMavenVebProjekat.bean.SecondConfiguration.ApplicationMemory;
 import com.ftn.PrviMavenVebProjekat.model.Korisnik;
-import com.ftn.PrviMavenVebProjekat.model.Lokacija;
 import com.ftn.PrviMavenVebProjekat.model.Uloga;
 import com.ftn.PrviMavenVebProjekat.service.KorisniciService;
 
@@ -64,7 +63,6 @@ public class KorisniciController implements ApplicationContextAware {
 				+ "</head>\r\n" + "<body>";
 
 		for (int i = 0; i < korisnici.size(); i++) {
-//			int ivece = i + 1;
 			Korisnik korisnik = korisnici.get(i);
 			retHTML += "<h1>Korisnik broj: " + (i + 1) + "</h1>" + "<p>Korisnicko ime: " + korisnik.getKorisnickoIme()
 					+ "</p>" + "<p>Loznka: " + korisnik.getLozinka() + "</p>" + "<p>Email: " + korisnik.getEmail()
@@ -88,22 +86,26 @@ public class KorisniciController implements ApplicationContextAware {
 	}
 
 	@PostMapping(value = "/add")
-	public void add(@RequestParam String korime, @RequestParam String lozinka, @RequestParam String lozinkaopet, @RequestParam String email,
-			@RequestParam String ime, @RequestParam String prezime, @RequestParam String datumrodjenja,
-			HttpServletResponse response) throws IOException {
+	public void add(@RequestParam String korime, @RequestParam String lozinka, @RequestParam String lozinkaopet,
+			@RequestParam String email, @RequestParam String ime, @RequestParam String prezime,
+			@RequestParam String datumrodjenja, HttpServletResponse response) throws IOException {
 		if (!lozinka.equals(lozinkaopet)) {
-			//TODO Privremena validacija, sa daljim razvojem projekta ce biti omoguceno bolje korisnicko iskustvo
+			// TODO Privremena validacija, sa daljim razvojem projekta ce biti omoguceno
+			// bolje korisnicko iskustvo
 			response.sendRedirect(bURL + "ponovilozinku.html");
 			return;
 		}
-		if (korime.equals("") || lozinka.equals("") || email.equals("") || ime.equals("") || prezime.equals("") || datumrodjenja.equals("")) {
-			//TODO Privremena validacija, sa daljim razvojem projekta ce biti omoguceno bolje korisnicko iskustvo
+		if (korime.equals("") || lozinka.equals("") || email.equals("") || ime.equals("") || prezime.equals("")
+				|| datumrodjenja.equals("")) {
+			// TODO Privremena validacija, sa daljim razvojem projekta ce biti omoguceno
+			// bolje korisnicko iskustvo
 			response.sendRedirect(bURL + "greska.html");
 			return;
 		}
 		service.save(
-				//TODO Formatirati datum rodjenja koristeci DateTimeFormatter
-				new Korisnik(korime, lozinka, email, ime, prezime, datumrodjenja, LocalDateTime.now().withNano(0), Uloga.PUTNIK));
+				// TODO Formatirati datum rodjenja koristeci DateTimeFormatter
+				new Korisnik(korime, lozinka, email, ime, prezime, datumrodjenja, LocalDateTime.now().withNano(0),
+						Uloga.PUTNIK));
 		response.sendRedirect(bURL + "korisnici");
 		return;
 	}

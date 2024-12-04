@@ -31,7 +31,6 @@ public class LokacijaServiceImpl implements LokacijaService {
 
 		try {
 			Path path = Paths.get(pathToFile);
-//			System.out.println(path.toFile().getAbsolutePath());
 			List<String> lines = Files.readAllLines(path, Charset.forName("UTF-8"));
 
 			for (String line : lines) {
@@ -63,7 +62,6 @@ public class LokacijaServiceImpl implements LokacijaService {
 
 		try {
 			Path path = Paths.get(pathToFile);
-//			System.out.println(path.toFile().getAbsolutePath());
 			List<String> lines = new ArrayList<>();
 
 			for (Lokacija Lokacija : lokacije.values()) {
