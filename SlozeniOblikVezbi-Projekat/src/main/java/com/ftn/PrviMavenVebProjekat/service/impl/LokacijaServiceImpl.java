@@ -32,7 +32,7 @@ public class LokacijaServiceImpl implements LokacijaService {
 
 		try {
 			Path path = Paths.get(pathToFile);
-			System.out.println(path.toFile().getAbsolutePath());
+//			System.out.println(path.toFile().getAbsolutePath());
 			List<String> lines = Files.readAllLines(path, Charset.forName("UTF-8"));
 
 			for (String line : lines) {
@@ -46,7 +46,7 @@ public class LokacijaServiceImpl implements LokacijaService {
 				String drzava = tokens[2];
 				Kontinenti kontinent = Kontinenti.valueOf(tokens[3]);
 
-				lokacije.put(id, new Lokacija(grad, drzava, kontinent));
+				lokacije.put(id, new Lokacija(id, grad, drzava, kontinent));
 
 				if (nextId < id)
 					nextId = id;
@@ -64,7 +64,7 @@ public class LokacijaServiceImpl implements LokacijaService {
 
 		try {
 			Path path = Paths.get(pathToFile);
-			System.out.println(path.toFile().getAbsolutePath());
+//			System.out.println(path.toFile().getAbsolutePath());
 			List<String> lines = new ArrayList<>();
 
 			for (Lokacija Lokacija : lokacije.values()) {

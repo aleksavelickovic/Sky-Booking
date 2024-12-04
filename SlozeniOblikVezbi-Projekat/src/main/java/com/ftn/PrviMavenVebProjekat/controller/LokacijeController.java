@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ftn.PrviMavenVebProjekat.bean.SecondConfiguration.ApplicationMemory;
+import com.ftn.PrviMavenVebProjekat.model.Kontinenti;
 import com.ftn.PrviMavenVebProjekat.model.Lokacija;
-import com.ftn.PrviMavenVebProjekat.model.Lokacije;
 import com.ftn.PrviMavenVebProjekat.service.LokacijaService;
 
 @Controller
@@ -55,11 +55,6 @@ public class LokacijeController implements ApplicationContextAware {
 	public void init() {
 		bURL = servletContext.getContextPath() + "/";
 		memorijaAplikacije = applicationContext.getBean(ApplicationMemory.class);
-		Lokacije lokacije = new Lokacije();
-
-//		servletContext.setAttribute(lokacijeController.lokacije_KEY, lokacije);	
-
-		memorijaAplikacije.put(LokacijeController.LOKACIJE_KEY, lokacije);
 	}
 
 	/** pribavnjanje HTML stanice za prikaz svih entiteta, get zahtev */
@@ -99,14 +94,13 @@ public class LokacijeController implements ApplicationContextAware {
 	/** obrada podataka forme za unos novog entiteta, post zahtev */
 	// POST: lokacije/add
 	@PostMapping(value = "/add")
-	public void create(@RequestParam String grad, @RequestParam String drzava, @RequestParam String kontinent,
+	public void create(@RequestParam String grad, @RequestParam String drzava, @RequestParam Kontinenti kontinent,
 			HttpServletResponse response) throws IOException {
-		Lokacije lokacije = (Lokacije) memorijaAplikacije.get(LOKACIJE_KEY);
 		if (grad.equals("") || drzava.equals("")) {
 			response.sendRedirect(bURL + "greska.html");
 			return;
 		}
-		lokacije.save(new Lokacija(grad, drzava, kontinent));
+		service.save(new Lokacija(grad, drzava, kontinent));
 		response.sendRedirect(bURL + "lokacije");
 		return;
 
@@ -123,8 +117,7 @@ public class LokacijeController implements ApplicationContextAware {
 	// POST: lokacije/delete
 	@PostMapping(value = "/delete")
 	public void delete(@RequestParam Long id, HttpServletResponse response) throws IOException {
-		Lokacije lokacije = (Lokacije) memorijaAplikacije.get(LOKACIJE_KEY);
-		lokacije.delete(id);
+		service.delete(id);
 		response.sendRedirect(bURL + "lokacije");
 	}
 
