@@ -8,38 +8,38 @@
 <body>
     <h1>REGISTRACIJA</h1>
     <form action="/PrviMavenVebProjekat/korisnici/add" method="post">
-        <!-- Korisničko ime -->
+        
         <label for="username">Korisničko ime:</label>
         <input type="text" id="username" name="korime">
         <br><br>
 
-        <!-- Lozinka -->
+        
         <label for="password">Lozinka:</label>
         <input type="password" id="password" name="lozinka">
         <br><br>
-
-        <!-- Email adresa -->
-        <label for="email">Email adresa:</label>
-        <input type="email" id="email" name="email">
+        <label for="password">Ponovite lozinku:</label>
+        <input type="password" id="password" name="lozinkaopet">
         <br><br>
 
-        <!-- Ime -->
+       
+        <label for="email">Email adresa:</label>
+        <input type="text" id="email" name="email">
+        <br><br>
+
+        
         <label for="first_name">Ime:</label>
         <input type="text" id="first_name" name="ime">
         <br><br>
 
-        <!-- Prezime -->
+        
         <label for="last_name">Prezime:</label>
         <input type="text" id="last_name" name="prezime">
         <br><br>
 
-        <!-- Datum rođenja -->
+        
         <label for="birth_date">Datum rođenja:</label>
         <input type="date" id="birth_date" name="datumrodjenja">
         <br><br>
-
-        <!-- Datum i vreme registracije (hidden field) -->
-     <!--    <input type="hidden" id="registration_date" name="registration_date" value="<?= date('Y-m-d H:i:s') ?>"> -->
 
 
         <button type="submit">Dodaj korisnika</button>

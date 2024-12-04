@@ -51,8 +51,8 @@ public class KorisniciServiceImpl implements KorisniciService {
 				LocalDateTime datumRegistracije = LocalDateTime.parse(tokens[7]);
 				Uloga uloga = Uloga.valueOf(tokens[8]);
 
-				korisnici.put(id,
-						new Korisnik(0, korIme, lozinka, email, ime, prezime, datumRodjenja, datumRegistracije, uloga));
+				korisnici.put(id, new Korisnik(id, korIme, lozinka, email, ime, prezime, datumRodjenja,
+						datumRegistracije, uloga));
 
 				if (nextId < id)
 					nextId = id;
