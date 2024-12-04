@@ -1,6 +1,6 @@
 package com.ftn.PrviMavenVebProjekat.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalDateTime;
 
 public class Korisnik {
@@ -11,7 +11,7 @@ public class Korisnik {
 	private String email;
 	private String ime;
 	private String prezime;
-	private LocalDate datumRodjenja;
+	private String datumRodjenja;
 	private LocalDateTime datumIVremeRegistracije;
 	private Uloga uloga;
 
@@ -19,7 +19,7 @@ public class Korisnik {
 	}
 
 	public Korisnik(long id, String korisnickoIme, String lozinka, String email, String ime, String prezime,
-			LocalDate datumRodjenja, LocalDateTime datumIVremeRegistracije, Uloga uloga) {
+			String datumRodjenja, LocalDateTime datumIVremeRegistracije, Uloga uloga) {
 		super();
 		this.id = id;
 		this.korisnickoIme = korisnickoIme;
@@ -33,7 +33,7 @@ public class Korisnik {
 	}
 
 	public Korisnik(String korisnickoIme, String lozinka, String email, String ime, String prezime,
-			LocalDate datumRodjenja, LocalDateTime datumIVremeRegistracije, Uloga uloga) {
+			String datumRodjenja, LocalDateTime datumIVremeRegistracije, Uloga uloga) {
 		super();
 		this.korisnickoIme = korisnickoIme;
 		this.lozinka = lozinka;
@@ -99,11 +99,11 @@ public class Korisnik {
 		this.prezime = prezime;
 	}
 
-	public LocalDate getDatumRodjenja() {
+	public String getDatumRodjenja() {
 		return datumRodjenja;
 	}
 
-	public void setDatumRodjenja(LocalDate datumRodjenja) {
+	public void setDatumRodjenja(String datumRodjenja) {
 		this.datumRodjenja = datumRodjenja;
 	}
 
