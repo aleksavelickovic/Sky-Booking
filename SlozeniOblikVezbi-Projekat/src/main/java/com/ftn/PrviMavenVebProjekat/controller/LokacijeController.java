@@ -72,6 +72,7 @@ public class LokacijeController implements ApplicationContextAware {
 			retHTML += "<h1>Lokacija broj: " + ivece + "</h1>" + "<p>Grad: " + lokacija.getGrad() + "</p>"
 					+ "<p>Drzava: " + lokacija.getDrzava() + "</p>" + "<p>Kontinent: " + lokacija.getKontinent()
 					+ "</p>" + "<form action=\"/PrviMavenVebProjekat/lokacije/delete?id=" + lokacija.getId() + "\" method=\"post\">"
+					+ "<a href=\"lokacije/edit?id="+lokacija.getId()+"\">Izmeni lokaciju</a>"
 //					+ "<input type=\"hidden\" name=\"id\" value=\"" + i + "\" />"
 					+ "<input type=\"submit\" value=\"Obrisi\" />" + "</form>";
 		}
@@ -100,6 +101,43 @@ public class LokacijeController implements ApplicationContextAware {
 		response.sendRedirect(bURL + "lokacije");
 		return;
 
+	}
+	
+	@GetMapping(value = "/edit")
+	@ResponseBody
+	public String edit(@RequestParam Long id) {
+		String retHTML = "";
+		Lokacija lokacijaZaEdit = service.findOne(id);
+		
+		retHTML += "<!DOCTYPE html>\r\n"
+				+ "<html>\r\n"
+				+ "<head>\r\n"
+				+ "<meta charset=\"UTF-8\">\r\n"
+				+ "<title>Izmeni lokaciju</title>\r\n"
+				+ "</head>\r\n"
+				+ "<body>\r\n"
+				+ "\r\n"
+				+ "<form action=\"/PrviMavenVebProjekat/lokacije/edit\" method=\"post\">\r\n"
+				+ "		<label for=\"grad\" >Grad: </label>\r\n"
+				+ "		<input type = \"text\" name= \"grad\" value=\""+lokacijaZaEdit.getGrad()+"\"/> <br>\r\n"
+				+ "		<label for=\"Drzava\">Drzava: </label>\r\n"
+				+ "		<input type = \"text\" name= \"drzava\" value=\""+lokacijaZaEdit.getDrzava()+"\"/> <br>\r\n"
+				+ "		<select name=\"kontinent\">\r\n"
+				+ "			<option value=\"Evropa\" "+("Evropa".equals(lokacijaZaEdit.getKontinent().toString()) ? "selected" : "")+">Evropa</option>\r\n"
+				+ "  		<option value=\"Amerika\""+("Amerika".equals(lokacijaZaEdit.getKontinent().toString()) ? "selected" : "")+">Amerika</option>\r\n"
+				+ "  		<option value=\"Azija\""+("Azija".equals(lokacijaZaEdit.getKontinent().toString()) ? "selected" : "")+">Azija</option>\r\n"
+				+ "  		<option value=\"Australija\""+("Australija".equals(lokacijaZaEdit.getKontinent().toString()) ? "selected" : "")+">Australija</option>\r\n"
+				+ "  		<option value=\"Afrika\""+("Afrika".equals(lokacijaZaEdit.getKontinent().toString()) ? "selected" : "")+">Afrika</option>\r\n"
+				+ "  		<option value=\"Antartika\""+("Antartika".equals(lokacijaZaEdit.getKontinent().toString()) ? "selected" : "")+">Antartikak</option>\r\n"
+				+ "  		<option value=\"Okeanija\""+("Okeanija".equals(lokacijaZaEdit.getKontinent().toString()) ? "selected" : "")+">Okeanija</option>\r\n"
+				+ "		</select>\r\n"
+				+ "		 <input type=\"submit\" value=\"Potvrdi\">\r\n"
+				+ "	</form>\r\n"
+				+ "\r\n"
+				+ "</body>\r\n"
+				+ "</html>";
+		
+		return retHTML;
 	}
 
 	/** obrada podataka forme za izmenu postojećeg entiteta, post zahtev */
