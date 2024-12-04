@@ -145,7 +145,10 @@ public class LokacijeController implements ApplicationContextAware {
 	// POST: lokacije/edit
 	@PostMapping(value = "/edit")
 	public void edit(@ModelAttribute Lokacija lokacijaEdited, HttpServletResponse response) throws IOException {
-//		Lokacija lokacijaEdited = service.findOne(id);
+		if (lokacijaEdited.getDrzava().equals("") || lokacijaEdited.getGrad().equals("")) {
+			response.sendRedirect(bURL + "greska.html");
+			return;
+		}
 		service.update(lokacijaEdited);
 		response.sendRedirect(bURL + "lokacije");
 	}
