@@ -79,5 +79,10 @@ public class KorisniciController implements ApplicationContextAware {
 		
 	}
 	
+	@GetMapping(value = "/add")
+	public String create() {
+		return "/dodaj-korisnika.html";
+	}
+	
 
 }
