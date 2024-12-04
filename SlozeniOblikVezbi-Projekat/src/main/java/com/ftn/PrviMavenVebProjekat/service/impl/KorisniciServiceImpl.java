@@ -22,7 +22,7 @@ import com.ftn.PrviMavenVebProjekat.service.KorisniciService;
 @Qualifier("KorisniciServis")
 public class KorisniciServiceImpl implements KorisniciService {
 
-	@Value("${lokacije.pathToFile}")
+	@Value("${korisnici.pathToFile}")
 	private String pathToFile;
 
 	private Map<Long, Korisnik> readFromFile() {
