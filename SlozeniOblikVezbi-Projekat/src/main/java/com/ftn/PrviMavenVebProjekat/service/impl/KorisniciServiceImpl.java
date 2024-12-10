@@ -1,5 +1,6 @@
 package com.ftn.PrviMavenVebProjekat.service.impl;
 
+import java.io.File;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -22,8 +23,8 @@ import com.ftn.PrviMavenVebProjekat.service.KorisniciService;
 @Qualifier("KorisniciServis")
 public class KorisniciServiceImpl implements KorisniciService {
 
-	@Value("${korisnici.pathToFile}")
-	private String pathToFile;
+	@Value("${paths.baseResourcePath}")
+	private String basePath;
 
 	private Map<Long, Korisnik> readFromFile() {
 
@@ -31,7 +32,8 @@ public class KorisniciServiceImpl implements KorisniciService {
 		Long nextId = 1L;
 
 		try {
-			Path path = Paths.get(pathToFile);
+			File file = new File(basePath + "korisnici.txt");
+			Path path = Paths.get(file.getAbsolutePath());
 			List<String> lines = Files.readAllLines(path, Charset.forName("UTF-8"));
 
 			for (String line : lines) {
@@ -68,7 +70,7 @@ public class KorisniciServiceImpl implements KorisniciService {
 		Map<Long, Korisnik> korisniciReturn = new HashMap<>();
 
 		try {
-			Path path = Paths.get(pathToFile);
+			Path path = Paths.get(basePath + "korisnici.txt");
 			List<String> lines = new ArrayList<>();
 
 			for (Korisnik Korisnik : korisnici.values()) {

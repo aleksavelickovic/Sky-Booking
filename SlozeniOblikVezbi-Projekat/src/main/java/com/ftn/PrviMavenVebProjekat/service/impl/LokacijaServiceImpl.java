@@ -21,8 +21,8 @@ import com.ftn.PrviMavenVebProjekat.service.LokacijaService;
 @Qualifier("PrviServisZaLokacije")
 public class LokacijaServiceImpl implements LokacijaService {
 
-	@Value("${lokacije.pathToFile}")
-	private String pathToFile;
+	@Value("${paths.baseResourcePath}")
+	private String basePath;
 
 	private Map<Long, Lokacija> readFromFile() {
 
@@ -30,7 +30,7 @@ public class LokacijaServiceImpl implements LokacijaService {
 		Long nextId = 1L;
 
 		try {
-			Path path = Paths.get(pathToFile);
+			Path path = Paths.get(basePath + "lokacije.txt");
 			List<String> lines = Files.readAllLines(path, Charset.forName("UTF-8"));
 
 			for (String line : lines) {
@@ -61,7 +61,7 @@ public class LokacijaServiceImpl implements LokacijaService {
 		Map<Long, Lokacija> lokacijeReturn = new HashMap<>();
 
 		try {
-			Path path = Paths.get(pathToFile);
+			Path path = Paths.get(basePath + "lokacije.txt");
 			List<String> lines = new ArrayList<>();
 
 			for (Lokacija Lokacija : lokacije.values()) {

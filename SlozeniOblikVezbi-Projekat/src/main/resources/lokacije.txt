@@ -1,4 +1,4 @@
 4;Belgrade;Srbija;Evropa
 6;HongKong;Kina;Azija
 8;Maputo;Mozambik;Azija
-9;Jakarta;Indonezija;Okeanija
+9;Jakarta;Indonezija;Australija
