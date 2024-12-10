@@ -2,3 +2,4 @@
 6;HongKong;Kina;Azija
 8;Maputo;Mozambik;Azija
 9;Jakarta;Indonezija;Australija
+10;Cape Town;Juzna Afrika;Afrika
