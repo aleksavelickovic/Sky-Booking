@@ -1,64 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html data-bs-theme="light" lang="en">
+
 <head>
-	<meta charset="UTF-8" />
-	<base href="/PrviMavenVebProjekat/">
-	<title>Osnovna stranica projekta</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Pocetna</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web:400,600,700">
+    <link rel="stylesheet" href="/assets/css/aos.min.css">
+    <link rel="stylesheet" href="/assets/css/Animation-Cards-_app.css">
+    <link rel="stylesheet" href="/assets/css/Animation-Cards.css">
+    <link rel="stylesheet" href="/assets/css/Button-Change-Text-on-Hover.css">
+    <link rel="stylesheet" href="/assets/css/button-materialize-materialize.min.css">
+    <link rel="stylesheet" href="/assets/css/button-materialize.css">
+    <link rel="stylesheet" href="/assets/css/Button-Ripple-Effect-Animation-Wave-Pulse.css">
+    <link rel="stylesheet" href="/assets/css/Overlay-Login-Form.css">
 </head>
-<body>
-	<h1>Osnovna stranica projekta</h1>
-	<dl style="list-style-type: none;">
-		<dt>Rad sa Handler Method metodama</dt>
-		<dd>
-			<dl>
-				<dt>Provratan tip je String i metoda je anotirana sa
-					@ResponseBody</dt>
-				<dd>
-					<a href="ZdravoSvete">URL /ZdravoSvete</a>
-				</dd>
- 
-				<dt>Provratan tip je void i metoda koristi tipove argumenata
-					HttpServletRequest i HttpServletResponse</dt>
-				<dd>
-					<a href="ZdravoSvete/Zdravo2">URL /ZdravoSvete/Zdravo2</a>
-				</dd>
 
-				<dt>Provratan tip je void i metoda koristi tipove argumenata
-					Reader i Writer</dt>
-				<dd>
-					<a href="ZdravoSvete/Zdravo3">URL /ZdravoSvete/Zdravo3</a>
-				</dd>
-
-				<dt>Provratan tip je void i metoda koristi redirekciju na statički resurs oslanjajući se na sendRedirect od HttpServletResponse</dt>
-				<dd>
-					<a href="ZdravoSvete/Zdravo4">URL /ZdravoSvete/Zdravo4</a>
-				</dd>
-
-				<dt>Provratan tip je String i vraća naziv statičkog resurs "/zdravo5.html", da bi ovobilo dozvoljeno View Engine mora biti isključen</dt>
-				<dd>
-					<a href="ZdravoSvete/Zdravo5">URL /ZdravoSvete/Zdravo5</a>
-				</dd>
-			</dl>
-		</dd> 
-		
-		<dt>Prihatanje parametar forme</dt>
-		<dd><a href="forma.html">URL /forma.html</a></dd>
-
-	</dl>
-
-	<a href="Filmovi">Prikaz svih filmova</a>
-	<br />
-	<a href="Projekcije">Prikaz svih projekcija</a>
-	<br />
-	<a href="Korisnici">Prikaz svih korisnika</a>
-	<br />
-	<h1>Slozeni Oblik Vezbi / Prvi domaci zadatak: </h1>
-	<a href="lokacije">Prikazi sve lokacije</a>
-	<br />
-	<a href="lokacije/add">Dodaj novu lokaciju</a>
-	<br />
-	<a href="korisnici">Prikazi sve korisnike</a>
-	<br />
-	<a href="korisnici/add">Registracija korisnika</a>
+<body style="background-color: #05dff3;">
+    <div class="m-5">
+        <div class="text-center m-3" data-aos="flip-right" data-aos-duration="1500"><a href="lokacije" class="waves-effect waves-light btn btn-lg">Prikaži sve lokacije</a></div>
+        <div class="text-center m-3" data-aos="flip-right" data-aos-duration="1500"><a href="lokacije/add" class="waves-effect waves-light btn btn-lg">Dodaj novu lokaciju</a></div>
+        <div class="text-center m-3" data-aos="flip-left" data-aos-duration="1500"><a href="korisnici" class="waves-effect waves-light btn btn-lg">Prikaži sve korisnike</a></div>
+        <div class="text-center m-3" data-aos="flip-left" data-aos-duration="1500"><a href="korisnici/add" class="waves-effect waves-light btn btn-lg">Registracija korisnika</a></div>
+    </div>
+    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/assets/js/aos.min.js"></script>
+    <script src="/assets/js/bs-init.js"></script>
+    <script src="/assets/js/button-materialize-materialize.min.js"></script>
+    <script src="/assets/js/Button-Ripple-Effect-Animation-Wave-Pulse-button-ripple-effect.js"></script>
 </body>
+
 </html>
