@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-bs-theme="light" lang="en">
+<html data-bs-theme="light" lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -15,20 +15,27 @@
     <link rel="stylesheet" href="../assets/css/button-materialize.css">
     <link rel="stylesheet" href="../assets/css/Button-Ripple-Effect-Animation-Wave-Pulse.css">
     <link rel="stylesheet" href="../assets/css/Overlay-Login-Form.css">
+    
+   	<base th:href="@{/}">
 </head>
 
 <body>
-    <div class="row space-rows mt-4">
+    <div class="row space-rows mt-4" th:each="itLokacija, status: ${lokacije}">
         <div class="col">
             <div class="card cards-shadown cards-hover" data-aos="flip-left" data-aos-duration="950">
-                <div class="card-header" style="height: 154px;">
+                <div class="card-header" style="height: 200px;">
                     <div class="cardheader-text">
-                        <h4 id="heading-card-1">Lokacija broj:</h4>
-                        <p id="cardheader-subtext-1">Grad:<br>Drzava:<br>Kontinent:</p>
+                        <h4 id="heading-card-1" th:text="${'Lokacija broj: ' + (status.index + 1)}">Lokacija broj:</h4>
+                        <p id="cardheader-subtext-1" th:text="${'Grad: ' + itLokacija.Grad}">Grad:</p>
+                        <p id="cardheader-subtext-1" th:text="${'Drzava: ' + itLokacija.Drzava}">Drzava:</p>
+                        <p id="cardheader-subtext-1" th:text="${'Kontinent: ' + itLokacija.Kontinent}">Kontinent:</p> 
                     </div>
                 </div>
                 <div class="card-body">
-                    <p class="card-text sub-text-color">Akcije:<a href="lokacije/edit?id="><button class="button" type="button" data-hover="Izmeni Lokaciju"><span>Izmeni Lokaciju</span></button></a><a href="/PrviMavenVebProjekat/lokacije/delete?id="><button class="button" type="button" data-hover="Da li ste sigurni?"><span>OBRISI</span></button></a></p>
+                    <p class="card-text sub-text-color">Akcije:
+                    	<a href="lokacije/edit?id="><button class="button" type="button" data-hover="Izmeni Lokaciju"><span>Izmeni Lokaciju</span></button></a>
+                    	<a href="/PrviMavenVebProjekat/lokacije/delete?id="><button class="button" type="button" data-hover="Da li ste sigurni?"><span>OBRISI</span></button></a>
+                    </p>
                 </div>
             </div>
         </div>

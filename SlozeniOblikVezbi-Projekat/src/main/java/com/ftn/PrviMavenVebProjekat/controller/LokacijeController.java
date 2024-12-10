@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ftn.PrviMavenVebProjekat.bean.SecondConfiguration.ApplicationMemory;
+import com.ftn.PrviMavenVebProjekat.model.Knjiga;
 import com.ftn.PrviMavenVebProjekat.model.Kontinenti;
 import com.ftn.PrviMavenVebProjekat.model.Lokacija;
 import com.ftn.PrviMavenVebProjekat.service.LokacijaService;
@@ -56,27 +58,34 @@ public class LokacijeController implements ApplicationContextAware {
 
 	@GetMapping
 	@ResponseBody
-	public String index() {
-		List<Lokacija> lokacijeList = service.findAll();
-		String retHTML = "";
-		retHTML += "<!DOCTYPE html>\r\n" + "<html>\r\n" + "<head>\r\n" + "<meta charset=\"UTF-8\"> \r\n"
-				+ "<title>Lokacije</title>\r\n"
-				+ "<link rel=\"stylesheet\" type=\"text/css\" href=\"/PrviMavenVebProjekat/css/StiloviTabela.css\"/>\r\n"
-				+ "<link rel=\"stylesheet\" type=\"text/css\" href=\"/PrviMavenVebProjekat/css/StiloviHorizontalniMeni.css\"/>		\r\n"
-				+ "</head>\r\n" + "<body>";
-
-		for (int i = 0; i < lokacijeList.size(); i++) {
-			Lokacija lokacija = lokacijeList.get(i);
-			retHTML += "<h1>Lokacija broj: " + (i + 1) + "</h1>" + "<p>Grad: " + lokacija.getGrad() + "</p>"
-					+ "<p>Drzava: " + lokacija.getDrzava() + "</p>" + "<p>Kontinent: " + lokacija.getKontinent()
-					+ "</p>" + "<form action=\"/PrviMavenVebProjekat/lokacije/delete?id=" + lokacija.getId() + "\" method=\"post\">"
-					+ "<a href=\"lokacije/edit?id="+lokacija.getId()+"\">Izmeni lokaciju</a>"
-//					+ "<input type=\"hidden\" name=\"id\" value=\"" + i + "\" />"
-					+ "<input type=\"submit\" value=\"Obrisi\" />" + "</form>";
-		}
-
-		retHTML += "<a href=\"index.html\">Pocetna</a>\r\n" + "</body>\r\n" + "</html>";
-		return retHTML;
+	public ModelAndView index() {
+		
+		List<Lokacija> lokacije = service.findAll();
+		ModelAndView modelAndView = new ModelAndView("lokacije");
+		modelAndView.addObject("lokacije", lokacije);
+		return modelAndView;
+		
+//		List<Lokacija> lokacijeList = service.findAll();
+//		String retHTML = "";
+//		retHTML += "<!DOCTYPE html>\r\n" + "<html>\r\n" + "<head>\r\n" + "<meta charset=\"UTF-8\"> \r\n"
+//				+ "<title>Lokacije</title>\r\n"
+//				+ "<link rel=\"stylesheet\" type=\"text/css\" href=\"/PrviMavenVebProjekat/css/StiloviTabela.css\"/>\r\n"
+//				+ "<link rel=\"stylesheet\" type=\"text/css\" href=\"/PrviMavenVebProjekat/css/StiloviHorizontalniMeni.css\"/>		\r\n"
+//				+ "</head>\r\n" + "<body>";
+//
+//		for (int i = 0; i < lokacijeList.size(); i++) {
+//			Lokacija lokacija = lokacijeList.get(i);
+//			retHTML += "<h1>Lokacija broj: " + (i + 1) + "</h1>" + "<p>Grad: " + lokacija.getGrad() + "</p>"
+//					+ "<p>Drzava: " + lokacija.getDrzava() + "</p>" + "<p>Kontinent: " + lokacija.getKontinent()
+//					+ "</p>" + "<form action=\"/PrviMavenVebProjekat/lokacije/delete?id=" + lokacija.getId() + "\" method=\"post\">"
+//					+ "<a href=\"lokacije/edit?id="+lokacija.getId()+"\">Izmeni lokaciju</a>"
+////					+ "<input type=\"hidden\" name=\"id\" value=\"" + i + "\" />"
+//					+ "<input type=\"submit\" value=\"Obrisi\" />" + "</form>";
+//		}
+//
+//		retHTML += "<a href=\"index.html\">Pocetna</a>\r\n" + "</body>\r\n" + "</html>";
+//		return retHTML;
+//		return null;
 	}
 
 
