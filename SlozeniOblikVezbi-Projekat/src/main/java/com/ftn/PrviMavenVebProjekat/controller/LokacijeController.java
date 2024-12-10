@@ -157,7 +157,7 @@ public class LokacijeController implements ApplicationContextAware {
 		response.sendRedirect(bURL + "lokacije");
 	}
 
-	@PostMapping(value = "/delete")
+	@GetMapping(value = "/delete")
 	public void delete(@RequestParam Long id, HttpServletResponse response) throws IOException {
 		service.delete(id);
 		response.sendRedirect(bURL + "lokacije");
