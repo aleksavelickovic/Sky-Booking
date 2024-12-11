@@ -54,7 +54,7 @@ public class KorisniciController implements ApplicationContextAware {
 	@GetMapping
 	@ResponseBody
 	public ModelAndView index() {
-		
+
 		List<Korisnik> korisnici = service.findAll();
 		ModelAndView modelAndView = new ModelAndView("korisnici");
 		modelAndView.addObject("korisnici", korisnici);
@@ -107,6 +107,13 @@ public class KorisniciController implements ApplicationContextAware {
 			// bolje korisnicko iskustvo
 			response.sendRedirect(bURL + "greska.html");
 			return;
+		}
+		// Provera da li je korisnicko ime jedinstveno
+		for (Korisnik korisnik : service.findAll()) {
+			if (korisnik.getKorisnickoIme().equals(korime)) {
+				response.sendRedirect(bURL + "korimepostoji.html");
+				return;
+			}
 		}
 		service.save(
 				// TODO Formatirati datum rodjenja koristeci DateTimeFormatter
