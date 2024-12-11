@@ -1,43 +1,59 @@
+
 <!DOCTYPE html>
-<html data-bs-theme="light" lang="en">
+<html data-bs-theme="light" lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Prikaz svih korisnika</title>
-    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web:400,600,700">
-    <link rel="stylesheet" href="../assets/css/aos.min.css">
-    <link rel="stylesheet" href="../assets/css/Animation-Cards-_app.css">
-    <link rel="stylesheet" href="../assets/css/Animation-Cards.css">
-    <link rel="stylesheet" href="../assets/css/Button-Change-Text-on-Hover.css">
-    <link rel="stylesheet" href="../assets/css/button-materialize-materialize.min.css">
-    <link rel="stylesheet" href="../assets/css/button-materialize.css">
-    <link rel="stylesheet" href="../assets/css/Button-Ripple-Effect-Animation-Wave-Pulse.css">
-    <link rel="stylesheet" href="../assets/css/Overlay-Login-Form.css">
+    <link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Titillium+Web:400,600,700}">
+    <link rel="stylesheet" th:href="@{/assets/css/aos.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Animation-Cards-_app.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Animation-Cards.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Button-Change-Text-on-Hover.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/button-materialize-materialize.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/button-materialize.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Button-Ripple-Effect-Animation-Wave-Pulse.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Overlay-Login-Form.css}">
+    <base th:href="@{/}">
 </head>
 
 <body>
-    <div class="row space-rows mt-4">
+	<!-- <h1>Izmena i brisanje jos nije implementirano!</h1> --> 
+    <div class="row space-rows mt-4" th:each="itKorisnik, status: ${korisnici}">
         <div class="col">
             <div class="card cards-shadown cards-hover" data-aos="flip-left" data-aos-duration="950">
-                <div class="card-header" style="height: 273px;">
+                <div class="card-header" style="height: 345px;">
                     <div class="cardheader-text">
-                        <h4 id="heading-card-1">Korisnik broj:</h4>
-                        <p id="cardheader-subtext-1" class="mt-4" style="font-size: 15px;"></p> <!-- Atributi korisnika: korime, lozinka, email, ime, prezime, datumrodjenja, datum i vreme registracije, uloga -->
+                        <h4 id="heading-card-1" th:text="${'Korisnik broj: ' + (status.index + 1)}">Korisnik broj:</h4>
+                        <p id="cardheader-subtext-1" th:text="${'Korisnicko Ime: ' + itKorisnik.korisnickoIme}"></p>
+                        <p id="cardheader-subtext-1" th:text="${'Lozinka: ' + itKorisnik.lozinka}"></p>
+                        <p id="cardheader-subtext-1" th:text="${'Email: ' + itKorisnik.email}"></p>
+                        <p id="cardheader-subtext-1" th:text="${'Ime I Prezime: ' + itKorisnik.ime + ' ' + itKorisnik.prezime}"></p>
+                        <p id="cardheader-subtext-1" th:text="${'Datum Rodjenja: ' + itKorisnik.datumRodjenja}"></p>
+                        <p id="cardheader-subtext-1" th:text="${'Datum I Vreme registracije: ' + itKorisnik.datumIVremeRegistracije}"></p>
+                        <p id="cardheader-subtext-1" th:text="${'Uloga: ' + itKorisnik.uloga}"></p>
                     </div>
                 </div>
                 <div class="card-body">
-                    <p class="card-text sub-text-color">Akcije:<a href="korisnici/edit?id="><button class="button" type="button" data-hover="Izmeni Korisnika"><span>Izmeni Korisnika</span></button></a><a href="/PrviMavenVebProjekat/korisnici/delete?id="><button class="button" type="button" data-hover="Da li ste sigurni?"><span>OBRISI NALOG</span></button></a></p>
+                    <p class="card-text sub-text-color">Akcije:
+                        <a th:href="@{/korisnici/edit(id=${itKorisnik.id})}">
+                            <button class="button" type="button" data-hover="Izmeni Korisnika"><span>Izmeni Korisnika</span></button>
+                        </a>
+                        <a th:href="@{/korisnici/delete(id=${itKorisnik.id})}">
+                            <button class="button" type="button" data-hover="Da li ste sigurni?"><span>OBRISI NALOG</span></button>
+                        </a>
+                    </p>
                 </div>
             </div>
         </div>
     </div>
-    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="../assets/js/aos.min.js"></script>
-    <script src="../assets/js/bs-init.js"></script>
-    <script src="../assets/js/button-materialize-materialize.min.js"></script>
-    <script src="../assets/js/Button-Ripple-Effect-Animation-Wave-Pulse-button-ripple-effect.js"></script>
+    <script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="@{/assets/js/aos.min.js}"></script>
+    <script th:src="@{/assets/js/bs-init.js}"></script>
+    <script th:src="@{/assets/js/button-materialize-materialize.min.js}"></script>
+    <script th:src="@{/assets/js/Button-Ripple-Effect-Animation-Wave-Pulse-button-ripple-effect.js}"></script>
 </body>
 
 </html>
