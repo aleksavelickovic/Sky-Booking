@@ -17,6 +17,25 @@
                 // Ako nije označen, promeni tip inputa sa klasom 'lozinput' u 'password'
                 $(this).is(':checked') ? $('.lozinput').attr('type', 'text') : $('.lozinput').attr('type', 'password');
             });
+      
+      		// Kod za sprecavanje korisnika da unese datum u buducnosti
+      		
+            var dtToday = new Date();
+			// Uzmi treuntni mesec, dan i godinu
+            var month = dtToday.getMonth() + 1;
+            var day = dtToday.getDate();
+            var year = dtToday.getFullYear();
+			
+            // Dodaj vodecu nulu ako je mesec ili dan manji od 0
+            if(month < 10)
+                month = '0' + month.toString();
+            if(day < 10)
+                day = '0' + day.toString();
+			// Formatiraj danasnji tj. maksimalni datum u string koji input moze da primi kao atribut
+            var maxDate = year + '-' + month + '-' + day;  
+         	// Setuj maksimalni datum na danasnji datum
+            $('#birth_date').attr('max', maxDate);
+            
         });
     </script>
     <style>
@@ -140,7 +159,7 @@
 
       <div class="form-group">
         <label for="birth_date">Datum rođenja:</label>
-        <input type="date" id="birth_date" name="datumrodjenja" />
+        <input type="date" id="birth_date" name="datumrodjenja" min="1900-01-01" />
       </div>
 
       <button type="submit">Registruj se</button>
