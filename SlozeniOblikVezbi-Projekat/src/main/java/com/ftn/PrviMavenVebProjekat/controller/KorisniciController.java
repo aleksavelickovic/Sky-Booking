@@ -115,6 +115,13 @@ public class KorisniciController implements ApplicationContextAware {
 				return;
 			}
 		}
+		// Provera da li je unesen email jedinstven
+		for (Korisnik korisnik : service.findAll()) {
+			if (korisnik.getEmail().equals(email)) {
+				response.sendRedirect(bURL + "korimepostoji.html");
+				return;
+			}
+		}
 		service.save(
 				// TODO Formatirati datum rodjenja koristeci DateTimeFormatter
 				new Korisnik(korime, lozinka, email, ime, prezime, datumrodjenja, LocalDateTime.now().withNano(0),
