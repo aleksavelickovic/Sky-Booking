@@ -61,10 +61,23 @@
         .form-group {
             margin-bottom: 20px;
         }
+        @keyframes flip-left {
+        0% {
+            transform: perspective(400px) rotateY(180deg);
+        }
+        100% {
+            transform: perspective(400px) rotateY(0deg);
+        }
+    }
+
+    .flip-left {
+        animation: flip-left 1s;
+        backface-visibility: hidden;
+    }
     </style>
 </head>
 <body style="background-color: #05dff3;">
-    <form action="/PrviMavenVebProjekat/korisnici/add" method="post">
+    <form class="flip-left" action="/PrviMavenVebProjekat/korisnici/add" method="post">
         <h1>REGISTRACIJA</h1>
         
         <div class="form-group">

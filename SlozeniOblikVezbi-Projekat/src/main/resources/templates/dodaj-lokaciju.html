@@ -56,11 +56,24 @@ input[type="submit"]:hover {
 	color: black;
 	border: 0.1px solid black;
 }
+@keyframes flip-left {
+        0% {
+            transform: perspective(400px) rotateY(180deg);
+        }
+        100% {
+            transform: perspective(400px) rotateY(0deg);
+        }
+    }
+
+    .flip-left {
+        animation: flip-left 1s;
+        backface-visibility: hidden;
+    }
 </style>
 </head>
 <body style="background-color: #05dff3;">
 
-	<form action="/PrviMavenVebProjekat/lokacije/add" method="post">
+	<form class="flip-left" action="/PrviMavenVebProjekat/lokacije/add" method="post">
 		<label for="grad">Grad:</label> <input type="text" name="grad"
 			id="grad" /> <label for="drzava">Država:</label> <input type="text"
 			name="drzava" id="drzava" /> <label for="kontinent">Kontinent:</label>
