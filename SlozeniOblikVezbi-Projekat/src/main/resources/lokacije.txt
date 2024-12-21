@@ -3,3 +3,4 @@
 8;Maputo;Mozambik;Azija
 9;Jakarta;Indonezija;Australija
 10;Cape Town;Juzna Afrika;Afrika
+11;Mexico City;Meksiko;Amerika
