@@ -49,7 +49,7 @@ public class LokacijeRepositoryImpl implements LokacijeRepository {
 
 	@Override
 	public Lokacija findOne(Long id) {
-		String sql = "SELECT l.id, l.Grad, l.Drzava, l.Kontinent "
+		String sql = "SELECT * "
 					+ "FROM lokacije l "
 					+ "WHERE l.id = ? "
 					+ "ORDER BY l.id; ";
@@ -62,7 +62,7 @@ public class LokacijeRepositoryImpl implements LokacijeRepository {
 
 	@Override
 	public List<Lokacija> findAll() {
-		String sql = "SELECT l.id, l.Grad, l.Drzava, l.Kontinent "
+		String sql = "SELECT * "
 					+ "FROM lokacije l "
 					+ "ORDER BY l.id; ";
 		
