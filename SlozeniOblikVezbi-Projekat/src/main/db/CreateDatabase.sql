@@ -7,7 +7,7 @@ CREATE TABLE lokacije (
     Grad VARCHAR(100) NOT NULL,
     Drzava VARCHAR(100) NOT NULL,
     Kontinent ENUM("Evropa", "Amerika", "Azija", "Australija", "Afrika", "Antartika", "Okeanija"),
-    primary key(id)
+    PRIMARY KEY(id)
 );
 
 INSERT INTO lokacije (Grad, Drzava, Kontinent) VALUES
