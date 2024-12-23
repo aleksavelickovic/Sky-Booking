@@ -40,7 +40,7 @@ public class LokacijeController implements ApplicationContextAware {
 	private ApplicationContext applicationContext;
 
 	@Autowired
-	@Qualifier("PrviServisZaLokacije")
+	@Qualifier("LokacijeDatabaseServis")
 	private LokacijaService service;
 
 

@@ -22,4 +22,5 @@ INSERT INTO lokacije (Grad, Drzava, Kontinent) VALUES
 ('Auckland', 'Novi Zeland', 'Okeanija'),
 ('McMurdo Station', 'Antarktik', 'Antartika');
 
-SELECT * FROM lokacije;
+SELECT * FROM lokacije l
+ORDER BY l.id;

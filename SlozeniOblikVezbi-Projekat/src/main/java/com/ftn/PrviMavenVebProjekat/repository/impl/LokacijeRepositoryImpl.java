@@ -4,19 +4,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowCallbackHandler;
+import org.springframework.stereotype.Repository;
 
-import com.ftn.PrviMavenVebProjekat.model.Knjiga;
 import com.ftn.PrviMavenVebProjekat.model.Kontinenti;
 import com.ftn.PrviMavenVebProjekat.model.Lokacija;
 import com.ftn.PrviMavenVebProjekat.repository.LokacijeRepository;
 
+@Repository
 public class LokacijeRepositoryImpl implements LokacijeRepository {
 
 	@Autowired
@@ -49,14 +49,27 @@ public class LokacijeRepositoryImpl implements LokacijeRepository {
 
 	@Override
 	public Lokacija findOne(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT l.id, l.Grad, l.Drzava, l.Kontinent "
+					+ "FROM lokacije l "
+					+ "WHERE l.id = ? "
+					+ "ORDER BY l.id; ";
+		
+		LokacijaRowCallBackhandler rowCallbackHandler = new LokacijaRowCallBackhandler();
+		jdbcTemplate.query(sql, rowCallbackHandler, id);
+
+		return rowCallbackHandler.getLokacije().get(0);
 	}
 
 	@Override
 	public List<Lokacija> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT l.id, l.Grad, l.Drzava, l.Kontinent "
+					+ "FROM lokacije l "
+					+ "ORDER BY l.id; ";
+		
+		LokacijaRowCallBackhandler rowCallbackHandler = new LokacijaRowCallBackhandler();
+		jdbcTemplate.query(sql, rowCallbackHandler);
+
+		return rowCallbackHandler.getLokacije();
 	}
 
 	@Override
