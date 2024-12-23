@@ -17,6 +17,15 @@
     <link rel="stylesheet" th:href="@{/assets/css/Button-Ripple-Effect-Animation-Wave-Pulse.css}">
     <link rel="stylesheet" th:href="@{/assets/css/Overlay-Login-Form.css}">
     <base th:href="@{/}">
+     <style>
+    .floating-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+       	z-index: 1000;
+       	width: 400px;
+    }
+	</style>
 </head>
 
 <body style="background-color: #05dff3;">
@@ -49,6 +58,9 @@
             </div>
         </div>
     </div>
+    <a th:href="@{/}">
+     	<button class="button floating-button" type="button">Pocetna</button>
+     </a>
     <script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
     <script th:src="@{/assets/js/aos.min.js}"></script>
     <script th:src="@{/assets/js/bs-init.js}"></script>
