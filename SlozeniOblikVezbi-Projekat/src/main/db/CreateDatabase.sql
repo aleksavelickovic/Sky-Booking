@@ -1,5 +1,5 @@
 DROP SCHEMA IF EXISTS webprojekat;
-CREATE SCHEMA webprojekat DEFAULT CHARACTER SET utf8;
+CREATE SCHEMA webprojekat DEFAULT CHARACTER SET utf8mb4;
 USE webprojekat;
 
 CREATE TABLE lokacije (

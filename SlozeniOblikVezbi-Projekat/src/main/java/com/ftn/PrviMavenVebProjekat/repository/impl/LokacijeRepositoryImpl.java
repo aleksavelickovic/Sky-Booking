@@ -1,7 +1,10 @@
 package com.ftn.PrviMavenVebProjekat.repository.impl;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,7 +12,9 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowCallbackHandler;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.ftn.PrviMavenVebProjekat.model.Kontinenti;
@@ -49,11 +54,8 @@ public class LokacijeRepositoryImpl implements LokacijeRepository {
 
 	@Override
 	public Lokacija findOne(Long id) {
-		String sql = "SELECT * "
-					+ "FROM lokacije l "
-					+ "WHERE l.id = ? "
-					+ "ORDER BY l.id; ";
-		
+		String sql = "SELECT * " + "FROM lokacije l " + "WHERE l.id = ? " + "ORDER BY l.id; ";
+
 		LokacijaRowCallBackhandler rowCallbackHandler = new LokacijaRowCallBackhandler();
 		jdbcTemplate.query(sql, rowCallbackHandler, id);
 
@@ -62,10 +64,8 @@ public class LokacijeRepositoryImpl implements LokacijeRepository {
 
 	@Override
 	public List<Lokacija> findAll() {
-		String sql = "SELECT * "
-					+ "FROM lokacije l "
-					+ "ORDER BY l.id; ";
-		
+		String sql = "SELECT * " + "FROM lokacije l " + "ORDER BY l.id; ";
+
 		LokacijaRowCallBackhandler rowCallbackHandler = new LokacijaRowCallBackhandler();
 		jdbcTemplate.query(sql, rowCallbackHandler);
 
@@ -74,20 +74,45 @@ public class LokacijeRepositoryImpl implements LokacijeRepository {
 
 	@Override
 	public int save(Lokacija lokacija) {
-		// TODO Auto-generated method stub
-		return 0;
+		PreparedStatementCreator creator = new PreparedStatementCreator() {
+
+			@Override
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+				String sql = "INSERT INTO lokacije (Grad, Drzava, Kontinent) VALUES (?, ?, ?)";
+				PreparedStatement preparedStatement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+				int index = 1;
+				preparedStatement.setString(index++, lokacija.getGrad());
+				preparedStatement.setString(index++, lokacija.getDrzava());
+				preparedStatement.setString(index++, lokacija.getKontinent().toString());
+				return preparedStatement;
+			}
+		};
+		GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
+		boolean uspeh = jdbcTemplate.update(creator, keyHolder) == 1;
+
+		if (uspeh) {
+			return 1;
+		} else {
+			return 0;
+		}
 	}
 
 	@Override
 	public int update(Lokacija lokacija) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = "UPDATE lokacije SET Grad = ?, Drzava = ?, Kontinent = ? WHERE id = ?";
+		boolean uspeh = jdbcTemplate.update(sql, lokacija.getGrad(), lokacija.getDrzava(),
+				lokacija.getKontinent().toString(), lokacija.getId()) == 1;
+		if (uspeh) {
+			return 1;
+		} else {
+			return 0;
+		}
 	}
 
 	@Override
 	public int delete(Long id) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = "DELETE FROM lokacije WHERE id = ?";
+		return jdbcTemplate.update(sql, id);
 	}
 
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.ftn.PrviMavenVebProjekat.model.Knjiga;
 import com.ftn.PrviMavenVebProjekat.model.Lokacija;
 import com.ftn.PrviMavenVebProjekat.repository.LokacijeRepository;
 import com.ftn.PrviMavenVebProjekat.service.LokacijaService;
@@ -29,20 +30,23 @@ public class LokacijaDatabaseServiceImpl implements LokacijaService {
 
 	@Override
 	public Lokacija save(Lokacija lokacija) {
-		// TODO Auto-generated method stub
-		return null;
+		repository.save(lokacija);
+		return lokacija;
 	}
 
 	@Override
 	public Lokacija update(Lokacija lokacija) {
-		// TODO Auto-generated method stub
-		return null;
+		repository.update(lokacija);
+		return lokacija;
 	}
 
 	@Override
-	public void delete(Long id) {
-		// TODO Auto-generated method stub
-
+	public Lokacija delete(Long id) {
+		Lokacija lokacija = repository.findOne(id);
+		if(lokacija != null) {
+			repository.delete(id);
+		}
+		return lokacija;
 	}
 
 }

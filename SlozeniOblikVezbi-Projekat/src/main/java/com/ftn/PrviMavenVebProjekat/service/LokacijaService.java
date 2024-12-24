@@ -14,5 +14,5 @@ public interface LokacijaService {
 
 	Lokacija update(Lokacija lokacija);
 
-	void delete(Long id);
+	Lokacija delete(Long id);
 }

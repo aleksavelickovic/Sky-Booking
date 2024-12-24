@@ -118,12 +118,12 @@ public class LokacijaServiceImpl implements LokacijaService {
 	}
 
 	@Override
-	public void delete(Long id) {
+	public Lokacija delete(Long id) {
 		// TODO Auto-generated method stub
 		Map<Long, Lokacija> knjige = readFromFile();
 		knjige.remove(id);
 		saveToFile(knjige);
-		return;
+		return null;
 	}
 
 	private Long nextId(Map<Long, Lokacija> map) {
