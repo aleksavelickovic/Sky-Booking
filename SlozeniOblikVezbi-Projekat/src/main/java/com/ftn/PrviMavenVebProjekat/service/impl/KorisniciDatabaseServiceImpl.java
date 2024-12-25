@@ -2,44 +2,50 @@ package com.ftn.PrviMavenVebProjekat.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.ftn.PrviMavenVebProjekat.model.Korisnik;
+import com.ftn.PrviMavenVebProjekat.repository.KorisniciRepository;
 import com.ftn.PrviMavenVebProjekat.service.KorisniciService;
 
 @Service
 @Qualifier("KorisniciDatabaseServis")
-public class KorisniciDatabaseServiceImpl implements KorisniciService{
+public class KorisniciDatabaseServiceImpl implements KorisniciService {
+
+	@Autowired
+	private KorisniciRepository repository;
 
 	@Override
 	public Korisnik findOne(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.findOne(id);
 	}
 
 	@Override
 	public List<Korisnik> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.findAll();
 	}
 
 	@Override
 	public Korisnik save(Korisnik Korisnik) {
-		// TODO Auto-generated method stub
-		return null;
+		repository.save(Korisnik);
+		return Korisnik;
 	}
 
 	@Override
 	public Korisnik update(Korisnik Korisnik) {
-		// TODO Auto-generated method stub
-		return null;
+		repository.update(Korisnik);
+		return Korisnik;
 	}
 
 	@Override
-	public void delete(Long id) {
-		// TODO Auto-generated method stub
-		
+	public Korisnik delete(Long id) {
+		Korisnik korisnik = repository.findOne(id);
+		if (korisnik != null) {
+			repository.delete(id);
+		}
+		return korisnik;
 	}
 
 }

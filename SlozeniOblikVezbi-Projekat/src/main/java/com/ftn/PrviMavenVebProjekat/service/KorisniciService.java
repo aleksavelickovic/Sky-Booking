@@ -14,5 +14,5 @@ public interface KorisniciService {
 
 	Korisnik update(Korisnik Korisnik);
 
-	void delete(Long id);
+	Korisnik delete(Long id);
 }

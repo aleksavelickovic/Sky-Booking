@@ -127,12 +127,12 @@ public class KorisniciServiceImpl implements KorisniciService {
 	}
 
 	@Override
-	public void delete(Long id) {
+	public Korisnik delete(Long id) {
 		// TODO Auto-generated method stub
-		Map<Long, Korisnik> knjige = readFromFile();
-		knjige.remove(id);
-		saveToFile(knjige);
-		return;
+		Map<Long, Korisnik> korisnici = readFromFile();
+		korisnici.remove(id);
+		saveToFile(korisnici);
+		return null;
 	}
 
 	private Long nextId(Map<Long, Korisnik> map) {
