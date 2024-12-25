@@ -114,7 +114,7 @@ public class KorisniciServiceImpl implements KorisniciService {
 
 		korisnici.put(Korisnik.getId(), Korisnik);
 		saveToFile(korisnici);
-		return null;
+		return Korisnik;
 	}
 
 	@Override
