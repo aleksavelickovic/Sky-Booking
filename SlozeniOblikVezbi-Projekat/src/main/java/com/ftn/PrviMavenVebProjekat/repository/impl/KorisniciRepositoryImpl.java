@@ -42,7 +42,7 @@ public class KorisniciRepositoryImpl implements KorisniciRepository {
 
 			Korisnik korisnik = korisnici.get(id);
 			if (korisnik == null) {
-				korisnik = new Korisnik(korisnickoIme, lozinka, email, ime, prezime, datumRodjenja,
+				korisnik = new Korisnik(id ,korisnickoIme, lozinka, email, ime, prezime, datumRodjenja,
 						datumIVremeRegistracije, uloga);
 				korisnici.put(korisnik.getId(), korisnik);
 			}
