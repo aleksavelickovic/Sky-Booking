@@ -62,30 +62,6 @@ public class KorisniciController implements ApplicationContextAware {
 		modelAndView.addObject("korisnici", korisnici);
 		return modelAndView;
 
-//		List<Korisnik> korisnici = service.findAll();
-//		String retHTML = "";
-//		retHTML += "<!DOCTYPE html>\r\n" + "<html>\r\n" + "<head>\r\n" + "<meta charset=\"UTF-8\"> \r\n"
-//				+ "<title>Korisnici</title>\r\n"
-//				+ "<link rel=\"stylesheet\" type=\"text/css\" href=\"/PrviMavenVebProjekat/css/StiloviTabela.css\"/>\r\n"
-//				+ "<link rel=\"stylesheet\" type=\"text/css\" href=\"/PrviMavenVebProjekat/css/StiloviHorizontalniMeni.css\"/>		\r\n"
-//				+ "</head>\r\n" + "<body>";
-//
-//		for (int i = 0; i < korisnici.size(); i++) {
-//			Korisnik korisnik = korisnici.get(i);
-//			retHTML += "<h1>Korisnik broj: " + (i + 1) + "</h1>" + "<p>Korisnicko ime: " + korisnik.getKorisnickoIme()
-//					+ "</p>" + "<p>Loznka: " + korisnik.getLozinka() + "</p>" + "<p>Email: " + korisnik.getEmail()
-//					+ "<p>Ime: " + korisnik.getIme() + "</p>" + "<p>Prezime: " + korisnik.getPrezime() + "</p>"
-//					+ "<p>Datum Rodjenja: " + korisnik.getDatumRodjenja() + "</p>" + "<p>Datum I Vreme registracije: "
-//					+ korisnik.getDatumIVremeRegistracije() + "</p>" + "<p>Uloga: " + korisnik.getUloga() + "</p>";
-////					+ "</p>" + "<form action=\"/PrviMavenVebProjekat/korisnici/delete?id=" + korisnik.getId() + "\" method=\"post\">"
-////					+ "<a href=\"korisnici/edit?id="+korisnik.getId()+"\">Izmeni lokaciju</a>"
-////					+ "<input type=\"hidden\" name=\"id\" value=\"" + i + "\" />"
-////					+ "<input type=\"submit\" value=\"Obrisi\" />" + "</form>";
-//		}
-//
-//		retHTML += "<a href=\"index.html\">Pocetna</a>\r\n" + "</body>\r\n" + "</html>";
-//		return retHTML;
-
 	}
 
 	@GetMapping(value = "/add")

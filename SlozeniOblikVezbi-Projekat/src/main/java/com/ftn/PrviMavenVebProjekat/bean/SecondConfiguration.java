@@ -8,27 +8,26 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SecondConfiguration {
 
-	@Bean(name= {"memorijaAplikacije"}, 
-			initMethod="init", destroyMethod="destroy")
+	@Bean(name = { "memorijaAplikacije" }, initMethod = "init", destroyMethod = "destroy")
 	public ApplicationMemory getApplicationMemory() {
 		return new ApplicationMemory();
 	}
-	
+
 	@SuppressWarnings("serial")
 	public class ApplicationMemory extends HashMap {
-		
+
 		@Override
 		public String toString() {
-			return "ApplicationMemory"+this.hashCode();
+			return "ApplicationMemory" + this.hashCode();
 		}
-		
+
 		public void init() {
-			//inicijalizacija
+			// inicijalizacija
 			System.out.println("init method called");
 		}
-		
+
 		public void destroy() {
-			//brisanje
+			// brisanje
 			System.out.println("destroy method called");
 		}
 	}

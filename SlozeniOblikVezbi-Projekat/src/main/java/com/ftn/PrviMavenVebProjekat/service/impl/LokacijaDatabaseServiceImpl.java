@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.ftn.PrviMavenVebProjekat.model.Knjiga;
 import com.ftn.PrviMavenVebProjekat.model.Lokacija;
 import com.ftn.PrviMavenVebProjekat.repository.LokacijeRepository;
 import com.ftn.PrviMavenVebProjekat.service.LokacijaService;

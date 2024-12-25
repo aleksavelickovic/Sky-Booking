@@ -43,58 +43,32 @@ public class LokacijeController implements ApplicationContextAware {
 	@Qualifier("LokacijeDatabaseServis")
 	private LokacijaService service;
 
-
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		this.applicationContext = applicationContext;
 	}
 
-	
 	@PostConstruct
 	public void init() {
 		bURL = servletContext.getContextPath() + "/";
 		applicationContext.getBean(ApplicationMemory.class);
 	}
 
-
 	@GetMapping
 	@ResponseBody
 	public ModelAndView index() {
-		
+
 		List<Lokacija> lokacije = service.findAll();
 		ModelAndView modelAndView = new ModelAndView("lokacije");
 		modelAndView.addObject("lokacije", lokacije);
 		return modelAndView;
-		
-//		List<Lokacija> lokacijeList = service.findAll();
-//		String retHTML = "";
-//		retHTML += "<!DOCTYPE html>\r\n" + "<html>\r\n" + "<head>\r\n" + "<meta charset=\"UTF-8\"> \r\n"
-//				+ "<title>Lokacije</title>\r\n"
-//				+ "<link rel=\"stylesheet\" type=\"text/css\" href=\"/PrviMavenVebProjekat/css/StiloviTabela.css\"/>\r\n"
-//				+ "<link rel=\"stylesheet\" type=\"text/css\" href=\"/PrviMavenVebProjekat/css/StiloviHorizontalniMeni.css\"/>		\r\n"
-//				+ "</head>\r\n" + "<body>";
-//
-//		for (int i = 0; i < lokacijeList.size(); i++) {
-//			Lokacija lokacija = lokacijeList.get(i);
-//			retHTML += "<h1>Lokacija broj: " + (i + 1) + "</h1>" + "<p>Grad: " + lokacija.getGrad() + "</p>"
-//					+ "<p>Drzava: " + lokacija.getDrzava() + "</p>" + "<p>Kontinent: " + lokacija.getKontinent()
-//					+ "</p>" + "<form action=\"/PrviMavenVebProjekat/lokacije/delete?id=" + lokacija.getId() + "\" method=\"post\">"
-//					+ "<a href=\"lokacije/edit?id="+lokacija.getId()+"\">Izmeni lokaciju</a>"
-////					+ "<input type=\"hidden\" name=\"id\" value=\"" + i + "\" />"
-//					+ "<input type=\"submit\" value=\"Obrisi\" />" + "</form>";
-//		}
-//
-//		retHTML += "<a href=\"index.html\">Pocetna</a>\r\n" + "</body>\r\n" + "</html>";
-//		return retHTML;
-//		return null;
-	}
 
+	}
 
 	@GetMapping(value = "/add")
 	public String create() {
 		return "/dodaj-lokaciju.html";
 	}
-
 
 	@PostMapping(value = "/add")
 	public void create(@RequestParam String grad, @RequestParam String drzava, @RequestParam Kontinenti kontinent,
@@ -108,51 +82,16 @@ public class LokacijeController implements ApplicationContextAware {
 		return;
 
 	}
-	
+
 	@GetMapping(value = "/edit")
 	@ResponseBody
 	public ModelAndView edit(@RequestParam Long id) {
-		
+
 		Lokacija lokacijaZaEdit = service.findOne(id);
 		ModelAndView modelAndView = new ModelAndView("izmeni-lokaciju");
 		modelAndView.addObject("lokacija", lokacijaZaEdit);
 		return modelAndView;
-		
-//		String retHTML = "";
-////		Lokacija lokacijaZaEdit = service.findOne(id);
-//		
-//		retHTML += "<!DOCTYPE html>\r\n"
-//				+ "<html>\r\n"
-//				+ "<head>\r\n"
-//				+ "<meta charset=\"UTF-8\">\r\n"
-//				+ "<title>Izmeni lokaciju</title>\r\n"
-//				+ "</head>\r\n"
-//				+ "<body>\r\n"
-//				+ "\r\n"
-//				+ "<form action=\"/PrviMavenVebProjekat/lokacije/edit\" method=\"post\">\r\n"
-//				+ "		<label for=\"grad\" >Grad: </label>\r\n"
-//				+ "		<input type = \"text\" name= \"grad\" value=\""+lokacijaZaEdit.getGrad()+"\"/> <br>\r\n"
-//				+ "		<label for=\"Drzava\">Drzava: </label>\r\n"
-//				+ "		<input type = \"text\" name= \"drzava\" value=\""+lokacijaZaEdit.getDrzava()+"\"/> <br>\r\n"
-//				+ "		<select name=\"kontinent\">\r\n"
-//				+ "			<option value=\"Evropa\" "+("Evropa".equals(lokacijaZaEdit.getKontinent().toString()) ? "selected" : "")+">Evropa</option>\r\n"
-//				+ "  		<option value=\"Amerika\""+("Amerika".equals(lokacijaZaEdit.getKontinent().toString()) ? "selected" : "")+">Amerika</option>\r\n"
-//				+ "  		<option value=\"Azija\""+("Azija".equals(lokacijaZaEdit.getKontinent().toString()) ? "selected" : "")+">Azija</option>\r\n"
-//				+ "  		<option value=\"Australija\""+("Australija".equals(lokacijaZaEdit.getKontinent().toString()) ? "selected" : "")+">Australija</option>\r\n"
-//				+ "  		<option value=\"Afrika\""+("Afrika".equals(lokacijaZaEdit.getKontinent().toString()) ? "selected" : "")+">Afrika</option>\r\n"
-//				+ "  		<option value=\"Antartika\""+("Antartika".equals(lokacijaZaEdit.getKontinent().toString()) ? "selected" : "")+">Antartikak</option>\r\n"
-//				+ "  		<option value=\"Okeanija\""+("Okeanija".equals(lokacijaZaEdit.getKontinent().toString()) ? "selected" : "")+">Okeanija</option>\r\n"
-//				+ "		</select>\r\n"
-//				+ "		<input type=\"hidden\" name=\"id\" value=\""+lokacijaZaEdit.getId()+"\">"
-//				+ "		 <input type=\"submit\" value=\"Potvrdi\">\r\n"
-//				+ "	</form>\r\n"
-//				+ "\r\n"
-//				+ "</body>\r\n"
-//				+ "</html>";
-//		
-//		return retHTML;
 	}
-
 
 	@PostMapping(value = "/edit")
 	public void edit(@ModelAttribute Lokacija lokacijaEdited, HttpServletResponse response) throws IOException {
@@ -169,7 +108,6 @@ public class LokacijeController implements ApplicationContextAware {
 		service.delete(id);
 		response.sendRedirect(bURL + "lokacije");
 	}
-
 
 	@GetMapping(value = "/details")
 	@ResponseBody
