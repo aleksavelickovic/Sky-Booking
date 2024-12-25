@@ -37,7 +37,7 @@ public class KorisniciController implements ApplicationContextAware {
 	private String bURL;
 
 	@Autowired
-	@Qualifier("KorisniciServis")
+	@Qualifier("KorisniciDatabaseServis")
 	private KorisniciService service;
 
 	@Override
