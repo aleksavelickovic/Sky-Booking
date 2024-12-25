@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Izmeni podatke o korisniku</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    form {
+        background-color: #ffffff;
+        border: 1px solid #dddddd;
+        border-radius: 8px;
+        padding: 20px 30px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 300px;
+    }
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+    }
+    input[type="text"], select {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 16px;
+        border: 1px solid #cccccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    input[type="submit"] {
+        background-color: #007bff;
+        color: #ffffff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    }
+    input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+</style>
+</head>
+<body style="background-color: #05dff3;">
+<form th:action="@{/korisnici/edit}" method="POST">
+    <label for="korime">Korisničko ime:</label>
+    <input type="text" name="korime" th:value="${korisnik.korisnickoIme}" />
+
+    <label for="staralozinka">Stara lozinka:</label>
+    <input type="text" name="staralozinka" th:value="${null}" />
+    
+    <label for="novalozinka">Nova lozinka:</label>
+    <input type="text" name="staralozinka" th:value="${null}" />
+
+    
+	<input type="hidden" name="id" th:value="${korisnik.id}">
+    <input type="submit" value="Potvrdi">
+</form>
+
+</body>
+</html>
