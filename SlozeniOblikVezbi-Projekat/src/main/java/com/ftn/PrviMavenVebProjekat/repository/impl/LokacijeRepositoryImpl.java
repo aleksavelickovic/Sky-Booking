@@ -33,7 +33,6 @@ public class LokacijeRepositoryImpl implements LokacijeRepository {
 
 		@Override
 		public void processRow(ResultSet rs) throws SQLException {
-			// TODO Auto-generated method stub
 			int index = 1;
 			Long id = rs.getLong(index++);
 			String Grad = rs.getString(index++);
