@@ -41,7 +41,8 @@
                         <p id="cardheader-subtext-1" th:text="${'Email: ' + itKorisnik.email}"></p>
                         <p id="cardheader-subtext-1" th:text="${'Ime I Prezime: ' + itKorisnik.ime + ' ' + itKorisnik.prezime}"></p>
                         <p id="cardheader-subtext-1" th:text="${'Datum Rodjenja: ' + itKorisnik.datumRodjenja}"></p>
-                        <p id="cardheader-subtext-1" th:text="${'Datum I Vreme registracije: ' + itKorisnik.datumIVremeRegistracije}"></p>
+                        <!-- strings.substring zato sto su poslednja 2 karaktera tacka i milisekunde -->
+                        <p id="cardheader-subtext-1" th:text="${#strings.substring('Datum I Vreme registracije: ' + itKorisnik.datumIVremeRegistracije, 0, 47)}"></p>
                         <p id="cardheader-subtext-1" th:text="${'Uloga: ' + itKorisnik.uloga}"></p>
                     </div>
                 </div>

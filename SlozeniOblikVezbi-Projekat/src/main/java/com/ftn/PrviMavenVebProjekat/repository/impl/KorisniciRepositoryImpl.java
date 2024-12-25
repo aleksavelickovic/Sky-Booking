@@ -3,6 +3,7 @@ package com.ftn.PrviMavenVebProjekat.repository.impl;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,7 +39,7 @@ public class KorisniciRepositoryImpl implements KorisniciRepository {
 			String ime = rs.getString(index++);
 			String prezime = rs.getString(index++);
 			Date datumRodjenja = rs.getDate(index++);
-			LocalDateTime datumIVremeRegistracije = LocalDateTime.parse(rs.getString(index++));
+			Timestamp datumIVremeRegistracije = rs.getTimestamp(index++);
 			Uloga uloga = Uloga.valueOf(rs.getString(index++));
 
 			Korisnik korisnik = korisnici.get(id);

@@ -2,6 +2,8 @@ package com.ftn.PrviMavenVebProjekat.controller;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -101,10 +103,8 @@ public class KorisniciController implements ApplicationContextAware {
 				return;
 			}
 		}
-		service.save(
-				// TODO Formatirati datum rodjenja koristeci DateTimeFormatter
-				new Korisnik(korime, lozinka, email, ime, prezime, datumrodjenja, LocalDateTime.now().withNano(0),
-						Uloga.PUTNIK));
+		service.save(new Korisnik(korime, lozinka, email, ime, prezime, datumrodjenja,
+				Timestamp.valueOf(LocalDateTime.now().withNano(0)), Uloga.PUTNIK));
 		response.sendRedirect(bURL + "korisnici");
 		return;
 	}

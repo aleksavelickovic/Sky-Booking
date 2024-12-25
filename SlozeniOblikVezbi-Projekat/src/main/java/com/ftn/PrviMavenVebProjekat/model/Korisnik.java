@@ -1,6 +1,7 @@
 package com.ftn.PrviMavenVebProjekat.model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class Korisnik {
@@ -12,14 +13,14 @@ public class Korisnik {
 	private String ime;
 	private String prezime;
 	private Date datumRodjenja;
-	private LocalDateTime datumIVremeRegistracije;
+	private Timestamp datumIVremeRegistracije;
 	private Uloga uloga;
 
 	public Korisnik() {
 	}
 
 	public Korisnik(long id, String korisnickoIme, String lozinka, String email, String ime, String prezime,
-			Date datumRodjenja, LocalDateTime datumIVremeRegistracije, Uloga uloga) {
+			Date datumRodjenja, Timestamp datumIVremeRegistracije, Uloga uloga) {
 		super();
 		this.id = id;
 		this.korisnickoIme = korisnickoIme;
@@ -33,7 +34,7 @@ public class Korisnik {
 	}
 
 	public Korisnik(String korisnickoIme, String lozinka, String email, String ime, String prezime,
-			Date datumRodjenja, LocalDateTime datumIVremeRegistracije, Uloga uloga) {
+			Date datumRodjenja, Timestamp datumIVremeRegistracije, Uloga uloga) {
 		super();
 		this.korisnickoIme = korisnickoIme;
 		this.lozinka = lozinka;
@@ -107,11 +108,11 @@ public class Korisnik {
 		this.datumRodjenja = datumRodjenja;
 	}
 
-	public LocalDateTime getDatumIVremeRegistracije() {
+	public Timestamp getDatumIVremeRegistracije() {
 		return datumIVremeRegistracije;
 	}
 
-	public void setDatumIVremeRegistracije(LocalDateTime datumIVremeRegistracije) {
+	public void setDatumIVremeRegistracije(Timestamp datumIVremeRegistracije) {
 		this.datumIVremeRegistracije = datumIVremeRegistracije;
 	}
 

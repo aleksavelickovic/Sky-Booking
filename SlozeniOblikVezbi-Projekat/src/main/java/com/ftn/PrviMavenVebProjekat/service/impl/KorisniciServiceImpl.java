@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,7 +51,7 @@ public class KorisniciServiceImpl implements KorisniciService {
 				String ime = tokens[4];
 				String prezime = tokens[5];
 				Date datumRodjenja = Date.valueOf(tokens[6]);
-				LocalDateTime datumRegistracije = LocalDateTime.parse(tokens[7]);
+				Timestamp datumRegistracije = Timestamp.valueOf(tokens[7]);
 				Uloga uloga = Uloga.valueOf(tokens[8]);
 
 				korisnici.put(id, new Korisnik(id, korIme, lozinka, email, ime, prezime, datumRodjenja,
