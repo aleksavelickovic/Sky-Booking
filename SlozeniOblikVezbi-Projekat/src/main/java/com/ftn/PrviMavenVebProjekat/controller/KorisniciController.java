@@ -1,6 +1,7 @@
 package com.ftn.PrviMavenVebProjekat.controller;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -72,7 +73,7 @@ public class KorisniciController implements ApplicationContextAware {
 	@PostMapping(value = "/add")
 	public void add(@RequestParam String korime, @RequestParam String lozinka, @RequestParam String lozinkaopet,
 			@RequestParam String email, @RequestParam String ime, @RequestParam String prezime,
-			@RequestParam String datumrodjenja, HttpServletResponse response) throws IOException {
+			@RequestParam Date datumrodjenja, HttpServletResponse response) throws IOException {
 		if (!lozinka.equals(lozinkaopet)) {
 			// TODO Privremena validacija, sa daljim razvojem projekta ce biti omoguceno
 			// bolje korisnicko iskustvo

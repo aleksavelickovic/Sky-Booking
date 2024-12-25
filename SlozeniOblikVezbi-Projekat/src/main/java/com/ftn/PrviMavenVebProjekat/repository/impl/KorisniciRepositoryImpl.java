@@ -1,5 +1,6 @@
 package com.ftn.PrviMavenVebProjekat.repository.impl;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -36,7 +37,7 @@ public class KorisniciRepositoryImpl implements KorisniciRepository {
 			String email = rs.getString(index++);
 			String ime = rs.getString(index++);
 			String prezime = rs.getString(index++);
-			String datumRodjenja = rs.getDate(index++).toString();
+			Date datumRodjenja = rs.getDate(index++);
 			LocalDateTime datumIVremeRegistracije = LocalDateTime.parse(rs.getString(index++));
 			Uloga uloga = Uloga.valueOf(rs.getString(index++));
 

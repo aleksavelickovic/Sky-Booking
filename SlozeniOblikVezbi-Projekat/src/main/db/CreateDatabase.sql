@@ -35,13 +35,13 @@ CREATE TABLE korisnici (
     ime varchar(20) not null,
     prezime varchar(20) not null,
     datumRodjenja date not null,
-    datumIVremeRegistracije varchar(20) not null,
+    datumIVremeRegistracije varchar(20) not null, /* TODO Staviti da bude odgovarajuci tip */
     uloga ENUM("PUTNIK", "ADMIN"),
     PRIMARY KEY(id)
 );
 
 INSERT INTO korisnici (korisnickoIme, lozinka, email, ime, prezime, datumRodjenja, datumIVremeRegistracije, uloga) VALUES
-('marko123', 'pass123', 'marko.petrovic@example.com', 'Marko', 'Petrović', '1990-03-15', '2024-12-21T17:34:22', 'PUTNIK'),
+('marko123', 'pass123', 'marko.petrovic@example.com', 'Marko', 'Petrović', '1990-03-15', '2024-12-21T17:34:22', 'PUTNIK'), /* Parsiranje puca ako je tip datetime */
 ('ana.j', 'securepass', 'ana.jovanovic@example.com', 'Ana', 'Jovanović', '1985-07-10', '2024-12-21T18:45:30', 'PUTNIK'),
 ('ivan.n', 'mypassword', 'ivan.nikolic@example.com', 'Ivan', 'Nikolić', '2000-01-25', '2024-12-21T19:12:10', 'PUTNIK'),
 ('milica.s', 'qwerty123', 'milica.stankovic@example.com', 'Milica', 'Stanković', '1995-11-05', '2024-12-21T20:05:50', 'PUTNIK'),
