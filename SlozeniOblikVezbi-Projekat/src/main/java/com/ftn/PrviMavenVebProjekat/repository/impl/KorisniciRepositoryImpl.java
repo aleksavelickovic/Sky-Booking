@@ -45,11 +45,12 @@ public class KorisniciRepositoryImpl implements KorisniciRepository {
 			Date datumRodjenja = rs.getDate(index++);
 			Timestamp datumIVremeRegistracije = rs.getTimestamp(index++);
 			Uloga uloga = Uloga.valueOf(rs.getString(index++));
+			Boolean blokiran = rs.getBoolean(index++);
 
 			Korisnik korisnik = korisnici.get(id);
 			if (korisnik == null) {
 				korisnik = new Korisnik(id, korisnickoIme, lozinka, email, ime, prezime, datumRodjenja,
-						datumIVremeRegistracije, uloga);
+						datumIVremeRegistracije, uloga, blokiran);
 				korisnici.put(korisnik.getId(), korisnik);
 			}
 		}

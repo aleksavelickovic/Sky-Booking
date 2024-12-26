@@ -54,7 +54,7 @@ public class KorisniciServiceImpl implements KorisniciService {
 				Uloga uloga = Uloga.valueOf(tokens[8]);
 
 				korisnici.put(id, new Korisnik(id, korIme, lozinka, email, ime, prezime, datumRodjenja,
-						datumRegistracije, uloga));
+						datumRegistracije, uloga, false));
 
 				if (nextId < id)
 					nextId = id;

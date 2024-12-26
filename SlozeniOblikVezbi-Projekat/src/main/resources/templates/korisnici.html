@@ -25,6 +25,9 @@
        	z-index: 1000;
        	width: 300px;
     }
+    .inlajn{
+    	display: inline;
+    }
 	</style>
 </head>
 
@@ -35,8 +38,11 @@
             <div class="card cards-shadown cards-hover" data-aos="flip-left" data-aos-duration="950">
                 <div class="card-header" style="height: 345px;">
                     <div class="cardheader-text">
-                        <h4 id="heading-card-1" th:text="${'Korisnik broj: ' + (status.index + 1)}">Korisnik broj:</h4>
-                        <p id="cardheader-subtext-1" th:text="${'Korisnicko Ime: ' + itKorisnik.korisnickoIme}"></p>
+                    	<div class="mb-3"></div>
+                        <h4 id="heading-card-1" class="inlajn" th:text="${'Korisnik broj: ' + (status.index + 1) + ' '}"></h4>
+                        <h4 id="heading-card-1" class="inlajn" th:if="${itKorisnik.blokiran}" th:text="${' (BLOKIRAN!)'}"></h4>
+                        <!-- <h4 id="heading-card-1" th:text="${itKorisnik.blokiran} ? 'Korisnik broj: ' + (status.index + 1) + '(BLOKIRAN!)' : 'Korisnik broj: ' + (status.index + 1)"></h4> -->                      		
+                        <p id="cardheader-subtext-1" class="mt-3" th:text="${'Korisnicko Ime: ' + itKorisnik.korisnickoIme}"></p>
                         <p id="cardheader-subtext-1" th:text="${'Lozinka: ' + itKorisnik.lozinka}"></p>
                         <p id="cardheader-subtext-1" th:text="${'Email: ' + itKorisnik.email}"></p>
                         <p id="cardheader-subtext-1" th:text="${'Ime I Prezime: ' + itKorisnik.ime + ' ' + itKorisnik.prezime}"></p>
@@ -44,6 +50,7 @@
                         <!-- strings.substring zato sto su poslednja 2 karaktera tacka i milisekunde -->
                         <p id="cardheader-subtext-1" th:text="${#strings.substring('Datum I Vreme registracije: ' + itKorisnik.datumIVremeRegistracije, 0, 47)}"></p>
                         <p id="cardheader-subtext-1" th:text="${'Uloga: ' + itKorisnik.uloga}"></p>
+						<!-- <p id="cardheader-subtext-1" th:if="${itKorisnik.blokiran}" th:text="${'Korisnik je BLOKIRAN!'}"></p> -->
                     </div>
                 </div>
                 <div class="card-body">
@@ -52,7 +59,7 @@
                             <button class="button" type="button" data-hover="Izmeni Korisnika"><span>Izmeni Korisnika</span></button>
                         </a> -->
                         <a th:href="@{/korisnici/block(id=${itKorisnik.id})}">
-                            <button class="button" type="button" data-hover="Da li ste sigurni?"><span>BLOKIRAJ KORISNIKA</span></button>
+                            <button class="button" type="button" data-hover="Da li ste sigurni?"><span th:text="${itKorisnik.blokiran} ? 'ODBLOKIRAJ KORISNIKA' : 'BLOKIRAJ KORISNIKA'"></span></button>
                         </a>
                     </p>
                 </div>
