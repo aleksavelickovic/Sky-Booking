@@ -4,4 +4,4 @@
 
 # MySQL dump sa trenutnim podacima se nalazi na sledećoj putanji:
 
-/OWP-Projekat/src/main/db/main.sql
+/OWP-Projekat/src/main/db/db.sql
