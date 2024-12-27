@@ -42,6 +42,7 @@ CREATE TABLE korisnici (
 );
 
 INSERT INTO korisnici (korisnickoIme, lozinka, email, ime, prezime, datumRodjenja, datumIVremeRegistracije, blokiran, uloga) VALUES
+('peraZdera', 'pera123', 'petar.petrovic@gmail.com', 'Petar', 'Petrović', '1976-06-24', '2023-11-05 01:32:48', false, 'ADMIN'),
 ('marko123', 'pass123', 'marko.petrovic@example.com', 'Marko', 'Petrović', '1990-03-15', '2024-12-21 17:34:22', false, 'PUTNIK'),
 ('ana.j', 'securepass', 'ana.jovanovic@example.com', 'Ana', 'Jovanović', '1985-07-10', '2024-12-21 18:45:30', false, 'PUTNIK'),
 ('ivan.n', 'mypassword', 'ivan.nikolic@example.com', 'Ivan', 'Nikolić', '2000-01-25', '2024-12-21 19:12:10', false, 'PUTNIK'),
@@ -54,5 +55,5 @@ INSERT INTO korisnici (korisnickoIme, lozinka, email, ime, prezime, datumRodjenj
 ('katarina.m', 'katy2024', 'katarina.milosevic@example.com', 'Katarina', 'Milošević', '1994-08-15', '2024-12-22 02:20:50', false, 'PUTNIK');
 
 select * from korisnici k
-order by k.id
+order by k.id;
 

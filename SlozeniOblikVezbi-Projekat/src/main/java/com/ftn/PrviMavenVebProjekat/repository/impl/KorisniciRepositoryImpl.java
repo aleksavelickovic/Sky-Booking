@@ -124,12 +124,9 @@ public class KorisniciRepositoryImpl implements KorisniciRepository {
 
 	@Override
 	public int blockunblock(Korisnik korisnik) {
-		String sql = "UPDATE korisnici SET blokiran = true WHERE id = ?";
-		if (korisnik.getBlokiran() == true) {
-			sql = "UPDATE korisnici SET blokiran = false WHERE id = ?";
-		}
-		boolean uspeh = jdbcTemplate.update(sql, korisnik.getId()) == 1;
+		String sql = "UPDATE korisnici SET blokiran = ? WHERE id = ?";
 
+		boolean uspeh = jdbcTemplate.update(sql, korisnik.getBlokiran().booleanValue(), korisnik.getId()) == 1;
 		if (uspeh) {
 			return 1;
 		} else {

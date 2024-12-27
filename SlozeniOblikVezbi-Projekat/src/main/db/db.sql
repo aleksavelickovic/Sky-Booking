@@ -36,7 +36,7 @@ CREATE TABLE `korisnici` (
   `uloga` enum('PUTNIK','ADMIN') DEFAULT NULL,
   `blokiran` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,7 +45,7 @@ CREATE TABLE `korisnici` (
 
 LOCK TABLES `korisnici` WRITE;
 /*!40000 ALTER TABLE `korisnici` DISABLE KEYS */;
-INSERT INTO `korisnici` VALUES (1,'marko123','pass123','marko.petrovic@example.com','Marko','Petrović','1990-03-15','2024-12-21 16:34:22','PUTNIK',0),(2,'ana.j','securepass','ana.jovanovic@example.com','Ana','Jovanović','1985-07-10','2024-12-21 17:45:30','PUTNIK',0),(3,'ivan.n','mypassword','ivan.nikolic@example.com','Ivan','Nikolić','2000-01-25','2024-12-21 18:12:10','PUTNIK',0),(4,'milica.s','qwerty123','milica.stankovic@example.com','Milica','Stanković','1995-11-05','2024-12-21 19:05:50','PUTNIK',0),(5,'stefan.p','abc12345','stefan.popovic@example.com','Stefan','Popović','1988-09-12','2024-12-21 20:30:15','PUTNIK',0),(6,'jelena.k','jelena2024','jelena.kovac@example.com','Jelena','Kovač','1993-06-18','2024-12-21 21:10:05','PUTNIK',0),(7,'nikola.t','tesla987','nikola.tesla@example.com','Nikola','Tesla','1976-01-07','2024-12-21 22:45:30','PUTNIK',0),(8,'dragana.b','dragon789','dragana.bogdanovic@example.com','Dragana','Bogdanović','1992-04-22','2024-12-21 23:15:40','PUTNIK',1),(9,'aleksandar.v','alex123','aleksandar.vukovic@example.com','Aleksandar','Vuković','1998-11-30','2024-12-22 00:30:00','PUTNIK',1),(10,'katarina.m','katy2024','katarina.milosevic@example.com','Katarina','Milošević','1994-08-15','2024-12-22 01:20:50','PUTNIK',0);
+INSERT INTO `korisnici` VALUES (1,'peraZdera','pera123','petar.petrovic@gmail.com','Petar','Petrović','1976-06-24','2023-11-05 00:32:48','ADMIN',0),(2,'marko123','pass123','marko.petrovic@example.com','Marko','Petrović','1990-03-15','2024-12-21 16:34:22','PUTNIK',0),(3,'ana.j','securepass','ana.jovanovic@example.com','Ana','Jovanović','1985-07-10','2024-12-21 17:45:30','PUTNIK',0),(4,'ivan.n','mypassword','ivan.nikolic@example.com','Ivan','Nikolić','2000-01-25','2024-12-21 18:12:10','PUTNIK',0),(5,'milica.s','qwerty123','milica.stankovic@example.com','Milica','Stanković','1995-11-05','2024-12-21 19:05:50','PUTNIK',0),(6,'stefan.p','abc12345','stefan.popovic@example.com','Stefan','Popović','1988-09-12','2024-12-21 20:30:15','PUTNIK',0),(7,'jelena.k','jelena2024','jelena.kovac@example.com','Jelena','Kovač','1993-06-18','2024-12-21 21:10:05','PUTNIK',0),(8,'nikola.t','tesla987','nikola.tesla@example.com','Nikola','Tesla','1976-01-07','2024-12-21 22:45:30','PUTNIK',0),(9,'dragana.b','dragon789','dragana.bogdanovic@example.com','Dragana','Bogdanović','1992-04-22','2024-12-21 23:15:40','PUTNIK',1),(10,'aleksandar.v','alex123','aleksandar.vukovsic@example.com','Aleksandar','Vuković','1998-11-30','2024-12-22 00:30:00','PUTNIK',1),(11,'katarina.m','katy2024','katarina.milosevic@example.com','Katarina','Milošević','1994-08-15','2024-12-22 01:20:50','PUTNIK',0);
 /*!40000 ALTER TABLE `korisnici` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -84,4 +84,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-12-26  1:49:09
+-- Dump completed on 2024-12-27  4:42:10
