@@ -62,7 +62,7 @@ public class KorisniciRepositoryImpl implements KorisniciRepository {
 
 	@Override
 	public Korisnik findOne(Long id) {
-		String sql = "SELECT * FROM korisnici WHERE id = ? ORER BY id";
+		String sql = "SELECT * FROM korisnici WHERE id = ? ORDER BY id";
 
 		KorisnikRowCallBackhandler rowCallBackhandler = new KorisnikRowCallBackhandler();
 		jdbcTemplate.query(sql, rowCallBackhandler, id);
@@ -111,7 +111,7 @@ public class KorisniciRepositoryImpl implements KorisniciRepository {
 	}
 
 	@Override
-	public int update(Korisnik Korisnik) {
+	public int update(Korisnik Korisnik) { // TODO edit korisnika ce se verovatno raditi iz ugla korisnika a ne admina
 		String sql = "UPDATE korisnici SET ";
 		return 0;
 	}
@@ -120,6 +120,21 @@ public class KorisniciRepositoryImpl implements KorisniciRepository {
 	public int delete(Long id) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public int blockunblock(Korisnik korisnik) {
+		String sql = "UPDATE korisnici SET blokiran = true WHERE id = ?";
+		if (korisnik.getBlokiran() == true) {
+			sql = "UPDATE korisnici SET blokiran = false WHERE id = ?";
+		}
+		boolean uspeh = jdbcTemplate.update(sql, korisnik.getId()) == 1;
+
+		if (uspeh) {
+			return 1;
+		} else {
+			return 0;
+		}
 	}
 
 }

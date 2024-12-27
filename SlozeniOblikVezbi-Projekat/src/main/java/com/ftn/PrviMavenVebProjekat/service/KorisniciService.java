@@ -13,6 +13,7 @@ public interface KorisniciService {
 	Korisnik save(Korisnik Korisnik);
 
 	Korisnik update(Korisnik Korisnik);
+	Korisnik blockunblock(Korisnik korisnik);
 
 	Korisnik delete(Long id);
 }

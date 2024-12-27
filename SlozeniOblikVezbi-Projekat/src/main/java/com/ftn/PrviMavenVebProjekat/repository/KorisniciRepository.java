@@ -13,6 +13,7 @@ public interface KorisniciRepository {
 	public int save(Korisnik Korisnik);
 
 	public int update(Korisnik Korisnik);
+	public int blockunblock(Korisnik korisnik);
 
 	public int delete(Long id);
 }

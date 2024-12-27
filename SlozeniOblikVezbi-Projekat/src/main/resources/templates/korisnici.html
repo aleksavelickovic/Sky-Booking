@@ -58,7 +58,7 @@
                        <!--   <a th:href="@{/korisnici/edit(id=${itKorisnik.id})}">
                             <button class="button" type="button" data-hover="Izmeni Korisnika"><span>Izmeni Korisnika</span></button>
                         </a> -->
-                        <a th:href="@{/korisnici/block(id=${itKorisnik.id})}">
+                        <a th:href="@{/korisnici/blockunblock(id=${itKorisnik.id})}">
                             <button class="button" type="button" data-hover="Da li ste sigurni?"><span th:text="${itKorisnik.blokiran} ? 'ODBLOKIRAJ KORISNIKA' : 'BLOKIRAJ KORISNIKA'"></span></button>
                         </a>
                     </p>
@@ -67,7 +67,7 @@
         </div>
     </div>
     <a th:href="@{/}">
-     	<button class="button floating-button" type="button">Pocetna</button>
+     	<button class="button floating-button" type="button">Nazad</button>
      </a>
     <script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
     <script th:src="@{/assets/js/aos.min.js}"></script>

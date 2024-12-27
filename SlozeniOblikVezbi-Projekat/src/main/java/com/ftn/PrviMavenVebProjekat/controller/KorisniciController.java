@@ -108,4 +108,23 @@ public class KorisniciController implements ApplicationContextAware {
 		return;
 	}
 
+	@GetMapping(value = "/blockunblock")
+	public void blockunblock(@RequestParam Long id, HttpServletResponse response) throws IOException {
+		Korisnik korisnik = service.findOne(id);
+
+		if (korisnik.getBlokiran() == true) {
+
+			korisnik.setBlokiran(false);
+			service.blockunblock(korisnik);
+			response.sendRedirect(bURL + "korisnici");
+			return;
+
+		} else if (korisnik.getBlokiran() == true) {
+			korisnik.setBlokiran(false);
+			service.blockunblock(korisnik);
+			response.sendRedirect(bURL + "korisnici");
+			return;
+		}
+		return;
+	}
 }

@@ -148,4 +148,10 @@ public class KorisniciServiceImpl implements KorisniciService {
 		return nextId;
 	}
 
+	@Override
+	public Korisnik blockunblock(Korisnik korisnik) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

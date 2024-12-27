@@ -48,4 +48,10 @@ public class KorisniciDatabaseServiceImpl implements KorisniciService {
 		return korisnik;
 	}
 
+	@Override
+	public Korisnik blockunblock(Korisnik korisnik) {
+		repository.blockunblock(korisnik);
+		return korisnik;
+	}
+
 }
