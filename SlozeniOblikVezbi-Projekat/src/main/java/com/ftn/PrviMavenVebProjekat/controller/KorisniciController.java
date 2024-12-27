@@ -111,11 +111,11 @@ public class KorisniciController implements ApplicationContextAware {
 	@GetMapping(value = "/blockunblock")
 	public void blockunblock(@RequestParam Long id, HttpServletResponse response) throws IOException {
 		Korisnik korisnik = service.findOne(id);
-		if (korisnik.getUloga() == Uloga.ADMIN) {
-			response.sendRedirect(bURL + "korisnici");
-			return;
-		}
-
+		// Nepotrebno zato sto je na frontu dugme disabled ako je korisnik admin
+//		if (korisnik.getUloga() == Uloga.ADMIN) {
+//			response.sendRedirect(bURL + "korisnici");
+//			return;
+//		}
 		if (korisnik.getBlokiran() == true) {
 
 			korisnik.setBlokiran(false);
