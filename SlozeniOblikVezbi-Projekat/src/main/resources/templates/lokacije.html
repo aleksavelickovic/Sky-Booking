@@ -29,6 +29,7 @@
 </head>
 
 <body style="background-color: #05dff3;">
+<nav class="navbar navbar-expand-md bg-dark py-3" data-bs-theme="dark" th:include="header-footer :: navbar">></nav>
     <div class="row space-rows mt-4" th:each="itLokacija, status: ${lokacije}">
         <div class="col">
             <div class="card cards-shadown cards-hover" data-aos="flip-left" data-aos-duration="950">
@@ -52,6 +53,7 @@
      <a th:href="@{/}">
      	<button class="button floating-button" type="button">Nazad</button>
      </a>
+    <footer class="text-center bg-dark" th:include="header-footer :: footer"></footer>
     <script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
     <script th:src="@{/assets/js/aos.min.js}"></script>
     <script th:src="@{/assets/js/bs-init.js}"></script>

@@ -4,6 +4,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Izmeni podatke o korisniku</title>
+<link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Titillium+Web:400,600,700}">
+    <link rel="stylesheet" th:href="@{/assets/css/aos.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Animation-Cards-_app.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Animation-Cards.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Button-Change-Text-on-Hover.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/button-materialize-materialize.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/button-materialize.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Button-Ripple-Effect-Animation-Wave-Pulse.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Overlay-Login-Form.css}">
+    <base th:href="@{/}">
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -53,6 +64,7 @@
 </style>
 </head>
 <body style="background-color: #05dff3;">
+<nav class="navbar navbar-expand-md bg-dark py-3" data-bs-theme="dark" th:include="header-footer :: navbar">></nav>
 <form th:action="@{/korisnici/edit}" method="POST">
     <label for="korime">Korisničko ime:</label>
     <input type="text" name="korime" th:value="${korisnik.korisnickoIme}" />
@@ -67,6 +79,11 @@
 	<input type="hidden" name="id" th:value="${korisnik.id}">
     <input type="submit" value="Potvrdi">
 </form>
-
+<footer class="text-center bg-dark" th:include="header-footer :: footer"></footer>
+<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="@{/assets/js/aos.min.js}"></script>
+    <script th:src="@{/assets/js/bs-init.js}"></script>
+    <script th:src="@{/assets/js/button-materialize-materialize.min.js}"></script>
+    <script th:src="@{/assets/js/Button-Ripple-Effect-Animation-Wave-Pulse-button-ripple-effect.js}"></script>
 </body>
 </html>
