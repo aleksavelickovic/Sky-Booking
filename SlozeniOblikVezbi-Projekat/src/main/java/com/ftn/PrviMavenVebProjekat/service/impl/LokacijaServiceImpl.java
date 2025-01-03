@@ -30,7 +30,7 @@ public class LokacijaServiceImpl implements LokacijaService {
 		Long nextId = 1L;
 
 		try {
-			Path path = Paths.get(basePath + "lokacije.txt");
+			Path path = Paths.get(basePath + "lokacije.csv");
 			List<String> lines = Files.readAllLines(path, Charset.forName("UTF-8"));
 
 			for (String line : lines) {
@@ -38,7 +38,7 @@ public class LokacijaServiceImpl implements LokacijaService {
 				if (line.equals("") || line.indexOf('#') == 0)
 					continue;
 
-				String[] tokens = line.split(";");
+				String[] tokens = line.split(",");
 				Long id = Long.parseLong(tokens[0]);
 				String grad = tokens[1];
 				String drzava = tokens[2];

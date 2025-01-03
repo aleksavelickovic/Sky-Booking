@@ -1,7 +1,0 @@
-1;aleksa;aleksa123;aleksa@gmail.com;Aleksa;Velickovic;2004-11-29;2024-12-04T04:44:15;PUTNIK
-2;pera;pera123;ppetrovic@webd.com;Petar;Tijanić;1989-07-05;2024-12-04T04:45:49;PUTNIK
-3;zika;zika123;jjovanovic@webd.com;Benjamin;Jovanović;2021-02-26;2024-12-04T04:46:55;PUTNIK
-4;Lexa;123;jjovanovic@webd.com;Marko;Jovanović;2024-12-10;2024-12-10T01:59:59;PUTNIK
-5;mirko;1;mmiric@gmail.com;Mirko;Miric;2024-12-06;2024-12-11T01:50:52;PUTNIK
-6;Joca;jocko123;jjoca555@gmail.com;Jovan;Jovanović;2008-05-12;2024-12-11T04:29:52;PUTNIK
-7;fgsdfgdg;1;sadf@safd.vom;asdfsdfg;sdfgsdfg;2024-12-03;2024-12-21T17:34:22;PUTNIK

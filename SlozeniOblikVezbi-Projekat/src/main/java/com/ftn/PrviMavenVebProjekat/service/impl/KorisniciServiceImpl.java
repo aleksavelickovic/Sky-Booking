@@ -33,7 +33,7 @@ public class KorisniciServiceImpl implements KorisniciService {
 		Long nextId = 1L;
 
 		try {
-			File file = new File(basePath + "korisnici.txt");
+			File file = new File(basePath + "korisnici.csv");
 			Path path = Paths.get(file.getAbsolutePath());
 			List<String> lines = Files.readAllLines(path, Charset.forName("UTF-8"));
 
@@ -42,7 +42,7 @@ public class KorisniciServiceImpl implements KorisniciService {
 				if (line.equals("") || line.indexOf('#') == 0)
 					continue;
 
-				String[] tokens = line.split(";");
+				String[] tokens = line.split(",");
 				Long id = Long.parseLong(tokens[0]);
 				String korIme = tokens[1];
 				String lozinka = tokens[2];
