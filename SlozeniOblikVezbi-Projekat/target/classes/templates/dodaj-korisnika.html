@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registracija korisnika</title>
+    <!-- <link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Titillium+Web:400,600,700}">
+    <link rel="stylesheet" th:href="@{/assets/css/aos.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Animation-Cards-_app.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Animation-Cards.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Button-Change-Text-on-Hover.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/button-materialize-materialize.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/button-materialize.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Button-Ripple-Effect-Animation-Wave-Pulse.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Overlay-Login-Form.css}">
+    <base th:href="@{/}"> --> 
+    <script
+      th:src="@{/webjars/jquery/3.2.1/jquery.js}"
+      type="text/javascript"
+    ></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+    	  	// Na klik checkboxa:
+            $('.loz').click(function(){
+            	// Proveri da li je checkbox označen
+                // Ako je označen, promeni tip inputa sa klasom 'lozinput' u 'text'
+                // Ako nije označen, promeni tip inputa sa klasom 'lozinput' u 'password'
+                $(this).is(':checked') ? $('.lozinput').attr('type', 'text') : $('.lozinput').attr('type', 'password');
+            });
+      
+      		// Kod za sprecavanje korisnika da unese datum u buducnosti
+      		
+            var dtToday = new Date();
+			// Uzmi treuntni mesec, dan i godinu
+            var month = dtToday.getMonth() + 1;
+            var day = dtToday.getDate();
+            var year = dtToday.getFullYear();
+			
+            // Dodaj vodecu nulu ako je mesec ili dan manji od 0
+            if(month < 10)
+                month = '0' + month.toString();
+            if(day < 10)
+                day = '0' + day.toString();
+			// Formatiraj danasnji tj. maksimalni datum u string koji input moze da primi kao atribut
+            var maxDate = year + '-' + month + '-' + day;  
+         	// Setuj maksimalni datum na danasnji datumm
+            $('#birth_date').attr('max', maxDate);
+            
+        });
+    </script>
+    <style>
+    .floating-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+       	z-index: 1000;
+       	width: 300px;
+    }
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      form {
+        background-color: #ffffff;
+        border: 1px solid #dddddd;
+        border-radius: 8px;
+        padding: 30px 40px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 350px;
+      }
+      h1 {
+        text-align: center;
+        color: #333333;
+        margin-bottom: 20px;
+      }
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+        color: #555555;
+      }
+      input[type="text"],
+      input[type="password"],
+      input[type="date"],
+      input[type="email"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 16px;
+        border: 1px solid #cccccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+      button {
+        width: 100%;
+        background-color: #003366;
+        color: #ffffff;
+        padding: 12px;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      button:hover {
+        background-color: #fafbfc;
+        color: black;
+        border: 0.1px solid black;
+      }
+      .form-group {
+        margin-bottom: 5.5px;
+      }
+      .lozp{
+      	all: unset;
+      	font-size: 13px;
+      	font-family: Arial, sans-serif;
+      }
+      @keyframes flip-left {
+        0% {
+          transform: perspective(400px) rotateY(180deg);
+        }
+        100% {
+          transform: perspective(400px) rotateY(0deg);
+        }
+      }
+
+      .flip-left {
+        animation: flip-left 1s;
+        backface-visibility: hidden;
+      }
+    </style>
+  </head>
+  <body style="background-color: #05dff3">
+  <!-- <nav class="navbar navbar-expand-md bg-dark py-3" data-bs-theme="dark" th:include="header-footer :: navbar">></nav> --> 
+    <form
+      class="flip-left"
+      action="/PrviMavenVebProjekat/korisnici/add"
+      method="post"
+    >
+      <h1>REGISTRACIJA</h1>
+
+      <div class="form-group">
+        <label for="username">Korisničko ime:</label>
+        <input type="text" id="username" name="korime" />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Lozinka:</label>
+        <input class="lozinput" type="password" id="password" name="lozinka" />
+      </div>
+
+      <div class="form-group">
+        <label for="password_repeat">Ponovite lozinku:</label>
+        <input class="lozinput" type="password" id="password_repeat" name="lozinkaopet" />
+        <p class="lozp"><input type="checkbox" class="loz" /> Prikazi Lozinke</p> 
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email adresa:</label>
+        <input type="email" id="email" name="email" />
+      </div>
+
+      <div class="form-group">
+        <label for="first_name">Ime:</label>
+        <input type="text" id="first_name" name="ime" />
+      </div>
+
+      <div class="form-group">
+        <label for="last_name">Prezime:</label>
+        <input type="text" id="last_name" name="prezime" />
+      </div>
+
+      <div class="form-group">
+        <label for="birth_date">Datum rođenja:</label>
+        <input type="date" id="birth_date" name="datumrodjenja" min="1900-01-01" />
+      </div>
+
+      <button type="submit">Registruj se</button>
+    </form>
+    <a th:href="@{/}">
+     	<button class="button floating-button" type="button">Nazad</button>
+     </a>
+    <!-- <footer class="text-center bg-dark" th:include="header-footer :: footer"></footer>
+    <script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="@{/assets/js/aos.min.js}"></script>
+    <script th:src="@{/assets/js/bs-init.js}"></script>
+    <script th:src="@{/assets/js/button-materialize-materialize.min.js}"></script>
+    <script th:src="@{/assets/js/Button-Ripple-Effect-Animation-Wave-Pulse-button-ripple-effect.js}"></script> --> 
+  </body>
+</html>

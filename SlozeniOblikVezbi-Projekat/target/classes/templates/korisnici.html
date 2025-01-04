@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Prikaz svih korisnika</title>
+    <link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Titillium+Web:400,600,700}">
+    <link rel="stylesheet" th:href="@{/assets/css/aos.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Animation-Cards-_app.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Animation-Cards.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Button-Change-Text-on-Hover.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/button-materialize-materialize.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/button-materialize.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Button-Ripple-Effect-Animation-Wave-Pulse.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Overlay-Login-Form.css}">
+    <base th:href="@{/}">
+     <style>
+    .floating-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+       	z-index: 1000;
+       	width: 300px;
+    }
+    .inlajn{
+    	display: inline;
+    }
+    .blok {
+    	cursor: not-allowed !important;
+	}
+	</style>
+</head>
+
+<body style="background-color: #05dff3;">
+<nav class="navbar navbar-expand-md bg-dark py-3" data-bs-theme="dark" th:include="header-footer :: navbar">></nav>
+	<!-- <h1>Izmena i brisanje jos nije implementirano!</h1> --> 
+    <div class="row space-rows mt-4" th:each="itKorisnik, status: ${korisnici}">
+        <div class="col">
+            <div class="card cards-shadown cards-hover" data-aos="flip-left" data-aos-duration="950">
+                <div class="card-header" style="height: 345px;">
+                    <div class="cardheader-text">
+                    	<div class="mb-3"></div>
+                        <h4 id="heading-card-1" class="inlajn" th:text="${'Korisnik broj: ' + (status.index + 1) + ' '}"></h4>
+                        <h4 id="heading-card-1" class="inlajn" th:if="${itKorisnik.blokiran}" th:text="${' (BLOKIRAN!)'}"></h4>
+                        <!-- <h4 id="heading-card-1" th:text="${itKorisnik.blokiran} ? 'Korisnik broj: ' + (status.index + 1) + '(BLOKIRAN!)' : 'Korisnik broj: ' + (status.index + 1)"></h4> -->                      		
+                        <p id="cardheader-subtext-1" class="mt-3" th:text="${'Korisnicko Ime: ' + itKorisnik.korisnickoIme}"></p>
+                        <p id="cardheader-subtext-1" th:text="${'Lozinka: ' + itKorisnik.lozinka}"></p>
+                        <p id="cardheader-subtext-1" th:text="${'Email: ' + itKorisnik.email}"></p>
+                        <p id="cardheader-subtext-1" th:text="${'Ime I Prezime: ' + itKorisnik.ime + ' ' + itKorisnik.prezime}"></p>
+                        <p id="cardheader-subtext-1" th:text="${'Datum Rodjenja: ' + itKorisnik.datumRodjenja}"></p>
+                        <!-- strings.substring zato sto su poslednja 2 karaktera tacka i milisekunde -->
+                        <p id="cardheader-subtext-1" th:text="${#strings.substring('Datum I Vreme registracije: ' + itKorisnik.datumIVremeRegistracije, 0, 47)}"></p>
+                        <p id="cardheader-subtext-1" th:text="${'Uloga: ' + itKorisnik.uloga}"></p>
+						<!-- <p id="cardheader-subtext-1" th:if="${itKorisnik.blokiran}" th:text="${'Korisnik je BLOKIRAN!'}"></p> -->
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="card-text sub-text-color">Akcije:
+                       <!--   <a th:href="@{/korisnici/edit(id=${itKorisnik.id})}">
+                            <button class="button" type="button" data-hover="Izmeni Korisnika"><span>Izmeni Korisnika</span></button>
+                        </a> -->
+					<a th:href="@{/korisnici/blockunblock(id=${itKorisnik.id})}">
+    					<button class="button" type="button" th:classappend="${itKorisnik.uloga.name() == 'ADMIN'} ? 'blok' : ''" th:disabled="${itKorisnik.uloga.name() == 'ADMIN'} ? 'true' : 'false'" th:data-hover="${itKorisnik.uloga.name() == 'ADMIN'} ? 'NE MOŽETE DA BLOKIRATE ADMINISTRATORA!' : 'Da li ste sigurni?'">
+        					<span th:text="${itKorisnik.blokiran} ? 'ODBLOKIRAJ KORISNIKA' : 'BLOKIRAJ KORISNIKA'"></span>
+   						</button>
+					</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a th:href="@{/}">
+     	<button class="button floating-button" type="button">Nazad</button>
+     </a>
+    <footer class="text-center bg-dark" th:include="header-footer :: footer"></footer>
+    <script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="@{/assets/js/aos.min.js}"></script>
+    <script th:src="@{/assets/js/bs-init.js}"></script>
+    <script th:src="@{/assets/js/button-materialize-materialize.min.js}"></script>
+    <script th:src="@{/assets/js/Button-Ripple-Effect-Animation-Wave-Pulse-button-ripple-effect.js}"></script>
+</body>
+
+</html>

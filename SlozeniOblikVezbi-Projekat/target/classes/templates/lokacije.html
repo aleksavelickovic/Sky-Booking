@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Prikaz svih lokacija</title>
+    <link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Titillium+Web:400,600,700}">
+    <link rel="stylesheet" th:href="@{/assets/css/aos.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Animation-Cards-_app.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Animation-Cards.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Button-Change-Text-on-Hover.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/button-materialize-materialize.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/button-materialize.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Button-Ripple-Effect-Animation-Wave-Pulse.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Overlay-Login-Form.css}">
+    <base th:href="@{/}">
+    <style>
+    .floating-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+       	z-index: 1000;
+       	width: 300px;
+    }
+	</style>
+</head>
+
+<body style="background-color: #05dff3;">
+<nav class="navbar navbar-expand-md bg-dark py-3" data-bs-theme="dark" th:include="header-footer :: navbar">></nav>
+    <div class="row space-rows mt-4" th:each="itLokacija, status: ${lokacije}">
+        <div class="col">
+            <div class="card cards-shadown cards-hover" data-aos="flip-left" data-aos-duration="950">
+                <div class="card-header" style="height: 200px;">
+                    <div class="cardheader-text">
+                        <h4 id="heading-card-1" th:text="${'Lokacija broj: ' + (status.index + 1)}">Lokacija broj:</h4>
+                        <p id="cardheader-subtext-1" th:text="${'Grad: ' + itLokacija.Grad}">Grad:</p>
+                        <p id="cardheader-subtext-1" th:text="${'Drzava: ' + itLokacija.Drzava}">Drzava:</p>
+                        <p id="cardheader-subtext-1" th:text="${'Kontinent: ' + itLokacija.Kontinent}">Kontinent:</p>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="card-text sub-text-color">Akcije:
+                     <a th:href="@{/lokacije/edit(id=${itLokacija.id})}"><button class="button" type="button" data-hover="Izmeni Lokaciju"><span>Izmeni Lokaciju</span></button></a>
+                        <a th:href="@{/lokacije/delete(id=${itLokacija.id})}"><button class="button" type="button" data-hover="Da li ste sigurni?"><span>OBRISI</span></button></a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+     <a th:href="@{/}">
+     	<button class="button floating-button" type="button">Nazad</button>
+     </a>
+    <footer class="text-center bg-dark" th:include="header-footer :: footer"></footer>
+    <script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="@{/assets/js/aos.min.js}"></script>
+    <script th:src="@{/assets/js/bs-init.js}"></script>
+    <script th:src="@{/assets/js/button-materialize-materialize.min.js}"></script>
+    <script th:src="@{/assets/js/Button-Ripple-Effect-Animation-Wave-Pulse-button-ripple-effect.js}"></script>
+</body>
+
+</html>
