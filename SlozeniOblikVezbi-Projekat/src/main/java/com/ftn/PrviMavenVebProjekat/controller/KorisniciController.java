@@ -120,13 +120,13 @@ public class KorisniciController implements ApplicationContextAware {
 
 			korisnik.setBlokiran(false);
 			service.blockunblock(korisnik);
-			response.sendRedirect(bURL + "korisnici");
+			response.sendRedirect(bURL + "korisnici#" + korisnik.getId());
 			return;
 
 		} else if (korisnik.getBlokiran() == false) {
 			korisnik.setBlokiran(true);
 			service.blockunblock(korisnik);
-			response.sendRedirect(bURL + "korisnici");
+			response.sendRedirect(bURL + "korisnici#" + korisnik.getId());
 			return;
 		}
 		return;

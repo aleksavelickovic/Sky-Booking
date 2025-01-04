@@ -38,7 +38,7 @@
 <nav class="navbar navbar-expand-md bg-dark py-3" data-bs-theme="dark" th:include="header-footer :: navbar">></nav>
 	<!-- <h1>Izmena i brisanje jos nije implementirano!</h1> --> 
     <div class="row space-rows mt-4" th:each="itKorisnik, status: ${korisnici}">
-        <div class="col">
+        <div class="col" th:id="${itKorisnik.id}">
             <div class="card cards-shadown cards-hover" data-aos="flip-left" data-aos-duration="950">
                 <div class="card-header" style="height: 345px;">
                     <div class="cardheader-text">
