@@ -67,7 +67,7 @@ public class LokacijeController implements ApplicationContextAware {
 
 	@GetMapping(value = "/add")
 	public String create() {
-		return "/dodaj-lokaciju.html";
+		return "dodaj-lokaciju";
 	}
 
 	@PostMapping(value = "/add")
