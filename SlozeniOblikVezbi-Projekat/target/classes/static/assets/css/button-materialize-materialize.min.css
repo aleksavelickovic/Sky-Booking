@@ -6236,10 +6236,6 @@ input[type=checkbox]:not(:disabled) ~ .lever:active:after, input[type=checkbox]:
   background-color: #BDBDBD;
 }
 
-select {
-  display: none;
-}
-
 select.browser-default {
   display: block;
 }
