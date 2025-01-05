@@ -61,7 +61,7 @@
 		
 		<!-- Add dependencies for using Spring Session -->
 		<!-- Provides session repository for relational database like MYSQL etc session management -->
-		<!-- 
+		
 		<dependency>
 			<groupId>org.springframework.session</groupId>
 			<artifactId>spring-session-core</artifactId>
@@ -70,7 +70,7 @@
 			<groupId>org.springframework.session</groupId>
 			<artifactId>spring-session-jdbc</artifactId>
 		</dependency>
-		 -->
+		 
 		 
 		<!-- Add dependencies for testing -->
 		<!-- pribavljanje test okruženja, artifact će ujedno prevući i JUnit biblioteku -->

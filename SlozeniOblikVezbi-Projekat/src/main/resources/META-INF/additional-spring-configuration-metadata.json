@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "paths.baseResourcePath",
+  "type": "java.lang.String",
+  "description": "Base relative path for .csv files used in non-database services"
+}]}
