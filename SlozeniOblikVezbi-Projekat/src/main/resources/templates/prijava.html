@@ -3,6 +3,7 @@
 <html data-bs-theme="light" lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Web Programiranje</title>
@@ -17,9 +18,12 @@
     <link rel="stylesheet" th:href="@{/assets/css/Footer-Multi-Column-icons.css}">
     <link rel="stylesheet" th:href="@{/assets/css/Google-Style-Login-.css}">
     <link rel="stylesheet" th:href="@{/assets/css/Overlay-Login-Form.css}">
+    <style>
+
+</style>
 </head>
 
-<body>
+<body style="background-color: #05dff3">
 <nav class="navbar navbar-expand-md bg-dark py-3" data-bs-theme="dark" th:include="header-footer :: navbar">></nav>
     <div data-aos="flip-left" data-aos-duration="950" class="login-card">
         <p class="profile-name-card"> </p>
@@ -30,7 +34,7 @@
             <div class="checkbox">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="formCheck-1">
-                    <p th:text="${poruka}">Ispis greske</p>
+                    <p th:text="${poruka}" style="background-color:#ed0c0c;" id="greska">Ispis greske</p>
                     <label class="form-check-label" for="formCheck-1">Zapamti me</label>
                 </div>
             </div>
