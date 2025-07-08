@@ -16,6 +16,7 @@
     <link rel="stylesheet" th:href="@{/assets/css/Button-Ripple-Effect-Animation-Wave-Pulse.css}">
     <link rel="stylesheet" th:href="@{/assets/css/Footer-Multi-Column-icons.css}">
     <link rel="stylesheet" th:href="@{/assets/css/Overlay-Login-Form.css}">
+    <base th:href="@{/}">
 </head>
 
 <body>
@@ -37,8 +38,10 @@
             <div class="collapse navbar-collapse flex-grow-0 order-md-first" id="navcol-6">
                 <ul class="navbar-nav me-auto">
                 	<p class="nav-item nav-link" th:if="${session.prijavljeniKorisnik != null}" th:text="${'Prijavljeni ste kao: ' + session.prijavljeniKorisnik.ime + ' ' + session.prijavljeniKorisnik.prezime}"></p>
-                	<li class="nav-item"><a class="nav-link active" th:if="${session.prijavljeniKorisnik != null}" th:href="@{/korisnici/logout}">Odjava</a></li>
                 	
+<a class="nav-item" th:if="${session.prijavljeniKorisnik != null && session.prijavljeniKorisnik.uloga.name() == 'ADMIN'}" th:href="@{admin.html}">Admin stranica</a>
+
+                	<li class="nav-item"><a class="nav-link active" th:if="${session.prijavljeniKorisnik != null}" th:href="@{/korisnici/logout}">Odjava</a></li>
                     <li class="nav-item"><a class="nav-link active" th:if="${session.prijavljeniKorisnik == null}" th:href="@{/}">Registracija</a></li>
                     <li class="nav-item"><a class="nav-link" th:if="${session.prijavljeniKorisnik == null}" th:href="@{/korisnici/login}">Prijava</a></li>
                 </ul>

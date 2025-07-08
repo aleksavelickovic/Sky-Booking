@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no">
+    <title>Web Programiranje</title>
+    <link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Titillium+Web:400,600,700}">
+    <link rel="stylesheet" th:href="@{/assets/css/aos.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Animation-Cards-_app.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Animation-Cards.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Button-Change-Text-on-Hover.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/button-materialize-materialize.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/button-materialize.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Button-Ripple-Effect-Animation-Wave-Pulse.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Footer-Multi-Column-icons.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Google-Style-Login-.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Growing-Search-Bar-Animated-Text-Input.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Overlay-Login-Form.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Search-Input-responsive.css}">
+</head>
+
+<body style="background-color: #05dff3">
+<nav class="navbar navbar-expand-md bg-dark py-3" data-bs-theme="dark" th:include="header-footer :: navbar">></nav>
+    <div class="container">
+        <form>
+            <input class="form-control" type="text" placeholder="Polaziste">
+            <input class="form-control" type="text" placeholder="Odredište">
+            <input class="form-control" type="number" placeholder="Broj putnika">
+            <p class="fs-6 fw-lighter lh-sm">Datum polaska:</p>
+            <input class="form-control" type="date" placeholder="Datum polaska">
+            <input type="checkbox" id="slicniletovi" text="Trazi slicne letove" name="slicniletovi">
+            <label class="form-label fw-bolder" for="slicniletovi">Trazi slicne letove</label>
+            <input class="btn btn-primary d-block" type="submit" id="pretrazibtn" value="Pretrazi">
+        </form>
+    </div>
+    <div class="container py-4 py-xl-5" data-aos="flip-left" data-aos-duration="950">
+        <div class="row gy-4 row-cols-1">
+            <div class="col">
+                <div class="card">
+                    <img class="object-fit-cover card-img-top w-100 d-block" style="height: 200px;" th:src="@{https://cdn.bootstrapstudio.io/placeholders/1400x800.png}">
+                    <div class="card-body p-4">
+                        <p class="text-primary mb-0 card-text">Akcija!</p>
+                        <h4 class="card-title">Oznaka:&nbsp;</h4>
+                        <p class="card-text">Polaziste:</p>
+                        <p class="card-text">Odrediste:</p>
+                        <p class="card-text">Avion:</p>
+                        <p class="card-text">Datum i vreme polaska:</p>
+                        <p class="card-text">Trajanje:</p>
+                        <p class="card-text">Cena po karti:</p>
+                        <button class="btn btn-primary" id="rezervisibtn" type="button">rezervisi</button>
+                        <button class="btn btn-primary mt-2" id="listazeljabtn" type="button">dodaj na listu zelja</button>
+                        <div class="d-flex">
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="text-center bg-dark" th:include="header-footer :: footer"></footer>
+    <script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="@{/assets/js/aos.min.js}"></script>
+    <script th:src="@{/assets/js/bs-init.js}"></script>
+    <script th:src="@{/assets/js/button-materialize-materialize.min.js}"></script>
+    <script th:src="@{/assets/js/Button-Ripple-Effect-Animation-Wave-Pulse-button-ripple-effect.js}"></script>
+</body>
+
+</html>
