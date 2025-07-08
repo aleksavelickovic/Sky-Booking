@@ -36,8 +36,11 @@
             </button>
             <div class="collapse navbar-collapse flex-grow-0 order-md-first" id="navcol-6">
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link active" th:href="@{/}">Registracija</a></li>
-                    <li class="nav-item"><a class="nav-link" th:href="@{/korisnici/login}">Prijava</a></li>
+                	<p class="nav-item nav-link" th:if="${session.prijavljeniKorisnik != null}" th:text="${'Prijavljeni ste kao: ' + session.prijavljeniKorisnik.ime + ' ' + session.prijavljeniKorisnik.prezime}"></p>
+                	<li class="nav-item"><a class="nav-link active" th:if="${session.prijavljeniKorisnik != null}" th:href="@{/korisnici/logout}">Odjava</a></li>
+                	
+                    <li class="nav-item"><a class="nav-link active" th:if="${session.prijavljeniKorisnik == null}" th:href="@{/}">Registracija</a></li>
+                    <li class="nav-item"><a class="nav-link" th:if="${session.prijavljeniKorisnik == null}" th:href="@{/korisnici/login}">Prijava</a></li>
                 </ul>
                 <div class="d-md-none my-2">
                     <button class="btn btn-light me-2" type="button">Button</button>

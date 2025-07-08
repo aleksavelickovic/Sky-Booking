@@ -134,9 +134,9 @@ public class KorisniciController implements ApplicationContextAware {
 		}
 		return;
 	}
-	
+
 	@GetMapping(value = "/login")
-	public ModelAndView login() throws IOException{
+	public ModelAndView login() throws IOException {
 		ModelAndView modelAndView = new ModelAndView("prijava");
 //		modelAndView.addObject("poruka", "");
 		return modelAndView;
@@ -150,17 +150,26 @@ public class KorisniciController implements ApplicationContextAware {
 			if (korisnik.getKorisnickoIme().equals(korisnickoIme) && korisnik.getLozinka().equals(lozinka)) {
 				session.setAttribute(KorisniciController.KORISNIK_KEY, korisnik);
 				response.sendRedirect(bURL);
+				System.out.println("USPESNA PRIJAVA");
 				return null;
-			} else if (korisnik.getKorisnickoIme().trim().equals("") && korisnik.getLozinka().trim().equals("")) {
-				rezultat.addObject("poruka", "Morate uneti Korisnicko Ime i Lozinku!");
-				return rezultat;
-			} else {
-				rezultat.addObject("poruka", "Neispravno korisnicko ime ili lozinka!");
-				return rezultat;
 			}
 		}
+		if (korisnickoIme.trim().equals("") && lozinka.trim().equals("")) {
+			rezultat.addObject("poruka", "Morate uneti Korisnicko Ime i Lozinku!");
+			System.out.println("Morate uneti podatke!");
+			return rezultat;
+		} else {
+			rezultat.addObject("poruka", "Neispravno korisnicko ime ili lozinka!");
+			System.out.println("Neispravni podaci!");
+			return rezultat;
+		}
 
-		return rezultat;
+	}
 
+	@GetMapping(value = "/logout")
+	public void logout(HttpSession session, HttpServletResponse response) throws IOException {
+		session.invalidate();
+		System.out.println("Korisnik je odjavljen!");
+		response.sendRedirect(bURL);
 	}
 }

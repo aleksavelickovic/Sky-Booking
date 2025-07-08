@@ -25,11 +25,12 @@
         <p class="profile-name-card"> </p>
         <form class="form-signin" action="/PrviMavenVebProjekat/korisnici/login" method="post">
             <span class="reauth-email"> </span>
-            <input class="form-control" type="email" id="korisnickoIme" placeholder="Korisnicko Ime" autofocus="">
-            <input class="form-control" type="password" id="lozinka" placeholder="Lozinka">
+            <input class="form-control" type="text" id="korisnickoIme" name="korisnickoIme" placeholder="Korisnicko Ime" autofocus="">
+            <input class="form-control" type="text" id="lozinka" name="lozinka" placeholder="Lozinka">
             <div class="checkbox">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="formCheck-1">
+                    <p th:text="${poruka}">Ispis greske</p>
                     <label class="form-check-label" for="formCheck-1">Zapamti me</label>
                 </div>
             </div>
