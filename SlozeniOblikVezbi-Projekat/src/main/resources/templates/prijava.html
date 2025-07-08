@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Web Programiranje</title>
+    <link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Titillium+Web:400,600,700}">
+    <link rel="stylesheet" th:href="@{/assets/css/aos.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Animation-Cards-_app.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Animation-Cards.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/button-materialize-materialize.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/button-materialize.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Button-Ripple-Effect-Animation-Wave-Pulse.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Footer-Multi-Column-icons.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Google-Style-Login-.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Overlay-Login-Form.css}">
+</head>
+
+<body>
+<nav class="navbar navbar-expand-md bg-dark py-3" data-bs-theme="dark" th:include="header-footer :: navbar">></nav>
+    <div data-aos="flip-left" data-aos-duration="950" class="login-card">
+        <p class="profile-name-card"> </p>
+        <form class="form-signin" action="/PrviMavenVebProjekat/korisnici/login" method="post">
+            <span class="reauth-email"> </span>
+            <input class="form-control" type="email" id="korisnickoIme" placeholder="Korisnicko Ime" autofocus="">
+            <input class="form-control" type="password" id="lozinka" placeholder="Lozinka">
+            <div class="checkbox">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="formCheck-1">
+                    <label class="form-check-label" for="formCheck-1">Zapamti me</label>
+                </div>
+            </div>
+            <button class="btn btn-primary btn-lg d-block btn-signin w-100" type="submit">prijava</button>
+        </form>
+    </div>
+    <footer class="text-center bg-dark" th:include="header-footer :: footer"></footer>
+    <script th:src="@{/assets/js/aos.min.js}"></script>
+    <script th:src="@{/assets/js/bs-init.js}"></script>
+    <script th:src="@{/assets/js/button-materialize-materialize.min.js}"></script>
+    <script th:src="@{/assets/js/Button-Ripple-Effect-Animation-Wave-Pulse-button-ripple-effect.js}"></script>
+</body>
+
+</html>

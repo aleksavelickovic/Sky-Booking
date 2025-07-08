@@ -19,12 +19,15 @@
     <link rel="stylesheet" href="assets/css/Overlay-Login-Form.css">
 </head>
 
-<body style="background-color: #05dff3;">
-    <div class="m-5">
-        <div class="text-center m-3" data-aos="flip-right" data-aos-duration="1500"><a href="lokacije" class="waves-effect waves-light btn btn-lg">Prikaži sve lokacije</a></div>
-        <div class="text-center m-3" data-aos="flip-right" data-aos-duration="1500"><a href="lokacije/add" class="waves-effect waves-light btn btn-lg">Dodaj novu lokaciju</a></div>
-        <div class="text-center m-3" data-aos="flip-left" data-aos-duration="1500"><a href="korisnici" class="waves-effect waves-light btn btn-lg">Prikaži sve korisnike</a></div>
-        <div class="text-center m-3" data-aos="flip-left" data-aos-duration="1500"><a href="korisnici/add" class="waves-effect waves-light btn btn-lg">Registracija korisnika</a></div>
+<body>
+    <div data-aos="flip-left" data-aos-duration="950" class="login-card">
+        <p class="profile-name-card"> </p>
+        <form class="form-signin"><span class="reauth-email"> </span><input class="form-control" type="email" id="korisnickoIme" required="" placeholder="Korisnicko Ime" autofocus=""><input class="form-control" type="password" id="lozinka" required="" placeholder="Lozinka">
+            <p>Ispis greske</p>
+            <div class="checkbox">
+                <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Zapamti me</label></div>
+            </div><button class="btn btn-primary btn-lg d-block btn-signin w-100" type="submit">prijava</button>
+        </form>
     </div>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/aos.min.js"></script>

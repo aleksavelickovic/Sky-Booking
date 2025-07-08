@@ -19,12 +19,21 @@
     <link rel="stylesheet" href="assets/css/Overlay-Login-Form.css">
 </head>
 
-<body style="background-color: #05dff3;">
-    <div class="m-5">
-        <div class="text-center m-3" data-aos="flip-right" data-aos-duration="1500"><a href="lokacije" class="waves-effect waves-light btn btn-lg">Prikaži sve lokacije</a></div>
-        <div class="text-center m-3" data-aos="flip-right" data-aos-duration="1500"><a href="lokacije/add" class="waves-effect waves-light btn btn-lg">Dodaj novu lokaciju</a></div>
-        <div class="text-center m-3" data-aos="flip-left" data-aos-duration="1500"><a href="korisnici" class="waves-effect waves-light btn btn-lg">Prikaži sve korisnike</a></div>
-        <div class="text-center m-3" data-aos="flip-left" data-aos-duration="1500"><a href="korisnici/add" class="waves-effect waves-light btn btn-lg">Registracija korisnika</a></div>
+<body>
+    <div class="row mt-4 space-rows">
+        <div class="col">
+            <div class="card cards-shadown cards-hover" data-aos="flip-left" data-aos-duration="950">
+                <div class="card-header" style="height: 154px;">
+                    <div class="cardheader-text">
+                        <h4 id="heading-card-1">Lokacija broj:</h4>
+                        <p id="cardheader-subtext-1">Grad:<br>Drzava:<br>Kontinent:</p>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="card-text sub-text-color">Akcije:<a href="lokacije/edit?id="><button class="button" type="button" data-hover="Izmeni Lokaciju"><span>Izmeni Lokaciju</span></button></a><a href="/PrviMavenVebProjekat/lokacije/delete?id="><button class="button" type="button" data-hover="Da li ste sigurni?"><span>OBRISI</span></button></a></p>
+                </div>
+            </div>
+        </div>
     </div>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/aos.min.js"></script>

@@ -1,6 +1,6 @@
 .card-header {
   height: 200px;
-  background-color: rgb(51, 10, 245);
+  background-color: orange;
 }
 
 #download-icon {
@@ -52,15 +52,10 @@
   -ms-transform: scale(1.1);
   transform: scale(1.1);
   z-index: 99;
-  
 }
 
-
-
-.card:hover{
-	.card-header {
-  background-color: #f35b05;
-}
+.card-header:first-child:hover {
+  background-color: #ffb366;
 }
 
 .space-rows {

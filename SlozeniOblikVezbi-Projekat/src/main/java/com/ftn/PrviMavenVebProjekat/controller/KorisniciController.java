@@ -9,6 +9,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,8 @@ import com.ftn.PrviMavenVebProjekat.service.KorisniciService;
 @Controller
 @RequestMapping(value = "/korisnici")
 public class KorisniciController implements ApplicationContextAware {
+
+	public static final String KORISNIK_KEY = "prijavljeniKorisnik";
 
 	@Autowired
 	private ApplicationContext applicationContext;
@@ -130,5 +133,34 @@ public class KorisniciController implements ApplicationContextAware {
 			return;
 		}
 		return;
+	}
+	
+	@GetMapping(value = "/login")
+	public ModelAndView login() throws IOException{
+		ModelAndView modelAndView = new ModelAndView("prijava");
+//		modelAndView.addObject("poruka", "");
+		return modelAndView;
+	}
+
+	@PostMapping(value = "/login")
+	public ModelAndView login(@RequestParam String korisnickoIme, @RequestParam String lozinka, HttpSession session,
+			HttpServletResponse response) throws IOException {
+		ModelAndView rezultat = new ModelAndView("prijava");
+		for (Korisnik korisnik : service.findAll()) {
+			if (korisnik.getKorisnickoIme().equals(korisnickoIme) && korisnik.getLozinka().equals(lozinka)) {
+				session.setAttribute(KorisniciController.KORISNIK_KEY, korisnik);
+				response.sendRedirect(bURL);
+				return null;
+			} else if (korisnik.getKorisnickoIme().trim().equals("") && korisnik.getLozinka().trim().equals("")) {
+				rezultat.addObject("poruka", "Morate uneti Korisnicko Ime i Lozinku!");
+				return rezultat;
+			} else {
+				rezultat.addObject("poruka", "Neispravno korisnicko ime ili lozinka!");
+				return rezultat;
+			}
+		}
+
+		return rezultat;
+
 	}
 }
