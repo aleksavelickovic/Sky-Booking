@@ -10,7 +10,7 @@ CREATE TABLE lokacije (
     PRIMARY KEY(id)
 );
 
-drop table if exists lokacije;
+/*drop table if exists lokacije;*/
 INSERT INTO lokacije (Grad, Drzava, Kontinent) VALUES
 ('Beograd', 'Srbija', 'Evropa'),
 ('New York', 'Sjedinjene Američke Države', 'Amerika'),
@@ -26,7 +26,7 @@ INSERT INTO lokacije (Grad, Drzava, Kontinent) VALUES
 SELECT * FROM lokacije l
 ORDER BY l.id;
 
-drop table if exists korisnici;
+/*drop table if exists korisnici;*/
 CREATE TABLE korisnici (
 	id BIGINT AUTO_INCREMENT,
     korisnickoIme VARCHAR(20) NOT NULL,
@@ -54,6 +54,6 @@ INSERT INTO korisnici (korisnickoIme, lozinka, email, ime, prezime, datumRodjenj
 ('aleksandar.v', 'alex123', 'aleksandar.vukovsic@example.com', 'Aleksandar', 'Vuković', '1998-11-30', '2024-12-22 01:30:00', true, 'PUTNIK'),
 ('katarina.m', 'katy2024', 'katarina.milosevic@example.com', 'Katarina', 'Milošević', '1994-08-15', '2024-12-22 02:20:50', false, 'PUTNIK');
 
-select * from korisnici k
-order by k.id;
+SELECT * FROM korisnici k
+ORDER BY k.id;
 
