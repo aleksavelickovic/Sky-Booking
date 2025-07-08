@@ -150,7 +150,7 @@ public class KorisniciController implements ApplicationContextAware {
 			if (korisnik.getKorisnickoIme().equals(korisnickoIme) && korisnik.getLozinka().equals(lozinka)) {
 				if (korisnik.getBlokiran()) {
 					rezultat.addObject("poruka", "Ovaj nalog je blokiran od strane administratora!");
-					System.out.println("OVAJ KORISNIK JE BRLOKIRAN!");
+					System.out.println("KORISNIK JE BRLOKIRAN!");
 					return rezultat;
 				} else {
 					session.setAttribute(KorisniciController.KORISNIK_KEY, korisnik);
