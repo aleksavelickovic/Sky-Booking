@@ -148,16 +148,23 @@ public class KorisniciController implements ApplicationContextAware {
 		ModelAndView rezultat = new ModelAndView("prijava");
 		for (Korisnik korisnik : service.findAll()) {
 			if (korisnik.getKorisnickoIme().equals(korisnickoIme) && korisnik.getLozinka().equals(lozinka)) {
-				session.setAttribute(KorisniciController.KORISNIK_KEY, korisnik);
-				response.sendRedirect(bURL);
-				System.out.println("USPESNA PRIJAVA");
-				return null;
+				if (korisnik.getBlokiran()) {
+					rezultat.addObject("poruka", "Ovaj nalog je blokiran od strane administratora!");
+					System.out.println("KORISNIK JE BRLOKIRAN!");
+					return rezultat;
+				} else {
+					session.setAttribute(KorisniciController.KORISNIK_KEY, korisnik);
+					response.sendRedirect(bURL);
+					System.out.println("USPESNA PRIJAVA");
+					return null;
+				}
 			}
 		}
 		if (korisnickoIme.trim().equals("") && lozinka.trim().equals("")) {
 			rezultat.addObject("poruka", "Morate uneti Korisnicko Ime i Lozinku!");
 			System.out.println("Morate uneti podatke!");
 			return rezultat;
+
 		} else {
 			rezultat.addObject("poruka", "Neispravno korisnicko ime ili lozinka!");
 			System.out.println("Neispravni podaci!");
