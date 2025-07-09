@@ -75,40 +75,38 @@ public class KorisniciController implements ApplicationContextAware {
 	}
 
 	@PostMapping(value = "/add")
-	public void add(@RequestParam String korime, @RequestParam String lozinka, @RequestParam String lozinkaopet,
+	public ModelAndView add(@RequestParam String korime, @RequestParam String lozinka, @RequestParam String lozinkaopet,
 			@RequestParam String email, @RequestParam String ime, @RequestParam String prezime,
-			@RequestParam Date datumrodjenja, HttpServletResponse response) throws IOException {
+			@RequestParam String datumrodjenja, HttpServletResponse response) throws IOException {
+		ModelAndView modelAndView = new ModelAndView("dodaj-korisnika");
 		if (!lozinka.equals(lozinkaopet)) {
-			// TODO Privremena validacija, sa daljim razvojem projekta ce biti omoguceno
-			// bolje korisnicko iskustvo
-			response.sendRedirect(bURL + "ponovilozinku.html");
-			return;
+			modelAndView.addObject("poruka", "Lozinke se ne poklapaju!");
+			return modelAndView;
 		}
 		if (korime.equals("") || lozinka.equals("") || email.equals("") || ime.equals("") || prezime.equals("")
-				|| datumrodjenja.equals("")) {
-			// TODO Privremena validacija, sa daljim razvojem projekta ce biti omoguceno
-			// bolje korisnicko iskustvo
-			response.sendRedirect(bURL + "greska.html");
-			return;
+				|| datumrodjenja == null) { // TODO validacija za datum ne radi!
+			modelAndView.addObject("poruka", "Morate popuniti sva polja!");
+			return modelAndView;
 		}
 		// Provera da li je korisnicko ime jedinstveno
 		for (Korisnik korisnik : service.findAll()) {
 			if (korisnik.getKorisnickoIme().equals(korime)) {
-				response.sendRedirect(bURL + "korimepostoji.html");
-				return;
+//				response.sendRedirect(bURL + "korimepostoji.html");
+				modelAndView.addObject("poruka", "Korisnicko ime vec postoji!");
+				return modelAndView;
 			}
 		}
 		// Provera da li je unesen email jedinstven
 		for (Korisnik korisnik : service.findAll()) {
 			if (korisnik.getEmail().equals(email)) {
-				response.sendRedirect(bURL + "korimepostoji.html");
-				return;
+				modelAndView.addObject("poruka", "Email vec postoji!");
+				return modelAndView;
 			}
 		}
-		service.save(new Korisnik(korime, lozinka, email, ime, prezime, datumrodjenja,
+		service.save(new Korisnik(korime, lozinka, email, ime, prezime, Date.valueOf(datumrodjenja),
 				Timestamp.valueOf(LocalDateTime.now().withNano(0)), Uloga.PUTNIK));
-		response.sendRedirect(bURL + "korisnici");
-		return;
+		response.sendRedirect(bURL + "korisnici/login");
+		return null;
 	}
 
 	@GetMapping(value = "/blockunblock")

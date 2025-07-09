@@ -42,7 +42,7 @@
 <a class="nav-item" th:if="${session.prijavljeniKorisnik != null && session.prijavljeniKorisnik.uloga.name() == 'ADMIN'}" th:href="@{admin.html}">Admin stranica</a>
 
                 	<li class="nav-item"><a class="nav-link active" th:if="${session.prijavljeniKorisnik != null}" th:href="@{/korisnici/logout}">Odjava</a></li>
-                    <li class="nav-item"><a class="nav-link active" th:if="${session.prijavljeniKorisnik == null}" th:href="@{/}">Registracija</a></li>
+                    <li class="nav-item"><a class="nav-link active" th:if="${session.prijavljeniKorisnik == null}" th:href="@{/korisnici/add}">Registracija</a></li>
                     <li class="nav-item"><a class="nav-link" th:if="${session.prijavljeniKorisnik == null}" th:href="@{/korisnici/login}">Prijava</a></li>
                 </ul>
                 <div class="d-md-none my-2">

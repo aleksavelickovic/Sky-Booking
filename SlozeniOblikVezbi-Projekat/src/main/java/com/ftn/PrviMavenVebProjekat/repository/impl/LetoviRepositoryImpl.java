@@ -64,8 +64,8 @@ public class LetoviRepositoryImpl implements LetoviRepository {
 						avionService.findOne(avionId), terminPolaska, trajanjeLeta, cena, naAkciji);
 				letovi.put(Let.getId(), Let);
 			}
-			System.out.println("Processed row with ID: " + id);
-			System.out.println("Current map size: " + letovi.size());
+//			System.out.println("Processed row with ID: " + id);
+//			System.out.println("Current map size: " + letovi.size());
 		}
 
 		public List<Let> getLetovi() {
