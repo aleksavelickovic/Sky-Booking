@@ -103,7 +103,7 @@ public class KorisniciController implements ApplicationContextAware {
 				return modelAndView;
 			}
 		}
-		service.save(new Korisnik(korime, lozinka, email, ime, prezime, Date.valueOf(datumrodjenja),
+		service.save(new Korisnik(korime, lozinka, email, ime, prezime, Date.valueOf(datumrodjenja), // TODO validacija za datum ne radi!
 				Timestamp.valueOf(LocalDateTime.now().withNano(0)), Uloga.PUTNIK));
 		response.sendRedirect(bURL + "korisnici/login");
 		return null;
