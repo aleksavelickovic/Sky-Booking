@@ -61,7 +61,6 @@ public class LokacijeController implements ApplicationContextAware {
 		List<Lokacija> lokacije = service.findAll();
 		ModelAndView modelAndView = new ModelAndView("lokacije");
 		modelAndView.addObject("lokacije", lokacije);
-//		System.out.println("OVO JE TEST");
 		return modelAndView;
 
 	}

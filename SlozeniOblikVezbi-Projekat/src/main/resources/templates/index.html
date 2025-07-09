@@ -50,30 +50,28 @@
             <input class="btn btn-primary d-block mt-2" type="submit" id="pretrazibtn" value="Pretrazi">
         </form>
     </div>
-    <div class="container py-4 py-xl-5" data-aos="flip-left" data-aos-duration="950">
-        <div class="row gy-4 row-cols-1">
-            <div class="col">
-                <div class="card">
-                    <img class="object-fit-cover card-img-top w-100 d-block" style="height: 200px;" th:src="@{https://cdn.bootstrapstudio.io/placeholders/1400x800.png}">
-                    <div class="card-body p-4">
-                        <p class="text-primary mb-0 card-text">Akcija!</p>
-                        <h4 class="card-title">Oznaka:&nbsp;</h4>
-                        <p class="card-text">Polaziste:</p>
-                        <p class="card-text">Odrediste:</p>
-                        <p class="card-text">Avion:</p>
-                        <p class="card-text">Datum i vreme polaska:</p>
-                        <p class="card-text">Trajanje:</p>
-                        <p class="card-text">Cena po karti:</p>
-                        <button class="btn btn-primary" id="rezervisibtn" type="button">rezervisi</button>
-                        <button class="btn btn-primary mt-2" id="listazeljabtn" type="button">dodaj na listu zelja</button>
-                        <div class="d-flex">
-                            <div></div>
-                        </div>
-                    </div>
-                </div>
+	<div class="container py-4 py-xl-5" data-aos="flip-left" data-aos-duration="950" th:each="let : ${letovi}">
+		<div class="row gy-4 row-cols-1">
+			<div class="col">
+				<div class="card" >
+					<img class="object-fit-cover card-img-top w-100 d-block" style="height: 200px;"
+						th:src="@{https://cdn.bootstrapstudio.io/placeholders/1400x800.png}">
+					<div class="card-body p-4">
+						<p class="text-primary mb-0 card-text">Akcija!</p>
+						<h4 class="card-title">Oznaka:&nbsp;<span th:text="${let.oznaka}"></span></h4>
+						<p class="card-text">Polaziste: <span th:text="${let.polaziste.oznaka}"></span></p>
+						<p class="card-text">Odrediste: <span th:text="${let.odrediste.oznaka}"></span></p>
+						<p class="card-text">Avion: <span th:text="${let.avion.naziv}"></span></p>
+						<p class="card-text">Datum i vreme polaska: <span th:text="${let.terminPolaska}"></span></p>
+						<p class="card-text">Trajanje: <span th:text="${let.trajanjeLeta}"></span></p>
+						<p class="card-text">Cena po karti: <span th:text="${let.cena}"></span></p>
+						<button class="btn btn-primary" id="rezervisibtn" type="button">rezervisi</button>
+						<button class="btn btn-primary mt-2" id="listazeljabtn" type="button">dodaj na listu zelja</button>     </div>
             </div>
         </div>
     </div>
+</div>
+
     <footer class="text-center bg-dark" th:include="header-footer :: footer"></footer>
     <script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
     <script th:src="@{/assets/js/aos.min.js}"></script>

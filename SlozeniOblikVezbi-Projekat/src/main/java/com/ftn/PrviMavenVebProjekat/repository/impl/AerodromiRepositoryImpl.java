@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowCallbackHandler;
@@ -27,6 +28,8 @@ public class AerodromiRepositoryImpl implements AerodromiRepository {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	@Autowired
+	@Qualifier("LokacijeDatabaseServis")
 	private LokacijaService lokacijaService;
 
 	private class AerodromRowCallBackhandler implements RowCallbackHandler {

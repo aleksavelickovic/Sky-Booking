@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowCallbackHandler;
@@ -31,8 +32,12 @@ public class LetoviRepositoryImpl implements LetoviRepository {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	@Autowired
+	@Qualifier("LokacijeDatabaseServis")
 	private LokacijaService lokacijaService;
+	@Autowired
 	private AerodromiService aerodromService;
+	@Autowired
 	private AvioniService avionService;
 
 	private class LetRowCallBackhandler implements RowCallbackHandler {
@@ -55,11 +60,12 @@ public class LetoviRepositoryImpl implements LetoviRepository {
 
 			Let Let = letovi.get(id);
 			if (Let == null) {
-				Let = new Let(avionId, oznaka, aerodromService.findOne(polazisteId),
-						aerodromService.findOne(odredisteId), avionService.findOne(avionId), terminPolaska,
-						trajanjeLeta, cena, naAkciji);
+				Let = new Let(id, oznaka, aerodromService.findOne(polazisteId), aerodromService.findOne(odredisteId),
+						avionService.findOne(avionId), terminPolaska, trajanjeLeta, cena, naAkciji);
 				letovi.put(Let.getId(), Let);
 			}
+			System.out.println("Processed row with ID: " + id);
+			System.out.println("Current map size: " + letovi.size());
 		}
 
 		public List<Let> getLetovi() {
@@ -79,7 +85,7 @@ public class LetoviRepositoryImpl implements LetoviRepository {
 
 	@Override
 	public List<Let> findAll() {
-		String sql = "SELECT * " + "FROM letovi lt " + "ORDER BY lt.id; ";
+		String sql = "SELECT * " + "FROM letovi lt " + "ORDER BY lt.id;";
 
 		LetRowCallBackhandler rowCallbackHandler = new LetRowCallBackhandler();
 		jdbcTemplate.query(sql, rowCallbackHandler);
