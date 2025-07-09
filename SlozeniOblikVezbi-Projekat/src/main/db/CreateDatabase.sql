@@ -52,8 +52,33 @@ INSERT INTO korisnici (korisnickoIme, lozinka, email, ime, prezime, datumRodjenj
 ('nikola.t', 'tesla987', 'nikola.tesla@example.com', 'Nikola', 'Tesla', '1976-01-07', '2024-12-21 23:45:30', false, 'PUTNIK'),
 ('dragana.b', 'dragon789', 'dragana.bogdanovic@example.com', 'Dragana', 'Bogdanović', '1992-04-22', '2024-12-22 00:15:40', true, 'PUTNIK'),
 ('aleksandar.v', 'alex123', 'aleksandar.vukovsic@example.com', 'Aleksandar', 'Vuković', '1998-11-30', '2024-12-22 01:30:00', true, 'PUTNIK'),
+('milos', 'milos123', 'aleksandar.vukovsic@example.com', 'Aleksandar', 'Vuković', '1998-11-30', '2024-12-22 01:30:00', true, 'PUTNIK'),
 ('katarina.m', 'katy2024', 'katarina.milosevic@example.com', 'Katarina', 'Milošević', '1994-08-15', '2024-12-22 02:20:50', false, 'PUTNIK');
 
 SELECT * FROM korisnici k
 ORDER BY k.id;
+
+CREATE TABLE aerodromi (
+	id BIGINT AUTO_INCREMENT,
+	oznaka VARCHAR(3) NOT NULL,
+    lokacijaId BIGINT,
+    PRIMARY KEY(id),
+    FOREIGN KEY (lokacijaId) REFERENCES lokacije(id)
+);
+
+INSERT INTO aerodromi (oznaka, lokacijaId) VALUES
+('BEG', 1),  -- Beograd
+('JFK', 2),  -- New York
+('HND', 3),  -- Tokio
+('SYD', 4),  -- Sidnej
+('CAI', 5),  -- Kairo
+('EZE', 6),  -- Buenos Aires
+('CDG', 7),  -- Pariz
+('CPT', 8),  -- Kejp Taun
+('AKL', 9),  -- Auckland
+('MCM', 10); -- McMurdo Station (fictional IATA code)
+
+SELECT * FROM aerodromi a
+ORDER BY a.id;
+
 
