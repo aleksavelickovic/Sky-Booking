@@ -12,9 +12,10 @@ public class Let {
 	private LocalDateTime terminPolaska;
 	private int trajanjeLeta;
 	private int cena;
+	private Boolean naAkciji;
 
 	public Let(Long id, String oznaka, Aerodrom polaziste, Aerodrom odrediste, Avion avion, LocalDateTime terminPolaska,
-			int trajanjeLeta, int cena) {
+			int trajanjeLeta, int cena, Boolean naAkciji) {
 		super();
 		this.id = id;
 		this.oznaka = oznaka;
@@ -24,6 +25,7 @@ public class Let {
 		this.terminPolaska = terminPolaska;
 		this.trajanjeLeta = trajanjeLeta;
 		this.cena = cena;
+		this.naAkciji = naAkciji;
 	}
 
 	public Long getId() {
@@ -89,12 +91,22 @@ public class Let {
 	public void setCena(int cena) {
 		this.cena = cena;
 	}
+	
+	public Boolean getNaAkciji() {
+		return naAkciji;
+	}
+
+	public void setNaAkciji(Boolean naAkciji) {
+		this.naAkciji = naAkciji;
+	}
 
 	@Override
 	public String toString() {
 		return "Let [id=" + id + ", oznaka=" + oznaka + ", polaziste=" + polaziste + ", odrediste=" + odrediste
 				+ ", avion=" + avion + ", terminPolaska=" + terminPolaska + ", trajanjeLeta=" + trajanjeLeta + ", cena="
-				+ cena + "]";
+				+ cena + ", naAkciji=" + naAkciji + "]";
 	}
+
+
 
 }
