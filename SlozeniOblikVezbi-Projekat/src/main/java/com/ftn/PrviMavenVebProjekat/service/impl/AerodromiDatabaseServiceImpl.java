@@ -3,12 +3,14 @@ package com.ftn.PrviMavenVebProjekat.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.ftn.PrviMavenVebProjekat.model.Aerodrom;
 import com.ftn.PrviMavenVebProjekat.repository.AerodromiRepository;
 import com.ftn.PrviMavenVebProjekat.service.AerodromiService;
 
-public class AerodromiDatabaseService implements AerodromiService {
+@Service
+public class AerodromiDatabaseServiceImpl implements AerodromiService {
 
 	@Autowired
 	private AerodromiRepository repository;
