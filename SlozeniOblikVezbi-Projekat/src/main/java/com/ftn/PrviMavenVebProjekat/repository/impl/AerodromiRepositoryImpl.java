@@ -15,12 +15,14 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.stereotype.Repository;
 
 import com.ftn.PrviMavenVebProjekat.model.Aerodrom;
 import com.ftn.PrviMavenVebProjekat.repository.AerodromiRepository;
 //import com.ftn.PrviMavenVebProjekat.repository.impl.AerodromiRepositoryImpl.AerodromRowCallBackhandler;
 import com.ftn.PrviMavenVebProjekat.service.LokacijaService;
 
+@Repository
 public class AerodromiRepositoryImpl implements AerodromiRepository {
 
 	@Autowired

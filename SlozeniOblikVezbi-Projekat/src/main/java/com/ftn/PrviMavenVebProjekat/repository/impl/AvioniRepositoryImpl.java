@@ -20,7 +20,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class AvioniRepositoryImpl implements AvioniRepository {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
