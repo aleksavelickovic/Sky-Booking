@@ -81,4 +81,22 @@ INSERT INTO aerodromi (oznaka, lokacijaId) VALUES
 SELECT * FROM aerodromi a
 ORDER BY a.id;
 
+CREATE TABLE avioni (
+	id BIGINT AUTO_INCREMENT,
+    naziv VARCHAR(100) NOT NULL,
+    brojKolona int,
+    brojRedova int,
+    PRIMARY KEY(id)
+);
+
+INSERT INTO avioni(naziv, brojKolona, brojRedova) VALUES
+('Boeing 747', 8, 19),
+('Airbus A330', 4, 10),
+('Cessna C52', 3, 7);
+
+SELECT * FROM avioni av
+ORDER BY av.id;
+
+
+
 
