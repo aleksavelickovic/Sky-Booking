@@ -138,7 +138,7 @@ public class LetoviController implements ApplicationContextAware {
 				comparator = Comparator.comparing(Let::getTerminPolaska);
 				break;
 			default:
-				System.out.println("Nepoznata vrednost sortiranjePolje: " + sortiranjePolje);
+				System.out.println("Nepoznata vrednost: " + sortiranjePolje);
 				break;
 			}
 

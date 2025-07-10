@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -191,21 +192,51 @@ public class KorisniciController implements ApplicationContextAware {
 			@RequestParam String SortirajPoSelect, @RequestParam String SortOrderSelect) {
 		ModelAndView modelAndView = new ModelAndView("korisnici");
 		List<Korisnik> korisnici = service.findAll();
-		
-		System.out.println("Korisnicko ime:" +  korImeInput);
+
+		System.out.println("Korisnicko ime:" + korImeInput);
 		if (korImeInput != "") {
 			System.out.println("KORISNICKOIME JE uneseno");
 			modelAndView.addObject("korImeInput", korImeInput);
-			korisnici.removeIf(k -> !k.getKorisnickoIme().equals(korImeInput));
+			korisnici.removeIf(k -> !k.getKorisnickoIme().contains(korImeInput));
 		}
-		
+
 		if (!UlogaSelect.equals("nista")) {
 			System.out.println("ULOGA JE unesena");
 			modelAndView.addObject("UlogaSelect", UlogaSelect);
 			korisnici.removeIf(k -> !k.getUloga().name().equalsIgnoreCase(UlogaSelect));
 		}
+
+		if (!SortirajPoSelect.equals("nista")) {
+			Comparator<Korisnik> comparator = null;
+
+			switch (SortirajPoSelect) {
+			case "korisnickoIme":
+				comparator = Comparator.comparing((Korisnik korisnik) -> korisnik.getKorisnickoIme(),
+						String.CASE_INSENSITIVE_ORDER);
+				break;
+
+			case "uloga":
+				comparator = Comparator.comparing((Korisnik korisnik) -> korisnik.getUloga().toString(),
+						String.CASE_INSENSITIVE_ORDER);
+				break;
+			default:
+				System.out.println("Nepoznata vrednost: " + SortirajPoSelect);
+				break;
+			}
+
+			if (comparator != null) {
+				if (SortOrderSelect.equalsIgnoreCase("opadajuce")) {
+					comparator = comparator.reversed();
+				}
+				korisnici.sort(comparator);
+			}
+
+		}
 		
-		
+		if (korisnici.isEmpty()) {
+			modelAndView.addObject("nemakorisnikaporuka", "Nema korisnika koji odgovaraju zadatim kriterijumima!");
+		}
+
 		modelAndView.addObject("korisnici", korisnici);
 		return modelAndView;
 	}

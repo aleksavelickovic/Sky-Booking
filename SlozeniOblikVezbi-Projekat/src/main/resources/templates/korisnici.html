@@ -62,6 +62,7 @@
         </select><input id="pretrazibtn" class="btn btn-primary d-block" type="submit" value="Pretrazi" />
     </form>
 </div>
+<h1 class="text-center mt-4 mb-4" data-aos="fade-up" data-aos-duration="950" th:text="${nemakorisnikaporuka}"></h1>
     <div class="row space-rows mt-4" th:each="itKorisnik, status: ${korisnici}">
         <div class="col" th:id="${itKorisnik.id}">
             <div class="card cards-shadown cards-hover" data-aos="flip-left" data-aos-duration="950">
