@@ -25,13 +25,13 @@
 <body style="background-color: #05dff3">
 <nav class="navbar navbar-expand-md bg-dark py-3" data-bs-theme="dark" th:include="header-footer :: navbar">></nav>
     <div class="container">
-        <form>
-            <input class="form-control" type="text" placeholder="Polaziste">
-            <input class="form-control" type="text" placeholder="Odredište">
+        <form action="/PrviMavenVebProjekat/filter" method="POST">
+            <input class="form-control" name="polaziste" type="text" placeholder="Polaziste">
+            <input class="form-control" name="odrediste" type="text" placeholder="Odredište">
             <input class="form-control" type="number" placeholder="Broj putnika">
             <p class="fs-6 fw-lighter lh-sm">Datum polaska:</p>
             <input class="form-control" type="date" placeholder="Datum polaska">
-            <input type="checkbox" id="slicniletovi" text="Trazi slicne letove" name="slicniletovi">
+            <input type="checkbox" id="slicniletovi" name="slicniletovi">
             <label class="form-label fw-bolder" for="slicniletovi">Trazi slicne letove</label>
             
             <p class="fs-6 fw-lighter lh-sm">Sortiraj po:</p>
@@ -50,6 +50,7 @@
             <input class="btn btn-primary d-block mt-2" type="submit" id="pretrazibtn" value="Pretrazi">
         </form>
     </div>
+    <h1 class="text-center mt-4 mb-4" data-aos="fade-up" data-aos-duration="950" th:text="${nemaletovaporuka}"></h1>
 	<div class="container py-4 py-xl-5" data-aos="flip-left" data-aos-duration="950" th:each="let : ${letovi}">
 		<div class="row gy-4 row-cols-1">
 			<div class="col">

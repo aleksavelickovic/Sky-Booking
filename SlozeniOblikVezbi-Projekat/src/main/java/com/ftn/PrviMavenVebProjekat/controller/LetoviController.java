@@ -1,6 +1,10 @@
 package com.ftn.PrviMavenVebProjekat.controller;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
@@ -12,7 +16,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -48,7 +54,6 @@ public class LetoviController implements ApplicationContextAware {
 	}
 
 	@GetMapping
-	@ResponseBody
 	public ModelAndView index() {
 
 		List<Let> letovi = service.findAll();
@@ -57,6 +62,34 @@ public class LetoviController implements ApplicationContextAware {
 		System.out.println(letovi);
 		return modelAndView;
 
+	}
+
+	@PostMapping(value = "/filter")
+
+	public ModelAndView filter(@RequestParam String polaziste, @RequestParam String odrediste) {
+		ModelAndView modelAndView = new ModelAndView("index");
+		List<Let> sviletovi = service.findAll();
+
+		if (polaziste != null && !polaziste.isEmpty()) {
+			System.out.println("POLAZISTE nije prazno");
+			sviletovi.removeIf(l -> !l.getPolaziste().getOznaka().equalsIgnoreCase(polaziste)
+					&& !l.getPolaziste().getLokacija().getGrad().equalsIgnoreCase(polaziste)
+					&& !l.getPolaziste().getLokacija().getDrzava().equalsIgnoreCase(polaziste));
+		}
+
+		if (odrediste != null && !odrediste.isEmpty()) {
+			System.out.println("ODREDISTE nije prazno");
+			sviletovi.removeIf(l -> !l.getOdrediste().getOznaka().equalsIgnoreCase(odrediste)
+					&& !l.getOdrediste().getLokacija().getGrad().equalsIgnoreCase(odrediste)
+					&& !l.getOdrediste().getLokacija().getDrzava().equalsIgnoreCase(odrediste));
+		}
+		
+		if(sviletovi.isEmpty()) {
+			modelAndView.addObject("nemaletovaporuka", "Nema letova koji odgovaraju zadatim kriterijumima!");
+		}
+		System.out.println("Letovi za prikaz: " + sviletovi);
+		modelAndView.addObject("letovi", sviletovi);
+		return modelAndView;
 	}
 
 }
