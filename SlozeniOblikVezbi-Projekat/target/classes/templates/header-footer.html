@@ -42,7 +42,7 @@
                 <ul class="navbar-nav me-auto">
                 	<p class="nav-item nav-link" th:if="${session.prijavljeniKorisnik != null}" th:text="${'Prijavljeni ste kao: ' + session.prijavljeniKorisnik.ime + ' ' + session.prijavljeniKorisnik.prezime}"></p>
                 	
-<a class="nav-item" th:if="${session.prijavljeniKorisnik != null && session.prijavljeniKorisnik.uloga.name() == 'ADMIN'}" th:href="@{admin.html}">Admin stranica</a>
+<a class="nav-item" th:if="${session.prijavljeniKorisnik != null && session.prijavljeniKorisnik.uloga.name() == 'ADMIN'}" th:href="@{/korisnici/admin}">Admin stranica</a>
 
                 	<li class="nav-item"><a class="nav-link active" th:if="${session.prijavljeniKorisnik != null}" th:href="@{/korisnici/logout}">Odjava</a></li>
                     <li class="nav-item"><a class="nav-link active" th:if="${session.prijavljeniKorisnik == null}" th:href="@{/korisnici/add}">Registracija</a></li>
@@ -60,7 +60,7 @@
         </div>
     </nav>
     <div class="me-4 mb-5"></div>
-    <footer class="text-center bg-dark" th:fragment="footer">
+    <footer class="text-center bg-dark fixed-bottom" th:fragment="footer">
         <div class="container text-white py-4 py-lg-5">
             <ul class="list-inline">
                 <li class="list-inline-item me-4"><a class="link-light" th:href="@{/korisnici/login}">Web design</a></li>

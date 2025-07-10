@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
+    <title>Web Programiranje</title>
+    <link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Titillium+Web:400,600,700}">
+    <link rel="stylesheet" th:href="@{/assets/css/aos.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Animation-Cards-_app.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Animation-Cards.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Button-Change-Text-on-Hover.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/button-materialize-materialize.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/button-materialize.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Button-Ripple-Effect-Animation-Wave-Pulse.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Footer-Multi-Column-icons.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Google-Style-Login-.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Growing-Search-Bar-Animated-Text-Input.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Overlay-Login-Form.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Search-Input-responsive.css}">
+</head>
+
+<body style="background-color: #05dff3;">
+    <nav class="navbar navbar-expand-md bg-dark py-3" data-bs-theme="dark" th:include="header-footer :: navbar"></nav>
+    <div class="m-5">
+        <div class="text-center m-3" data-aos="flip-right" data-aos-duration="1500">
+            <a th:href="@{/lokacije}" class="waves-effect waves-light btn btn-lg">Prikaži sve lokacije</a>
+        </div>
+        <div class="text-center m-3" data-aos="flip-right" data-aos-duration="1500">
+            <a th:href="@{/lokacije/add}" class="waves-effect waves-light btn btn-lg">Dodaj novu lokaciju</a>
+        </div>
+        <div class="text-center m-3" data-aos="flip-left" data-aos-duration="1500">
+            <a th:href="@{/korisnici}" class="waves-effect waves-light btn btn-lg">Prikaži sve korisnike</a>
+        </div>
+        <div class="text-center m-3" data-aos="flip-left" data-aos-duration="1500">
+            <a th:href="@{/korisnici/add}" class="waves-effect waves-light btn btn-lg">Registracija korisnika</a>
+        </div>
+    </div>
+    <footer class="text-center bg-dark" th:include="header-footer :: footer"></footer>
+    <script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="@{/assets/js/aos.min.js}"></script>
+    <script th:src="@{/assets/js/bs-init.js}"></script>
+    <script th:src="@{/assets/js/button-materialize-materialize.min.js}"></script>
+    <script th:src="@{/assets/js/Button-Ripple-Effect-Animation-Wave-Pulse-button-ripple-effect.js}"></script>
+</body>
+
+</html>

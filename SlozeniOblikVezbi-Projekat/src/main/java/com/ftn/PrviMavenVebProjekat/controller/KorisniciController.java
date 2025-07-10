@@ -103,7 +103,9 @@ public class KorisniciController implements ApplicationContextAware {
 				return modelAndView;
 			}
 		}
-		service.save(new Korisnik(korime, lozinka, email, ime, prezime, Date.valueOf(datumrodjenja), // TODO validacija za datum ne radi!
+		service.save(new Korisnik(korime, lozinka, email, ime, prezime, Date.valueOf(datumrodjenja), // TODO validacija
+																										// za datum ne
+																										// radi!
 				Timestamp.valueOf(LocalDateTime.now().withNano(0)), Uloga.PUTNIK));
 		response.sendRedirect(bURL + "korisnici/login");
 		return null;
@@ -176,5 +178,11 @@ public class KorisniciController implements ApplicationContextAware {
 		session.invalidate();
 		System.out.println("Korisnik je odjavljen!");
 		response.sendRedirect(bURL);
+	}
+
+	@GetMapping(value = "/admin")
+	public ModelAndView admin() {
+		ModelAndView modelAndView = new ModelAndView("admin");
+		return modelAndView;
 	}
 }

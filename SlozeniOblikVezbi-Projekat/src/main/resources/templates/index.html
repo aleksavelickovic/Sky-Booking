@@ -26,7 +26,7 @@
 </head>
 
 <body style="background-color: #05dff3">
-<nav class="navbar navbar-expand-md bg-dark py-3" data-bs-theme="dark" th:include="header-footer :: navbar">></nav>
+<nav class="navbar navbar-expand-md bg-dark py-3" data-bs-theme="dark" th:include="header-footer :: navbar"></nav>
     <div class="container">
         <form action="/PrviMavenVebProjekat/filter" method="POST">
             <input class="form-control" name="polaziste" type="text" th:value="${polaziste}" placeholder="Polaziste">
