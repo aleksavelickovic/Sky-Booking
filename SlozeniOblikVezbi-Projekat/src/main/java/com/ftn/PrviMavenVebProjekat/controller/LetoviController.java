@@ -1,5 +1,6 @@
 package com.ftn.PrviMavenVebProjekat.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -65,8 +66,10 @@ public class LetoviController implements ApplicationContextAware {
 	}
 
 	@PostMapping(value = "/filter")
-
-	public ModelAndView filter(@RequestParam String polaziste, @RequestParam String odrediste) {
+	public ModelAndView filter(@RequestParam String polaziste, @RequestParam String odrediste,
+			@RequestParam(required = false) String datumPolaska,
+			@RequestParam(required = false) String traziSlicneLetove) {
+		System.out.println(datumPolaska);
 		ModelAndView modelAndView = new ModelAndView("index");
 		List<Let> sviletovi = service.findAll();
 
@@ -83,8 +86,29 @@ public class LetoviController implements ApplicationContextAware {
 					&& !l.getOdrediste().getLokacija().getGrad().equalsIgnoreCase(odrediste)
 					&& !l.getOdrediste().getLokacija().getDrzava().equalsIgnoreCase(odrediste));
 		}
-		
-		if(sviletovi.isEmpty()) {
+
+		if (!datumPolaska.equals("")) {
+			System.out.println("DATUM POLASKA nije prazan");
+			LocalDate polazak = LocalDate.parse(datumPolaska);
+			System.out.println(datumPolaska);
+			if (traziSlicneLetove != null) {
+				System.out.println("SLICNILETOVI JE cekirano");
+				sviletovi.removeIf(l -> !l.getTerminPolaska().toLocalDate().isEqual(polazak)
+						&& !l.getTerminPolaska().toLocalDate().isEqual(polazak.plusDays(1))
+						&& !l.getTerminPolaska().toLocalDate().isEqual(polazak.plusDays(2))
+						&& !l.getTerminPolaska().toLocalDate().isEqual(polazak.minusDays(1))
+						&& !l.getTerminPolaska().toLocalDate().isEqual(polazak.minusDays(2)));
+
+//				sviletovi.removeIf(l -> !l.getTerminPolaska().toLocalDate().isEqual(polazak)
+//						&& !l.getTerminPolaska().toLocalDate().isEqual(polazak.plusDays(2))
+//						&& !l.getTerminPolaska().toLocalDate().isEqual(polazak.minusDays(2)));
+
+			} else {
+				sviletovi.removeIf(l -> !l.getTerminPolaska().toLocalDate().isEqual(polazak));
+			}
+		}
+
+		if (sviletovi.isEmpty()) {
 			modelAndView.addObject("nemaletovaporuka", "Nema letova koji odgovaraju zadatim kriterijumima!");
 		}
 		System.out.println("Letovi za prikaz: " + sviletovi);

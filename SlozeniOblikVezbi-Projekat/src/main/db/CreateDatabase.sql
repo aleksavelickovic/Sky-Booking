@@ -21,7 +21,8 @@ INSERT INTO lokacije (Grad, Drzava, Kontinent) VALUES
 ('Pariz', 'Francuska', 'Evropa'),
 ('Kejp Taun', 'Južnoafrička Republika', 'Afrika'),
 ('Auckland', 'Novi Zeland', 'Okeanija'),
-('McMurdo Station', 'Antarktik', 'Antartika');
+('McMurdo Station', 'Antarktik', 'Antartika'),
+('Washington', 'Sjedinjene Američke Države', 'Amerika');
 
 SELECT * FROM lokacije l
 ORDER BY l.id;
@@ -69,6 +70,7 @@ CREATE TABLE aerodromi (
 INSERT INTO aerodromi (oznaka, lokacijaId) VALUES
 ('BEG', 1),  -- Beograd
 ('JFK', 2),  -- New York
+('FKN', 2),  -- New York
 ('HND', 3),  -- Tokio
 ('SYD', 4),  -- Sidnej
 ('CAI', 5),  -- Kairo
@@ -76,7 +78,8 @@ INSERT INTO aerodromi (oznaka, lokacijaId) VALUES
 ('CDG', 7),  -- Pariz
 ('CPT', 8),  -- Kejp Taun
 ('AKL', 9),  -- Auckland
-('MCM', 10); -- McMurdo Station (fictional IATA code)
+('MCM', 10), -- McMurdo Station (fictional IATA code)
+('WSG', 11); -- Washinton
 
 SELECT * FROM aerodromi a
 ORDER BY a.id;
@@ -123,7 +126,9 @@ INSERT INTO letovi (oznaka, polazisteId, odredisteId, avionId, terminPolaska, tr
 ('FL007', 9, 3, 2, '2025-07-16 12:00:00', 840, 55000, FALSE),
 ('FL008', 10, 4, 3, '2025-07-17 05:45:00', 540, 38000, FALSE),
 ('FL009', 2, 4, 1, '2025-07-18 19:20:00', 420, 30000, FALSE),
-('FL010', 1, 9, 2, '2025-07-19 07:10:00', 720, 47000, FALSE);
+('FL010', 1, 9, 2, '2025-07-19 07:10:00', 720, 47000, FALSE),
+('FL011', 1, 2, 1, '2025-07-16 08:30:00', 600, 40000, TRUE),
+('FL012', 1, 12, 1, '2025-07-16 08:30:00', 600, 40000, TRUE);
 
 SELECT * FROM letovi lt
 ORDER BY lt.id;
