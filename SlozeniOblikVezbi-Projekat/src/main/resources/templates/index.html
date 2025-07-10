@@ -26,12 +26,12 @@
 <nav class="navbar navbar-expand-md bg-dark py-3" data-bs-theme="dark" th:include="header-footer :: navbar">></nav>
     <div class="container">
         <form action="/PrviMavenVebProjekat/filter" method="POST">
-            <input class="form-control" name="polaziste" type="text" placeholder="Polaziste">
-            <input class="form-control" name="odrediste" type="text" placeholder="Odredište">
+            <input class="form-control" name="polaziste" type="text" th:value="${polaziste}" placeholder="Polaziste">
+            <input class="form-control" name="odrediste" type="text" th:value="${odrediste}"placeholder="Odredište">
             <input class="form-control" type="number" placeholder="Broj putnika">
             <p class="fs-6 fw-lighter lh-sm">Datum polaska:</p>
-            <input class="form-control" name="datumPolaska" type="date" placeholder="Datum polaska">
-            <input type="checkbox" id="traziSlicneLetove" name="traziSlicneLetove">
+            <input class="form-control" name="datumPolaska" th:value="${datumPolaska}" type="date" placeholder="Datum polaska">
+            <input type="checkbox" id="traziSlicneLetove" th:checked="${slicnicekirano}" name="traziSlicneLetove">
             <label class="form-label fw-bolder" for="traziSlicneLetove">Trazi letove blizu ovog datuma</label>
             
             <p class="fs-6 fw-lighter lh-sm">Sortiraj po:</p>

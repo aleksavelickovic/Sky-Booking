@@ -79,6 +79,7 @@ public class LetoviController implements ApplicationContextAware {
 
 		if (polaziste != null && !polaziste.isEmpty()) {
 			System.out.println("POLAZISTE nije prazno");
+			modelAndView.addObject("polaziste", polaziste);
 			sviletovi.removeIf(l -> !l.getPolaziste().getOznaka().equalsIgnoreCase(polaziste)
 					&& !l.getPolaziste().getLokacija().getGrad().equalsIgnoreCase(polaziste)
 					&& !l.getPolaziste().getLokacija().getDrzava().equalsIgnoreCase(polaziste));
@@ -86,6 +87,7 @@ public class LetoviController implements ApplicationContextAware {
 
 		if (odrediste != null && !odrediste.isEmpty()) {
 			System.out.println("ODREDISTE nije prazno");
+			modelAndView.addObject("odrediste", odrediste);
 			sviletovi.removeIf(l -> !l.getOdrediste().getOznaka().equalsIgnoreCase(odrediste)
 					&& !l.getOdrediste().getLokacija().getGrad().equalsIgnoreCase(odrediste)
 					&& !l.getOdrediste().getLokacija().getDrzava().equalsIgnoreCase(odrediste));
@@ -93,10 +95,12 @@ public class LetoviController implements ApplicationContextAware {
 
 		if (!datumPolaska.equals("")) {
 			System.out.println("DATUM POLASKA nije prazan");
+			modelAndView.addObject("datumPolaska", datumPolaska);
 			LocalDate polazak = LocalDate.parse(datumPolaska);
 			System.out.println(datumPolaska);
 			if (traziSlicneLetove != null) {
 				System.out.println("SLICNILETOVI JE cekirano");
+				modelAndView.addObject("slicnicekirano", true);
 				sviletovi.removeIf(l -> !l.getTerminPolaska().toLocalDate().isEqual(polazak)
 						&& !l.getTerminPolaska().toLocalDate().isEqual(polazak.plusDays(1))
 						&& !l.getTerminPolaska().toLocalDate().isEqual(polazak.plusDays(2))
