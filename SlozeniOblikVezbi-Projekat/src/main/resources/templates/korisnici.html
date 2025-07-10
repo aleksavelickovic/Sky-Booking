@@ -39,15 +39,36 @@
 </head>
 
 <body style="background-color: #05dff3;">
-<nav class="navbar navbar-expand-md bg-dark py-3" data-bs-theme="dark" th:include="header-footer :: navbar">></nav>
-	<!-- <h1>Izmena i brisanje jos nije implementirano!</h1> --> 
+<nav class="navbar navbar-expand-md bg-dark py-3" data-bs-theme="dark" th:include="header-footer :: navbar"></nav>
+<div class="container">
+    <form action="/PrviMavenVebProjekat/korisnici/filter" method="POST"><input class="form-control" type="text" name="korImeInput" th:value="${korImeInput}" placeholder="Korisnicko Ime" />
+        <p class="fs-6 fw-lighter lh-sm">Uloga:</p><select class="form-select mb-2" name="UlogaSelect" style="background-color: #05dff3;border-color: #000;border-width: 2px;color: #000;">
+				 <option value="nista" th:selected="${UlogaSelect == 'nista' || UlogaSelect == null}">Izaberite opciju...</option>           
+                <option value="putnik" th:selected="${UlogaSelect == 'putnik'}">PUTNIK</option>
+                <option value="admin" th:selected="${UlogaSelect == 'admin'}">ADMIN</option>
+ 
+        </select>
+        <p class="fs-6 fw-lighter lh-sm">Sortiraj po:</p><select class="form-select mb-2" name="SortirajPoSelect" style="background-color: #05dff3;border-color: #000;border-width: 2px;color: #000;">
+        
+	            <option value="nista" selected>Izaberite opciju...</option>
+                <option value="korisnickoIme" >Korisnickom imenu</option>
+                <option value="uloga">Ulozi</option>
+                
+        </select><select class="form-select mb-2" name="SortOrderSelect" style="background-color: #05dff3;border-color: #000;border-width: 2px;color: #000;">
+        
+                <option value="rastuce" selected>Rastuce</option>
+                <option value="opadajuce">Opadajuce</option>
+
+        </select><input id="pretrazibtn" class="btn btn-primary d-block" type="submit" value="Pretrazi" />
+    </form>
+</div>
     <div class="row space-rows mt-4" th:each="itKorisnik, status: ${korisnici}">
         <div class="col" th:id="${itKorisnik.id}">
             <div class="card cards-shadown cards-hover" data-aos="flip-left" data-aos-duration="950">
                 <div class="card-header" style="height: 345px;">
                     <div class="cardheader-text">
                     	<div class="mb-3"></div>
-                        <h4 id="heading-card-1" class="inlajn" th:text="${'Korisnik broj: ' + (status.index + 1) + ' '}"></h4>
+                        <h4 id="heading-card-1" class="inlajn" th:text="${'Korisnik broj: ' + (itKorisnik.id) + ' '}"></h4>
                         <h4 id="heading-card-1" class="inlajn" th:if="${itKorisnik.blokiran}" th:text="${' (BLOKIRAN!)'}"></h4>
                         <!-- <h4 id="heading-card-1" th:text="${itKorisnik.blokiran} ? 'Korisnik broj: ' + (status.index + 1) + '(BLOKIRAN!)' : 'Korisnik broj: ' + (status.index + 1)"></h4> -->                      		
                         <p id="cardheader-subtext-1" class="mt-3" th:text="${'Korisnicko Ime: ' + itKorisnik.korisnickoIme}"></p>

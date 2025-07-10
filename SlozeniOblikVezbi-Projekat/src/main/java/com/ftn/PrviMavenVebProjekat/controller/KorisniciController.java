@@ -185,4 +185,28 @@ public class KorisniciController implements ApplicationContextAware {
 		ModelAndView modelAndView = new ModelAndView("admin");
 		return modelAndView;
 	}
+
+	@PostMapping(value = "/filter")
+	public ModelAndView filter(@RequestParam String korImeInput, @RequestParam String UlogaSelect,
+			@RequestParam String SortirajPoSelect, @RequestParam String SortOrderSelect) {
+		ModelAndView modelAndView = new ModelAndView("korisnici");
+		List<Korisnik> korisnici = service.findAll();
+		
+		System.out.println("Korisnicko ime:" +  korImeInput);
+		if (korImeInput != "") {
+			System.out.println("KORISNICKOIME JE uneseno");
+			modelAndView.addObject("korImeInput", korImeInput);
+			korisnici.removeIf(k -> !k.getKorisnickoIme().equals(korImeInput));
+		}
+		
+		if (!UlogaSelect.equals("nista")) {
+			System.out.println("ULOGA JE unesena");
+			modelAndView.addObject("UlogaSelect", UlogaSelect);
+			korisnici.removeIf(k -> !k.getUloga().name().equalsIgnoreCase(UlogaSelect));
+		}
+		
+		
+		modelAndView.addObject("korisnici", korisnici);
+		return modelAndView;
+	}
 }
