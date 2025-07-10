@@ -3,6 +3,8 @@ package com.ftn.PrviMavenVebProjekat.controller;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -10,6 +12,7 @@ import java.util.ListIterator;
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
 
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -68,7 +71,8 @@ public class LetoviController implements ApplicationContextAware {
 	@PostMapping(value = "/filter")
 	public ModelAndView filter(@RequestParam String polaziste, @RequestParam String odrediste,
 			@RequestParam(required = false) String datumPolaska,
-			@RequestParam(required = false) String traziSlicneLetove) {
+			@RequestParam(required = false) String traziSlicneLetove, @RequestParam String sortiranjePolje,
+			@RequestParam String sortiranjeRedosled) {
 		System.out.println(datumPolaska);
 		ModelAndView modelAndView = new ModelAndView("index");
 		List<Let> sviletovi = service.findAll();
@@ -105,6 +109,40 @@ public class LetoviController implements ApplicationContextAware {
 
 			} else {
 				sviletovi.removeIf(l -> !l.getTerminPolaska().toLocalDate().isEqual(polazak));
+			}
+		}
+
+		if (!sortiranjePolje.equals("nista")) {
+			Comparator<Let> comparator = null;
+
+			switch (sortiranjePolje) {
+			case "polaziste":
+				comparator = Comparator
+						.comparing((Let let) -> let.getPolaziste().getOznaka(), String.CASE_INSENSITIVE_ORDER)
+						.thenComparing(let -> let.getPolaziste().getLokacija().getGrad(), String.CASE_INSENSITIVE_ORDER)
+						.thenComparing(let -> let.getPolaziste().getLokacija().getDrzava(),
+								String.CASE_INSENSITIVE_ORDER);
+				break;
+			case "odrediste":
+				comparator = Comparator
+						.comparing((Let let) -> let.getOdrediste().getOznaka(), String.CASE_INSENSITIVE_ORDER)
+						.thenComparing(let -> let.getOdrediste().getLokacija().getGrad(), String.CASE_INSENSITIVE_ORDER)
+						.thenComparing(let -> let.getOdrediste().getLokacija().getDrzava(),
+								String.CASE_INSENSITIVE_ORDER);
+				break;
+			case "terminPolaska":
+				comparator = Comparator.comparing(Let::getTerminPolaska);
+				break;
+			default:
+				System.out.println("Nepoznata vrednost sortiranjePolje: " + sortiranjePolje);
+				break;
+			}
+
+			if (comparator != null) {
+				if (sortiranjeRedosled.equalsIgnoreCase("opadajuce")) {
+					comparator = comparator.reversed();
+				}
+				sviletovi.sort(comparator);
 			}
 		}
 
