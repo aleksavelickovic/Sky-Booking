@@ -187,25 +187,41 @@ public class KorisniciController implements ApplicationContextAware {
 		return modelAndView;
 	}
 
+	/**
+	 * Metoda za filtriranje korisnika na osnovu unetih kriterijuma.
+	 * 
+	 * @param korImeInput      - Korisničko ime koje se koristi za filtriranje
+	 *                         korisnika.
+	 * @param UlogaSelect      - Uloga korisnika koja se koristi za filtriranje
+	 *                         (npr. PUTNIK, ADMIN).
+	 * @param SortirajPoSelect - Polje po kojem se vrši sortiranje (npr. korisničko
+	 *                         ime, uloga).
+	 * @param SortOrderSelect  - Redosled sortiranja (rastuce ili opadajuce).
+	 * @return ModelAndView - Model i prikaz sa filtriranim korisnicima.
+	 */
 	@PostMapping(value = "/filter")
 	public ModelAndView filter(@RequestParam String korImeInput, @RequestParam String UlogaSelect,
 			@RequestParam String SortirajPoSelect, @RequestParam String SortOrderSelect) {
 		ModelAndView modelAndView = new ModelAndView("korisnici");
 		List<Korisnik> korisnici = service.findAll();
 
+		// Ispis unetog korisničkog imena za filtriranje
 		System.out.println("Korisnicko ime:" + korImeInput);
 		if (korImeInput != "") {
+			// Dodavanje korisničkog imena u model i filtriranje liste korisnika
 			System.out.println("KORISNICKOIME JE uneseno");
 			modelAndView.addObject("korImeInput", korImeInput);
 			korisnici.removeIf(k -> !k.getKorisnickoIme().contains(korImeInput));
 		}
 
+		// Filtriranje korisnika na osnovu uloge
 		if (!UlogaSelect.equals("nista")) {
 			System.out.println("ULOGA JE unesena");
 			modelAndView.addObject("UlogaSelect", UlogaSelect);
 			korisnici.removeIf(k -> !k.getUloga().name().equalsIgnoreCase(UlogaSelect));
 		}
 
+		// Sortiranje korisnika na osnovu izabranog polja i redosleda
 		if (!SortirajPoSelect.equals("nista")) {
 			Comparator<Korisnik> comparator = null;
 
@@ -214,7 +230,6 @@ public class KorisniciController implements ApplicationContextAware {
 				comparator = Comparator.comparing((Korisnik korisnik) -> korisnik.getKorisnickoIme(),
 						String.CASE_INSENSITIVE_ORDER);
 				break;
-
 			case "uloga":
 				comparator = Comparator.comparing((Korisnik korisnik) -> korisnik.getUloga().toString(),
 						String.CASE_INSENSITIVE_ORDER);
@@ -223,7 +238,6 @@ public class KorisniciController implements ApplicationContextAware {
 				System.out.println("Nepoznata vrednost: " + SortirajPoSelect);
 				break;
 			}
-
 			if (comparator != null) {
 				if (SortOrderSelect.equalsIgnoreCase("opadajuce")) {
 					comparator = comparator.reversed();
@@ -232,12 +246,13 @@ public class KorisniciController implements ApplicationContextAware {
 			}
 
 		}
-		
+		// Dodavanje poruke u model ako nema korisnika koji odgovaraju kriterijumima
 		if (korisnici.isEmpty()) {
 			modelAndView.addObject("nemakorisnikaporuka", "Nema korisnika koji odgovaraju zadatim kriterijumima!");
 		}
-
+		// Dodavanje filtriranih korisnika u model
 		modelAndView.addObject("korisnici", korisnici);
 		return modelAndView;
 	}
+
 }
