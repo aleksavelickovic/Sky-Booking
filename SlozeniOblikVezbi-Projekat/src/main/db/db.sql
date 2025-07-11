@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `webprojekat` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `webprojekat`;
 -- MySQL dump 10.13  Distrib 8.4.5, for Linux (x86_64)
 --
 -- Host: localhost    Database: webprojekat
@@ -29,7 +31,7 @@ CREATE TABLE `aerodromi` (
   PRIMARY KEY (`id`),
   KEY `lokacijaId` (`lokacijaId`),
   CONSTRAINT `aerodromi_ibfk_1` FOREIGN KEY (`lokacijaId`) REFERENCES `lokacije` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +40,7 @@ CREATE TABLE `aerodromi` (
 
 LOCK TABLES `aerodromi` WRITE;
 /*!40000 ALTER TABLE `aerodromi` DISABLE KEYS */;
-INSERT INTO `aerodromi` VALUES (1,'BEG',1),(2,'JFK',2),(3,'HND',3),(4,'SYD',4),(5,'CAI',5),(6,'EZE',6),(7,'CDG',7),(8,'CPT',8),(9,'AKL',9),(10,'MCM',10);
+INSERT INTO `aerodromi` VALUES (1,'BEG',1),(2,'JFK',2),(3,'FKN',2),(4,'HND',3),(5,'SYD',4),(6,'CAI',5),(7,'EZE',6),(8,'CDG',7),(9,'CPT',8),(10,'AKL',9),(11,'MCM',10),(12,'WSG',11);
 /*!40000 ALTER TABLE `aerodromi` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -101,6 +103,43 @@ INSERT INTO `korisnici` VALUES (1,'pera','pera123','petar.petrovic@gmail.com','P
 UNLOCK TABLES;
 
 --
+-- Table structure for table `letovi`
+--
+
+DROP TABLE IF EXISTS `letovi`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `letovi` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `oznaka` varchar(100) NOT NULL,
+  `polazisteId` bigint NOT NULL,
+  `odredisteId` bigint NOT NULL,
+  `avionId` bigint NOT NULL,
+  `terminPolaska` datetime NOT NULL,
+  `trajanjeLeta` int NOT NULL,
+  `cena` int NOT NULL,
+  `naAkciji` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `polazisteId` (`polazisteId`),
+  KEY `odredisteId` (`odredisteId`),
+  KEY `avionId` (`avionId`),
+  CONSTRAINT `letovi_ibfk_1` FOREIGN KEY (`polazisteId`) REFERENCES `aerodromi` (`id`),
+  CONSTRAINT `letovi_ibfk_2` FOREIGN KEY (`odredisteId`) REFERENCES `aerodromi` (`id`),
+  CONSTRAINT `letovi_ibfk_3` FOREIGN KEY (`avionId`) REFERENCES `avioni` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `letovi`
+--
+
+LOCK TABLES `letovi` WRITE;
+/*!40000 ALTER TABLE `letovi` DISABLE KEYS */;
+INSERT INTO `letovi` VALUES (1,'FL001',1,2,1,'2025-07-15 08:30:00',600,40000,1),(2,'FL002',2,3,2,'2025-07-16 12:00:00',840,55000,1),(3,'FL003',3,4,3,'2025-07-17 05:45:00',540,38000,1),(4,'FL004',4,5,1,'2025-07-18 19:20:00',420,30000,0),(5,'FL005',5,6,2,'2025-07-19 07:10:00',720,47000,1),(6,'FL006',8,2,1,'2025-07-15 08:30:00',600,40000,0),(7,'FL007',9,3,2,'2025-07-16 12:00:00',840,55000,0),(8,'FL008',10,4,3,'2025-07-17 05:45:00',540,38000,0),(9,'FL009',2,4,1,'2025-07-18 19:20:00',420,30000,0),(10,'FL010',1,9,2,'2025-07-19 07:10:00',720,47000,0),(11,'FL011',1,2,1,'2025-07-16 08:30:00',600,40000,0),(12,'FL012',1,12,1,'2025-07-16 08:30:00',600,40000,0);
+/*!40000 ALTER TABLE `letovi` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `lokacije`
 --
 
@@ -113,7 +152,7 @@ CREATE TABLE `lokacije` (
   `Drzava` varchar(100) NOT NULL,
   `Kontinent` enum('Evropa','Amerika','Azija','Australija','Afrika','Antartika','Okeanija') DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -122,7 +161,7 @@ CREATE TABLE `lokacije` (
 
 LOCK TABLES `lokacije` WRITE;
 /*!40000 ALTER TABLE `lokacije` DISABLE KEYS */;
-INSERT INTO `lokacije` VALUES (1,'Beograd','Srbija','Evropa'),(2,'New York','Sjedinjene Američke Države','Amerika'),(3,'Tokio','Japan','Azija'),(4,'Sidnej','Australija','Australija'),(5,'Kairo','Egipat','Afrika'),(6,'Buenos Aires','Argentina','Amerika'),(7,'Pariz','Francuska','Evropa'),(8,'Kejp Taun','Južnoafrička Republika','Afrika'),(9,'Auckland','Novi Zeland','Okeanija'),(10,'McMurdo Station','Antarktik','Antartika');
+INSERT INTO `lokacije` VALUES (1,'Beograd','Srbija','Evropa'),(2,'New York','Sjedinjene Američke Države','Amerika'),(3,'Tokio','Japan','Azija'),(4,'Sidnej','Australija','Australija'),(5,'Kairo','Egipat','Afrika'),(6,'Buenos Aires','Argentina','Amerika'),(7,'Pariz','Francuska','Evropa'),(8,'Kejp Taun','Južnoafrička Republika','Afrika'),(9,'Auckland','Novi Zeland','Okeanija'),(10,'McMurdo Station','Antarktik','Antartika'),(11,'Washington','Sjedinjene Američke Države','Amerika');
 /*!40000 ALTER TABLE `lokacije` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -135,4 +174,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-07-09  3:17:32
+-- Dump completed on 2025-07-11  5:15:12
