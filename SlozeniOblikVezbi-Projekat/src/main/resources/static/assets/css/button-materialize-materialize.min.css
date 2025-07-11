@@ -6237,7 +6237,7 @@ input[type=checkbox]:not(:disabled) ~ .lever:active:after, input[type=checkbox]:
 }
 
 select {
-  display: none;
+  /* display: none; */
 }
 
 select.browser-default {
