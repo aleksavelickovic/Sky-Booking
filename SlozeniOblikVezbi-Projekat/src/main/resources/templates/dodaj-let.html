@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Cache-Control"
+	content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<title>Dodaj let</title>
+<!-- <link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Titillium+Web:400,600,700}">
+    <link rel="stylesheet" th:href="@{/assets/css/aos.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Animation-Cards-_app.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Animation-Cards.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Button-Change-Text-on-Hover.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/button-materialize-materialize.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/button-materialize.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Button-Ripple-Effect-Animation-Wave-Pulse.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Overlay-Login-Form.css}">
+    <base th:href="@{/}"> -->
+<style>
+.floating-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+       	z-index: 1000;
+       	width: 300px;
+    }
+    button {
+        width: 100%;
+        background-color: #003366;
+        color: #ffffff;
+        padding: 12px;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      button:hover {
+        background-color: #fafbfc;
+        color: black;
+        border: 0.1px solid black;
+      }
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f4f4f9;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+
+form {
+	background-color: #ffffff;
+	border: 1px solid #dddddd;
+	border-radius: 8px;
+	padding: 20px 30px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	width: 300px;
+}
+
+label {
+	display: block;
+	margin-bottom: 8px;
+	font-weight: bold;
+}
+
+input[type="text"], select {
+	width: 100%;
+	padding: 8px;
+	margin-bottom: 16px;
+	border: 1px solid #cccccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+}
+
+input[type="submit"] {
+	background-color: #003366;
+	color: #ffffff;
+	padding: 10px 15px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	width: 100%;
+	font-size: 16px;
+	transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+	background-color: #fafbfc;
+	color: black;
+	border: 0.1px solid black;
+}
+@keyframes flip-left {
+        0% {
+            transform: perspective(400px) rotateY(180deg);
+        }
+        100% {
+            transform: perspective(400px) rotateY(0deg);
+        }
+    }
+
+    .flip-left {
+        animation: flip-left 1s;
+        backface-visibility: hidden;
+    }
+</style>
+</head>
+<body style="background-color: #05dff3;">
+	<!-- <nav class="navbar navbar-expand-md bg-dark py-3" data-bs-theme="dark" th:include="header-footer :: navbar">></nav> -->
+	<form class="flip-left" action="/PrviMavenVebProjekat/letovi/add"
+		method="post">
+		<label for="oznaka">Jedinstvena troslovna oznaka:</label> <input type="text" name="oznaka"
+			id="oznaka" /> <label for="polazak">Datum I Vreme polaska:</label> <input type="datetime-local"
+			name="polazak" id="polazak" /> <label for="trajanje">Trajanje leta u minutima:</label>
+			
+			<input type="number" name="trajanje" id="trajanje" />
+			<label for="cena">Cena:</label> <input type="number" name="cena" id="cena" />
+			<label for="polaziste">Polazište:</label> 
+			<select name="polaziste" id="polaziste">
+				<option value=-1>Izaberite aerodrom...</option>
+				<option th:each="aerodrom : ${aerodromi}" th:value="${aerodrom.id}"
+                    th:text="${aerodrom.oznaka} + ', ' + ${aerodrom.lokacija.grad} + ', ' + ${aerodrom.lokacija.drzava}"></option>
+				
+			</select>
+			
+			<label for="odrediste">Odrediste:</label> 
+			<select name="odrediste" id="odrediste">
+				<option value=-1>Izaberite aerodrom...</option>
+				<option th:each="aerodrom : ${aerodromi}" th:value="${aerodrom.id}"
+                    th:text="${aerodrom.oznaka} + ', ' + ${aerodrom.lokacija.grad} + ', ' + ${aerodrom.lokacija.drzava}"></option>
+				
+			</select>
+			
+			<label for="avion">Avion:</label>
+			<select name="avion" id="avion">
+				<option value=-1>Izaberite avion...</option>
+				<option th:each="avion : ${avioni}" th:value="${avion.id}" th:text="${avion.naziv}">
+				</option>
+				</select>
+		
+			
+	<!-- <select name="kontinent" id="kontinent">
+			<option value="Evropa">Evropa</option>
+			<option value="Amerika">Amerika</option>
+			<option value="Azija">Azija</option>
+			<option value="Australija">Australija</option>
+			<option value="Afrika">Afrika</option>
+			<option value="Antartika">Antartika</option>
+			<option value="Okeanija">Okeanija</option>
+		</select> <input type="submit" value="Potvrdi"> -->	
+	</form>
+	<a th:href="@{/}">
+		<button class="button floating-button" type="button">Nazad</button>
+	</a>
+	<!-- <footer class="text-center bg-dark" th:include="header-footer :: footer"></footer>
+<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="@{/assets/js/aos.min.js}"></script>
+    <script th:src="@{/assets/js/bs-init.js}"></script>
+    <script th:src="@{/assets/js/button-materialize-materialize.min.js}"></script>
+    <script th:src="@{/assets/js/Button-Ripple-Effect-Animation-Wave-Pulse-button-ripple-effect.js}"></script> -->
+</body>
+</html>

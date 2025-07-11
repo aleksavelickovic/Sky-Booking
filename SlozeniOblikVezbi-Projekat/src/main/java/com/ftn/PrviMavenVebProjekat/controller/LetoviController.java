@@ -28,9 +28,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ftn.PrviMavenVebProjekat.bean.SecondConfiguration.ApplicationMemory;
+import com.ftn.PrviMavenVebProjekat.model.Aerodrom;
+import com.ftn.PrviMavenVebProjekat.model.Avion;
 import com.ftn.PrviMavenVebProjekat.model.Korisnik;
 import com.ftn.PrviMavenVebProjekat.model.Let;
 import com.ftn.PrviMavenVebProjekat.model.Lokacija;
+import com.ftn.PrviMavenVebProjekat.service.AerodromiService;
+import com.ftn.PrviMavenVebProjekat.service.AvioniService;
 import com.ftn.PrviMavenVebProjekat.service.LetoviService;
 import com.ftn.PrviMavenVebProjekat.service.LokacijaService;
 import com.mysql.cj.Session;
@@ -48,6 +52,10 @@ public class LetoviController implements ApplicationContextAware {
 
 	@Autowired
 	private LetoviService service;
+	@Autowired
+	private AerodromiService aerodromiService;
+	@Autowired
+	private AvioniService avioniService;
 
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
@@ -74,6 +82,18 @@ public class LetoviController implements ApplicationContextAware {
 		System.out.println(letovi);
 		return modelAndView;
 
+	}
+
+	@GetMapping(value = "/letovi/add")
+	public ModelAndView add() {
+		ModelAndView modelAndView = new ModelAndView("dodaj-let");
+		List<Aerodrom> aerodrmi = aerodromiService.findAll();
+		List<Avion> avioni = avioniService.findAll();
+
+		modelAndView.addObject("aerodromi", aerodrmi);
+		modelAndView.addObject("avioni", avioni);
+
+		return modelAndView;
 	}
 
 	@PostMapping(value = "/filter")
