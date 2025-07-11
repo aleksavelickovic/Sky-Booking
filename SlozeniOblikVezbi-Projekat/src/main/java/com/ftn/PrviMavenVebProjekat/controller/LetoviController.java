@@ -60,7 +60,12 @@ public class LetoviController implements ApplicationContextAware {
 	@GetMapping
 	public ModelAndView index() {
 
-		List<Let> letovi = service.findAll();
+		ArrayList<Let> letovi = new ArrayList<Let>();
+		for (Let let : service.findAll()) {
+			if (let.getNaAkciji()) {
+				letovi.add(let);
+			}
+		}
 		ModelAndView modelAndView = new ModelAndView("index");
 		modelAndView.addObject("letovi", letovi);
 		System.out.println(letovi);
@@ -75,6 +80,7 @@ public class LetoviController implements ApplicationContextAware {
 			@RequestParam String sortiranjeRedosled) {
 		System.out.println(datumPolaska);
 		ModelAndView modelAndView = new ModelAndView("index");
+//		modelAndView.addObject("pretragaInicirana}", true);
 		List<Let> sviletovi = service.findAll();
 
 		if (polaziste != null && !polaziste.isEmpty()) {

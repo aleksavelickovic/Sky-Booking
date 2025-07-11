@@ -56,13 +56,13 @@
     </div>
     <h1 class="text-center mt-4 mb-4" data-aos="fade-up" data-aos-duration="950" th:text="${nemaletovaporuka}"></h1>
 	<div class="container py-4 py-xl-5" data-aos="flip-left" data-aos-duration="950" th:each="let : ${letovi}">
-		<div class="row gy-4 row-cols-1">
+		<div class="row gy-4 row-cols-1" >
 			<div class="col">
 				<div class="card" >
 					<img class="object-fit-cover card-img-top w-100 d-block" style="height: 200px;"
 						th:src="@{https://cdn.bootstrapstudio.io/placeholders/1400x800.png}">
 					<div class="card-body p-4">
-						<p class="text-primary mb-0 card-text">Akcija!</p>
+						<p class="text-primary mb-0 card-text" th:if="${let.naAkciji}">Akcija!</p>
 						<h4 class="card-title">Oznaka:&nbsp;<span th:text="${let.oznaka}"></span></h4>
 						<p class="card-text">Polaziste: <span th:text="${let.polaziste.oznaka}"></span></p>
 						<p class="card-text">Odrediste: <span th:text="${let.odrediste.oznaka}"></span></p>
