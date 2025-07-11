@@ -30,7 +30,9 @@
     <div class="container">
         <form action="/PrviMavenVebProjekat/filter" method="POST">
             <input class="form-control" name="polaziste" type="text" th:value="${polaziste}" placeholder="Polaziste">
-            <input class="form-control" name="odrediste" type="text" th:value="${odrediste}"placeholder="Odredište">
+            <input class="form-control" name="odrediste" type="text" th:value="${odrediste}" placeholder="Odredište">
+            <input class="form-control" name="oznakaleta" type="text" th:if="${session.prijavljeniKorisnik != null && session.prijavljeniKorisnik.uloga.name() == 'ADMIN'}"
+             th:value="${oznakaleta}" placeholder="Oznaka leta (Samo za administratore)">
             <input class="form-control" type="number" placeholder="Broj putnika">
             <p class="fs-6 fw-lighter lh-sm">Datum polaska:</p>
             <input class="form-control" name="datumPolaska" th:value="${datumPolaska}" type="date" placeholder="Datum polaska">

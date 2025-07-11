@@ -11,6 +11,7 @@ import java.util.ListIterator;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.BeansException;
@@ -27,10 +28,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ftn.PrviMavenVebProjekat.bean.SecondConfiguration.ApplicationMemory;
+import com.ftn.PrviMavenVebProjekat.model.Korisnik;
 import com.ftn.PrviMavenVebProjekat.model.Let;
 import com.ftn.PrviMavenVebProjekat.model.Lokacija;
 import com.ftn.PrviMavenVebProjekat.service.LetoviService;
 import com.ftn.PrviMavenVebProjekat.service.LokacijaService;
+import com.mysql.cj.Session;
 
 @Controller
 @RequestMapping(value = "/")
@@ -77,7 +80,8 @@ public class LetoviController implements ApplicationContextAware {
 	public ModelAndView filter(@RequestParam String polaziste, @RequestParam String odrediste,
 			@RequestParam(required = false) String datumPolaska,
 			@RequestParam(required = false) String traziSlicneLetove, @RequestParam String sortiranjePolje,
-			@RequestParam String sortiranjeRedosled) {
+			@RequestParam String sortiranjeRedosled, @RequestParam(required = false) String oznakaleta,
+			HttpSession session) {
 		System.out.println(datumPolaska);
 		ModelAndView modelAndView = new ModelAndView("index");
 //		modelAndView.addObject("pretragaInicirana}", true);
@@ -119,6 +123,16 @@ public class LetoviController implements ApplicationContextAware {
 
 			} else {
 				sviletovi.removeIf(l -> !l.getTerminPolaska().toLocalDate().isEqual(polazak));
+			}
+		}
+
+		if ((Korisnik) session.getAttribute(KorisniciController.KORISNIK_KEY) != null) {
+			if (((Korisnik) session.getAttribute(KorisniciController.KORISNIK_KEY)).getUloga().name().equals("ADMIN")
+					&& oznakaleta != null) {
+				System.out.println("OZNAKALETA JE cekirano");
+				modelAndView.addObject("oznakaleta", oznakaleta);
+
+				sviletovi.removeIf(l -> !l.getOznaka().contains(oznakaleta));
 			}
 		}
 
