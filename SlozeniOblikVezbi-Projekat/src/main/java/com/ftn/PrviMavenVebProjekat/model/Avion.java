@@ -15,6 +15,13 @@ public class Avion {
 		this.brojRedova = brojRedova;
 	}
 
+	public Avion(String naziv, int brojKolona, int brojRedova) {
+		super();
+		this.naziv = naziv;
+		this.brojKolona = brojKolona;
+		this.brojRedova = brojRedova;
+	}
+
 	public Long getId() {
 		return id;
 	}

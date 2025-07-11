@@ -13,6 +13,12 @@ public class Aerodrom {
 		this.lokacija = lokacija;
 	}
 
+	public Aerodrom(String oznaka, Lokacija lokacija) {
+		super();
+		this.oznaka = oznaka;
+		this.lokacija = lokacija;
+	}
+
 	public Long getId() {
 		return id;
 	}

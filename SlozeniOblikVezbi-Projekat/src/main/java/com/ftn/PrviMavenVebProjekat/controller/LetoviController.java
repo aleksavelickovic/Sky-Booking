@@ -132,7 +132,7 @@ public class LetoviController implements ApplicationContextAware {
 				System.out.println("OZNAKALETA JE cekirano");
 				modelAndView.addObject("oznakaleta", oznakaleta);
 
-				sviletovi.removeIf(l -> !l.getOznaka().contains(oznakaleta));
+				sviletovi.removeIf(l -> !l.getOznaka().contains(oznakaleta)); // Moze i .startsWith(oznakaleta)
 			}
 		}
 

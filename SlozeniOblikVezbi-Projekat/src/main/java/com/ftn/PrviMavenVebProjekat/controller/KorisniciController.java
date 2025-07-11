@@ -60,7 +60,7 @@ public class KorisniciController implements ApplicationContextAware {
 	}
 
 	@GetMapping
-	@ResponseBody
+//	@ResponseBody
 	public ModelAndView index() {
 
 		List<Korisnik> korisnici = service.findAll();
@@ -211,7 +211,7 @@ public class KorisniciController implements ApplicationContextAware {
 			// Dodavanje korisničkog imena u model i filtriranje liste korisnika
 			System.out.println("KORISNICKOIME JE uneseno");
 			modelAndView.addObject("korImeInput", korImeInput);
-			korisnici.removeIf(k -> !k.getKorisnickoIme().contains(korImeInput));
+			korisnici.removeIf(k -> !k.getKorisnickoIme().contains(korImeInput)); // .startsWith(korImeInput)
 		}
 
 		// Filtriranje korisnika na osnovu uloge
