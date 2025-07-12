@@ -133,6 +133,54 @@ INSERT INTO letovi (oznaka, polazisteId, odredisteId, avionId, terminPolaska, tr
 SELECT * FROM letovi lt
 ORDER BY lt.id;
 
+CREATE TABLE karte (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    letId BIGINT,
+    brojSedista VARCHAR(10) NOT NULL,
+    cena INT NOT NULL,
+    imeIPrezimePutnika VARCHAR(100) NOT NULL,
+    brojPasosa VARCHAR(50) NOT NULL,
+    FOREIGN KEY (letId) REFERENCES letovi(id)
+);
+
+INSERT INTO karte (letId, brojSedista, cena, imeIPrezimePutnika, brojPasosa) VALUES
+(1, '2,5', 150, 'Petar Petrovic', 'SRB123456'),
+(2, '1,3', 200, 'Jovana Jovic', 'SRB654321'),
+(1, '4,7', 150, 'Nikola Nikolic', 'SRB112233');
+
+SELECT * FROM karte k
+ORDER BY k.id;
+
+CREATE TABLE rezervacije (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    datumIVremeKreiranja TIMESTAMP NOT NULL,
+    ukupnaCena INT NOT NULL
+);
+
+INSERT INTO rezervacije (datumIVremeKreiranja, ukupnaCena) VALUES
+(NOW(), 300);
+
+SELECT * FROM rezervacije r
+ORDER BY r.id;
+
+CREATE TABLE rezervacija_karta (
+    rezervacijaId BIGINT,
+    kartaId BIGINT,
+    PRIMARY KEY (rezervacijaId, kartaId),
+    FOREIGN KEY (rezervacijaId) REFERENCES rezervacije(id),
+    FOREIGN KEY (kartaId) REFERENCES karte(id)
+);
+
+INSERT INTO rezervacija_karta (rezervacijaId, kartaId) VALUES
+(1, 1),
+(1, 3);
+
+SELECT k.*
+FROM karte k
+JOIN rezervacija_karta rk ON rk.kartaId = k.id
+WHERE rk.rezervacijaId = 1;
+
+
 
 
 
