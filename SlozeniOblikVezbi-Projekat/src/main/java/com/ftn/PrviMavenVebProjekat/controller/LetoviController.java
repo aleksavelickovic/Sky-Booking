@@ -144,6 +144,23 @@ public class LetoviController implements ApplicationContextAware {
 
 	}
 
+	@GetMapping(value = "/letovi/edit")
+	public ModelAndView edit(@RequestParam Long letId) {
+		ModelAndView modelAndView = new ModelAndView("izmeni-let");
+		Let letZaEdit = service.findOne(letId);
+
+		List<Aerodrom> aerodrmi = aerodromiService.findAll();
+		List<Avion> avioni = avioniService.findAll();
+
+		modelAndView.addObject("aerodromi", aerodrmi);
+		modelAndView.addObject("avioni", avioni);
+		
+		modelAndView.addObject("let", letZaEdit);
+
+		return modelAndView;
+
+	}
+
 	@PostMapping(value = "/filter")
 	public ModelAndView filter(@RequestParam String polaziste, @RequestParam String odrediste,
 			@RequestParam(required = false) String datumPolaska,

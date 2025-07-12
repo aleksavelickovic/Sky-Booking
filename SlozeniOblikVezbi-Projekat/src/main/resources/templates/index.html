@@ -73,7 +73,12 @@
 						<p class="card-text">Trajanje: <span th:text="${let.trajanjeLeta}"></span></p>
 						<p class="card-text">Cena po karti: <span th:text="${let.cena}"></span></p>
 						<button class="btn btn-primary" id="rezervisibtn" type="button">rezervisi</button>
-						<button class="btn btn-primary mt-2" id="listazeljabtn" type="button">dodaj na listu zelja</button>     </div>
+						<button class="btn btn-primary mt-2" id="listazeljabtn" type="button">dodaj na listu zelja</button>
+						<a th:if="${session.prijavljeniKorisnik != null && session.prijavljeniKorisnik.uloga.name() == 'ADMIN'}" 
+						th:href="@{/letovi/edit(letId=${let.id})}">
+						<button class="btn btn-primary mt-2" id="listazeljabtn" type="button">Izmeni let(Samo za administratore)
+						
+						</button> </a>     </div>
             </div>
         </div>
     </div>
