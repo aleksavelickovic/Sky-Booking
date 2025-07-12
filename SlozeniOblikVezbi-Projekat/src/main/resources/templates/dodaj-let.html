@@ -113,7 +113,7 @@ input[type="submit"]:hover {
 	<!-- <nav class="navbar navbar-expand-md bg-dark py-3" data-bs-theme="dark" th:include="header-footer :: navbar">></nav> -->
 	<form class="flip-left" action="/PrviMavenVebProjekat/letovi/add"
 		method="post">
-		<label for="oznaka">Jedinstvena troslovna oznaka:</label> <input type="text" name="oznaka"
+		<label for="oznaka">Jedinstvena oznaka leta:</label> <input type="text" name="oznaka"
 			id="oznaka" /> <label for="polazak">Datum I Vreme polaska:</label> <input type="datetime-local"
 			name="polazak" id="polazak" /> <label for="trajanje">Trajanje leta u minutima:</label>
 			
@@ -142,7 +142,8 @@ input[type="submit"]:hover {
 				</option>
 				</select>
 		
-			
+			<p th:text="${poruka}" style="background-color:#ed0c0c;" id="greska">Ispis greske</p>
+			<input type="submit" value="Potvrdi">
 	<!-- <select name="kontinent" id="kontinent">
 			<option value="Evropa">Evropa</option>
 			<option value="Amerika">Amerika</option>
@@ -152,7 +153,16 @@ input[type="submit"]:hover {
 			<option value="Antartika">Antartika</option>
 			<option value="Okeanija">Okeanija</option>
 		</select> <input type="submit" value="Potvrdi"> -->	
+		<div th:if="${uspeh != null and uspeh == true}">
+			<p th:text="${uspehporuka}" style="background-color:#4A9A4E;" id="uspeh">Ispis uspeha</p>
+			<a href="/PrviMavenVebProjekat/">
+		<button class="button" type="button">Pocetna stranica</button>
+	</a>
+		</div>
+		
 	</form>
+	
+	
 	<a th:href="@{/}">
 		<button class="button floating-button" type="button">Nazad</button>
 	</a>

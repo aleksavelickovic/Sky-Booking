@@ -28,6 +28,19 @@ public class Let {
 		this.naAkciji = naAkciji;
 	}
 
+	public Let(String oznaka, Aerodrom polaziste, Aerodrom odrediste, Avion avion, LocalDateTime terminPolaska,
+			int trajanjeLeta, int cena, Boolean naAkciji) {
+		super();
+		this.oznaka = oznaka;
+		this.polaziste = polaziste;
+		this.odrediste = odrediste;
+		this.avion = avion;
+		this.terminPolaska = terminPolaska;
+		this.trajanjeLeta = trajanjeLeta;
+		this.cena = cena;
+		this.naAkciji = naAkciji;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -91,7 +104,7 @@ public class Let {
 	public void setCena(int cena) {
 		this.cena = cena;
 	}
-	
+
 	public Boolean getNaAkciji() {
 		return naAkciji;
 	}
@@ -106,7 +119,5 @@ public class Let {
 				+ ", avion=" + avion + ", terminPolaska=" + terminPolaska + ", trajanjeLeta=" + trajanjeLeta + ", cena="
 				+ cena + ", naAkciji=" + naAkciji + "]";
 	}
-
-
 
 }

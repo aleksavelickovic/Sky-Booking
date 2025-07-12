@@ -1,6 +1,7 @@
 package com.ftn.PrviMavenVebProjekat.controller;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -94,6 +95,53 @@ public class LetoviController implements ApplicationContextAware {
 		modelAndView.addObject("avioni", avioni);
 
 		return modelAndView;
+	}
+
+	@PostMapping(value = "/letovi/add")
+	public ModelAndView add(@RequestParam(required = false) String oznaka,
+			@RequestParam(required = false) String polazak, @RequestParam(required = false) Integer trajanje,
+			@RequestParam(required = false) Integer cena, @RequestParam(required = false) Long polaziste,
+			@RequestParam(required = false) Long odrediste, @RequestParam(required = false) Long avion) {
+		ModelAndView modelAndView = new ModelAndView("dodaj-let");
+		List<Aerodrom> aerodrmi = aerodromiService.findAll();
+		List<Avion> avioni = avioniService.findAll();
+
+		modelAndView.addObject("aerodromi", aerodrmi);
+		modelAndView.addObject("avioni", avioni);
+
+		if (polazak.isBlank() || oznaka == null || oznaka.isBlank() || polazak == null || trajanje == null
+				|| trajanje <= 0 || cena == null || cena <= 0 || polaziste == -1 || odrediste == -1 || avion == -1) {
+			modelAndView.addObject("poruka",
+					"Sva polja moraju biti popunjena, trajanje i cena moraju biti pozitivni brojevi!");
+			return modelAndView;
+		}
+
+		if (!oznaka.startsWith("FL")) {
+			modelAndView.addObject("poruka", "Oznaka mora pocinjati sa FL!");
+			return modelAndView;
+		}
+
+		if (polaziste == odrediste) {
+			modelAndView.addObject("poruka", "Polazni i odredisni aerodrom moraju biti razliciti!");
+			return modelAndView;
+		}
+
+		for (Let let : service.findAll()) {
+			if (let.getOznaka().equalsIgnoreCase(oznaka)) {
+				modelAndView.addObject("poruka", "Ova oznaka vec postoji!");
+				return modelAndView;
+			}
+		}
+
+		Let let = new Let(oznaka.toUpperCase(), aerodromiService.findOne(polaziste),
+				aerodromiService.findOne(odrediste), avioniService.findOne(avion), LocalDateTime.parse(polazak),
+				trajanje, cena, false);
+		service.save(let);
+		modelAndView.addObject("uspeh", true);
+		modelAndView.addObject("uspehporuka", "Uspesno ste dodali novi let!");
+
+		return modelAndView;
+
 	}
 
 	@PostMapping(value = "/filter")
