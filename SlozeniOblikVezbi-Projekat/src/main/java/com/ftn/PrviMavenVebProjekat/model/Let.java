@@ -40,6 +40,11 @@ public class Let {
 		this.cena = cena;
 		this.naAkciji = naAkciji;
 	}
+	
+	
+	public Let() { // Prazan constructor zbog @ModelAttribute
+		super();
+	}
 
 	public Long getId() {
 		return id;

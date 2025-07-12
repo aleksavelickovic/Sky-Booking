@@ -76,7 +76,7 @@
 						<button class="btn btn-primary mt-2" id="listazeljabtn" type="button">dodaj na listu zelja</button>
 						<a th:if="${session.prijavljeniKorisnik != null && session.prijavljeniKorisnik.uloga.name() == 'ADMIN'}" 
 						th:href="@{/letovi/edit(letId=${let.id})}">
-						<button class="btn btn-primary mt-2" id="listazeljabtn" type="button">Izmeni let(Samo za administratore)
+						<button class="btn btn-primary mt-2" id="listazeljabtn" type="button">Izmeni let (Samo za administratore)
 						
 						</button> </a>     </div>
             </div>

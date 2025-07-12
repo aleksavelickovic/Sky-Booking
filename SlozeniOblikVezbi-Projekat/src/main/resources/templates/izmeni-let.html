@@ -43,7 +43,7 @@
         margin-bottom: 8px;
         font-weight: bold;
     }
-    input[type="text"], input[type="datetime-local"], input[type="number"], select {
+    input[type="text"], select {
         width: 100%;
         padding: 8px;
         margin-bottom: 16px;
@@ -64,6 +64,19 @@
     }
     input[type="submit"]:hover {
         background-color: #0056b3;
+    }
+    @keyframes flip-left {
+        0% {
+            transform: perspective(400px) rotateY(180deg);
+        }
+        100% {
+            transform: perspective(400px) rotateY(0deg);
+        }
+    }
+
+    .flip-left {
+        animation: flip-left 1s;
+        backface-visibility: hidden;
     }
 </style>
 </head>
@@ -97,9 +110,17 @@
     <select name="avion" id="avion" th:value="${let.avion.id}">
         <option th:each="avion : ${avioni}" th:value="${avion.id}" th:text="${avion.naziv}" th:selected="${let.avion == avion.id}"></option>
     </select>
-
+	
+	<input type="hidden" name="naAkciji" th:value="${let.naAkciji}">
     <input type="hidden" name="id" th:value="${let.id}">
+    <p th:text="${poruka}" style="background-color:#ed0c0c;" id="greska">Ispis greske</p>
     <input type="submit" value="Potvrdi">
+    <div th:if="${uspeh != null and uspeh == true}">
+			<p th:text="${uspehporuka}" style="background-color:#4A9A4E;" id="uspeh">Ispis uspeha</p>
+			<a href="/PrviMavenVebProjekat/">
+		<button class="button" type="button">Pocetna stranica</button>
+	</a>
+		</div>
 </form>
 	<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
     <script th:src="@{/assets/js/aos.min.js}"></script>

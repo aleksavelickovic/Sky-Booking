@@ -22,6 +22,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -154,8 +155,72 @@ public class LetoviController implements ApplicationContextAware {
 
 		modelAndView.addObject("aerodromi", aerodrmi);
 		modelAndView.addObject("avioni", avioni);
-		
+
 		modelAndView.addObject("let", letZaEdit);
+
+		return modelAndView;
+
+	}
+
+	@PostMapping(value = "/letovi/edit")
+	public ModelAndView edit(@RequestParam Long id, @RequestParam(required = false) String oznaka,
+			@RequestParam(required = false) String polazak, @RequestParam(required = false) Integer trajanje,
+			@RequestParam(required = false) Integer cena, @RequestParam(required = false) Long polaziste,
+			@RequestParam(required = false) Long odrediste, @RequestParam(required = false) Long avion,
+			@RequestParam(required = false) Boolean naAkciji) {
+		ModelAndView modelAndView = new ModelAndView("izmeni-let");
+//		Let letZaEdit = service.findOne(letId);
+		
+
+		List<Aerodrom> aerodrmi = aerodromiService.findAll();
+		List<Avion> avioni = avioniService.findAll();
+
+		modelAndView.addObject("aerodromi", aerodrmi);
+		modelAndView.addObject("avioni", avioni);
+
+		
+
+		if (polazak.isBlank() || oznaka == null || oznaka.isBlank() || polazak == null || trajanje == null
+				|| trajanje <= 0 || cena == null || cena <= 0 || polaziste == -1 || odrediste == -1 || avion == -1) {
+			modelAndView.addObject("poruka",
+					"Sva polja moraju biti popunjena, trajanje i cena moraju biti pozitivni brojevi!");
+			Let letEdited = service.findOne(id);
+			modelAndView.addObject("let", letEdited);
+			return modelAndView;
+		}
+
+		if (!oznaka.startsWith("FL")) {
+			modelAndView.addObject("poruka", "Oznaka mora pocinjati sa FL!");
+			Let letEdited = service.findOne(id);
+			modelAndView.addObject("let", letEdited);
+			return modelAndView;
+		}
+
+		if (polaziste == odrediste) {
+			modelAndView.addObject("poruka", "Polazni i odredisni aerodrom moraju biti razliciti!");
+			Let letEdited = service.findOne(id);
+			modelAndView.addObject("let", letEdited);
+			return modelAndView;
+		}
+
+		for (Let let : service.findAll()) {
+			if (let.getOznaka().equalsIgnoreCase(oznaka)) {
+				modelAndView.addObject("poruka", "Ova oznaka vec postoji!");
+				Let letEdited = service.findOne(id);
+				modelAndView.addObject("let", letEdited);
+				return modelAndView;
+			}
+		}
+		
+		Let letEdited = new Let(id, oznaka.toUpperCase(), aerodromiService.findOne(polaziste),
+				aerodromiService.findOne(odrediste), avioniService.findOne(avion), LocalDateTime.parse(polazak),
+				trajanje, cena, naAkciji);
+		modelAndView.addObject("let", letEdited);
+		
+		letEdited.setOznaka(letEdited.getOznaka().toUpperCase());
+		service.update(letEdited);
+		modelAndView.addObject("uspeh", true);
+		modelAndView.addObject("uspehporuka", "Uspesno ste izmenili let!");
 
 		return modelAndView;
 
