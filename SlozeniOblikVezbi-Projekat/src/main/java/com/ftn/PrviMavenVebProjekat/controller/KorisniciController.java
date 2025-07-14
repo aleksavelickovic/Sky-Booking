@@ -137,38 +137,54 @@ public class KorisniciController implements ApplicationContextAware {
 	}
 
 	@GetMapping(value = "/login")
-	public ModelAndView login() throws IOException {
+	public ModelAndView login(@RequestParam(required = false) Long letZaRezervsati,
+			@RequestParam(required = false) Integer brojMesta) throws IOException {
 		ModelAndView modelAndView = new ModelAndView("prijava");
+		modelAndView.addObject("letZaRezervisati", letZaRezervsati);
+		modelAndView.addObject("brojMesta", brojMesta);
 //		modelAndView.addObject("poruka", "");
 		return modelAndView;
 	}
 
 	@PostMapping(value = "/login")
 	public ModelAndView login(@RequestParam String korisnickoIme, @RequestParam String lozinka, HttpSession session,
-			HttpServletResponse response) throws IOException {
+			HttpServletResponse response, @RequestParam Long letZaRezervisati, @RequestParam Integer brojMesta)
+			throws IOException {
 		ModelAndView rezultat = new ModelAndView("prijava");
 		for (Korisnik korisnik : service.findAll()) {
 			if (korisnik.getKorisnickoIme().equals(korisnickoIme) && korisnik.getLozinka().equals(lozinka)) {
 				if (korisnik.getBlokiran()) {
 					rezultat.addObject("poruka", "Ovaj nalog je blokiran od strane administratora!");
+					rezultat.addObject("letZaRezervisati", letZaRezervisati);
+					rezultat.addObject("brojMesta", brojMesta);
 					System.out.println("KORISNIK JE BRLOKIRAN!");
 					return rezultat;
 				} else {
 					session.setAttribute(KorisniciController.KORISNIK_KEY, korisnik);
-					response.sendRedirect(bURL);
-					System.out.println("USPESNA PRIJAVA");
-					return null;
+					if (letZaRezervisati != null) {
+						System.out.println("USPESNA PRIJAVA SA PREBACIVANJEM NA REZERVACIJU");
+						response.sendRedirect(
+								bURL + "reservation?letId=" + letZaRezervisati + "&brojMesta=" + brojMesta);
+						return null;
+					} else {
+						response.sendRedirect(bURL);
+						System.out.println("USPESNA PRIJAVA");
+						return null;
+					}
+
 				}
 			}
 		}
 		if (korisnickoIme.trim().equals("") && lozinka.trim().equals("")) {
 			rezultat.addObject("poruka", "Morate uneti Korisnicko Ime i Lozinku!");
 			System.out.println("Morate uneti podatke!");
+			rezultat.addObject("letZaRezervisati", letZaRezervisati);
 			return rezultat;
 
 		} else {
 			rezultat.addObject("poruka", "Neispravno korisnicko ime ili lozinka!");
 			System.out.println("Neispravni podaci!");
+			rezultat.addObject("letZaRezervisati", letZaRezervisati);
 			return rezultat;
 		}
 

@@ -54,7 +54,7 @@ public class KorisniciServiceImpl implements KorisniciService {
 				Uloga uloga = Uloga.valueOf(tokens[8]);
 
 				korisnici.put(id, new Korisnik(id, korIme, lozinka, email, ime, prezime, datumRodjenja,
-						datumRegistracije, uloga, false));
+						datumRegistracije, uloga, false, "")); //TODO ovo ne radi kako treba, ali se nikad ni nece koristiti
 
 				if (nextId < id)
 					nextId = id;

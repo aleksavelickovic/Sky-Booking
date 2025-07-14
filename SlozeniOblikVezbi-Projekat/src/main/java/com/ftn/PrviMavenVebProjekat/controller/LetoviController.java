@@ -1,5 +1,7 @@
 package com.ftn.PrviMavenVebProjekat.controller;
 
+import java.io.IOException;
+import java.security.AlgorithmParameterGenerator;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ import java.util.ListIterator;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.util.Strings;
@@ -167,7 +170,7 @@ public class LetoviController implements ApplicationContextAware {
 			@RequestParam(required = false) String polazak, @RequestParam(required = false) Integer trajanje,
 			@RequestParam(required = false) Integer cena, @RequestParam(required = false) Long polaziste,
 			@RequestParam(required = false) Long odrediste, @RequestParam(required = false) Long avion,
-			@RequestParam(required = false) Boolean naAkciji, @RequestParam Integer brojMesta) {
+			@RequestParam(required = false) Boolean naAkciji, @RequestParam(required = false) Integer brojMesta) {
 		ModelAndView modelAndView = new ModelAndView("izmeni-let");
 //		Let letZaEdit = service.findOne(letId);
 
@@ -223,6 +226,26 @@ public class LetoviController implements ApplicationContextAware {
 
 	}
 
+	@GetMapping(value = "/reservation")
+	public ModelAndView reservation(HttpServletResponse response, HttpSession session, @RequestParam Long letId,
+			@RequestParam Integer brojMesta) throws IOException {
+		ModelAndView modelAndView = new ModelAndView("rezervacija");
+
+		Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute(KorisniciController.KORISNIK_KEY);
+		if (ulogovaniKorisnik == null) {
+			response.sendRedirect(bURL + "korisnici/login?letZaRezervsati=" + letId + "&brojMesta=" + brojMesta);
+			return null;
+		}
+		
+		ArrayList<Integer> karteBrojac = new ArrayList<Integer>();
+		for (int i = 1; i <= brojMesta; i++) {
+			karteBrojac.add(i);
+		}
+		
+		modelAndView.addObject("karteBrojac", karteBrojac);
+		return modelAndView;
+	}
+
 	@PostMapping(value = "/filter")
 	public ModelAndView filter(@RequestParam String polaziste, @RequestParam String odrediste,
 			@RequestParam(required = false) String datumPolaska,
@@ -250,7 +273,7 @@ public class LetoviController implements ApplicationContextAware {
 					&& !l.getOdrediste().getLokacija().getDrzava().equalsIgnoreCase(odrediste));
 		}
 
-		if (brojMesta <= 0 || brojMesta != null) {
+		if (brojMesta != null) {
 			System.out.println("Broj mesta nije prazan!");
 			modelAndView.addObject("brojMesta", brojMesta);
 			sviletovi.removeIf(l -> l.getBrojMesta() < brojMesta);
