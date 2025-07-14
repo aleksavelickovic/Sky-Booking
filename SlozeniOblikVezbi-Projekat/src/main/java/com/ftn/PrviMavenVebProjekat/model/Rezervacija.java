@@ -6,23 +6,21 @@ import java.util.ArrayList;
 public class Rezervacija {
 
 	private Long id;
-	private ArrayList<Karta> karte;
+	private ArrayList<Karta> karte = new ArrayList<>();
 	private Timestamp datumIVremeKreiranja;
 	private int ukupnaCena;
 
-	public Rezervacija(Long id, ArrayList<Karta> karte, Timestamp datumIVremeKreiranja, int ukupnaCena) {
+	public Rezervacija(Long id, Timestamp datumIVremeKreiranja, int ukupnaCena) {
 		super();
 		this.id = id;
-		this.karte = karte;
 		this.datumIVremeKreiranja = datumIVremeKreiranja;
 		for (Karta karta : this.karte) {
 			ukupnaCena = ukupnaCena + karta.getCena();
 		}
 	}
 
-	public Rezervacija(ArrayList<Karta> karte, Timestamp datumIVremeKreiranja, int ukupnaCena) {
+	public Rezervacija(Timestamp datumIVremeKreiranja, int ukupnaCena) {
 		super();
-		this.karte = karte;
 		this.datumIVremeKreiranja = datumIVremeKreiranja;
 		for (Karta karta : this.karte) {
 			ukupnaCena = ukupnaCena + karta.getCena();

@@ -49,7 +49,7 @@ public class KarteRepositoryImpl implements KarteRepository {
 			}
 		}
 
-		public List<Karta> getKartai() {
+		public List<Karta> getKarte() {
 			return new ArrayList<>(kartai.values());
 		}
 	}
@@ -61,7 +61,7 @@ public class KarteRepositoryImpl implements KarteRepository {
 		KartaRowCallBackhandler rowCallbackHandler = new KartaRowCallBackhandler();
 		jdbcTemplate.query(sql, rowCallbackHandler, id);
 
-		return rowCallbackHandler.getKartai().get(0);
+		return rowCallbackHandler.getKarte().get(0);
 	}
 
 	@Override
@@ -71,7 +71,7 @@ public class KarteRepositoryImpl implements KarteRepository {
 		KartaRowCallBackhandler rowCallbackHandler = new KartaRowCallBackhandler();
 		jdbcTemplate.query(sql, rowCallbackHandler);
 
-		return rowCallbackHandler.getKartai();
+		return rowCallbackHandler.getKarte();
 	}
 
 	@Override

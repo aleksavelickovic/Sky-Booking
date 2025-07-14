@@ -153,12 +153,12 @@ ORDER BY k.id;
 
 CREATE TABLE rezervacije (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    datumIVremeKreiranja TIMESTAMP NOT NULL,
+    datumIVremeKreiranja TIMESTAMP default current_timestamp NOT NULL,
     ukupnaCena INT NOT NULL
 );
 
-INSERT INTO rezervacije (datumIVremeKreiranja, ukupnaCena) VALUES
-(NOW(), 300);
+INSERT INTO rezervacije (ukupnaCena) VALUES
+(30000);
 
 SELECT * FROM rezervacije r
 ORDER BY r.id;
@@ -175,10 +175,11 @@ INSERT INTO rezervacija_karta (rezervacijaId, kartaId) VALUES
 (1, 1),
 (1, 3);
 
-SELECT k.*
-FROM karte k
-JOIN rezervacija_karta rk ON rk.kartaId = k.id
-WHERE rk.rezervacijaId = 1;
+SELECT *
+FROM rezervacije r
+LEFT JOIN rezervacija_karta rk ON rk.rezervacijaId = r.id
+LEFT JOIN karte k ON rk.kartaId = k.id
+ORDER BY k.id;
 
 
 
