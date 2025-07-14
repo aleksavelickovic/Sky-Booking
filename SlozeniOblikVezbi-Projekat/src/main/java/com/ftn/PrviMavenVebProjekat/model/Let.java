@@ -13,9 +13,10 @@ public class Let {
 	private int trajanjeLeta;
 	private int cena;
 	private Boolean naAkciji;
+	private int brojMesta;
 
 	public Let(Long id, String oznaka, Aerodrom polaziste, Aerodrom odrediste, Avion avion, LocalDateTime terminPolaska,
-			int trajanjeLeta, int cena, Boolean naAkciji) {
+			int trajanjeLeta, int cena, Boolean naAkciji, int brojMesta) {
 		super();
 		this.id = id;
 		this.oznaka = oznaka;
@@ -26,6 +27,7 @@ public class Let {
 		this.trajanjeLeta = trajanjeLeta;
 		this.cena = cena;
 		this.naAkciji = naAkciji;
+		this.brojMesta = brojMesta;
 	}
 
 	public Let(String oznaka, Aerodrom polaziste, Aerodrom odrediste, Avion avion, LocalDateTime terminPolaska,
@@ -39,9 +41,10 @@ public class Let {
 		this.trajanjeLeta = trajanjeLeta;
 		this.cena = cena;
 		this.naAkciji = naAkciji;
+
+		this.brojMesta = this.avion.getBrojKolona() * this.avion.getBrojRedova();
 	}
-	
-	
+
 	public Let() { // Prazan constructor zbog @ModelAttribute
 		super();
 	}
@@ -116,6 +119,14 @@ public class Let {
 
 	public void setNaAkciji(Boolean naAkciji) {
 		this.naAkciji = naAkciji;
+	}
+
+	public int getBrojMesta() {
+		return brojMesta;
+	}
+
+	public void setBrojMesta(int brojMesta) {
+		this.brojMesta = brojMesta;
 	}
 
 	@Override
