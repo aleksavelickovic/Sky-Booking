@@ -167,18 +167,15 @@ public class LetoviController implements ApplicationContextAware {
 			@RequestParam(required = false) String polazak, @RequestParam(required = false) Integer trajanje,
 			@RequestParam(required = false) Integer cena, @RequestParam(required = false) Long polaziste,
 			@RequestParam(required = false) Long odrediste, @RequestParam(required = false) Long avion,
-			@RequestParam(required = false) Boolean naAkciji) {
+			@RequestParam(required = false) Boolean naAkciji, @RequestParam Integer brojMesta) {
 		ModelAndView modelAndView = new ModelAndView("izmeni-let");
 //		Let letZaEdit = service.findOne(letId);
-		
 
 		List<Aerodrom> aerodrmi = aerodromiService.findAll();
 		List<Avion> avioni = avioniService.findAll();
 
 		modelAndView.addObject("aerodromi", aerodrmi);
 		modelAndView.addObject("avioni", avioni);
-
-		
 
 		if (polazak.isBlank() || oznaka == null || oznaka.isBlank() || polazak == null || trajanje == null
 				|| trajanje <= 0 || cena == null || cena <= 0 || polaziste == -1 || odrediste == -1 || avion == -1) {
@@ -211,12 +208,12 @@ public class LetoviController implements ApplicationContextAware {
 				return modelAndView;
 			}
 		}
-		
+
 		Let letEdited = new Let(id, oznaka.toUpperCase(), aerodromiService.findOne(polaziste),
 				aerodromiService.findOne(odrediste), avioniService.findOne(avion), LocalDateTime.parse(polazak),
-				trajanje, cena, naAkciji);
+				trajanje, cena, naAkciji, brojMesta);
 		modelAndView.addObject("let", letEdited);
-		
+
 		letEdited.setOznaka(letEdited.getOznaka().toUpperCase());
 		service.update(letEdited);
 		modelAndView.addObject("uspeh", true);
