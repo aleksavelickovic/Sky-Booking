@@ -133,7 +133,9 @@ public class Let {
 	public String toString() {
 		return "Let [id=" + id + ", oznaka=" + oznaka + ", polaziste=" + polaziste + ", odrediste=" + odrediste
 				+ ", avion=" + avion + ", terminPolaska=" + terminPolaska + ", trajanjeLeta=" + trajanjeLeta + ", cena="
-				+ cena + ", naAkciji=" + naAkciji + "]";
+				+ cena + ", naAkciji=" + naAkciji + ", brojMesta=" + brojMesta + "]";
 	}
+
+	
 
 }

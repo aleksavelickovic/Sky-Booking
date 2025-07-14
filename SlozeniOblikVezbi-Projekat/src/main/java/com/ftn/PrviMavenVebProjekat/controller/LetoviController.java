@@ -228,7 +228,7 @@ public class LetoviController implements ApplicationContextAware {
 			@RequestParam(required = false) String datumPolaska,
 			@RequestParam(required = false) String traziSlicneLetove, @RequestParam String sortiranjePolje,
 			@RequestParam String sortiranjeRedosled, @RequestParam(required = false) String oznakaleta,
-			HttpSession session) {
+			Integer brojMesta, HttpSession session) {
 		System.out.println(datumPolaska);
 		ModelAndView modelAndView = new ModelAndView("index");
 //		modelAndView.addObject("pretragaInicirana}", true);
@@ -248,6 +248,12 @@ public class LetoviController implements ApplicationContextAware {
 			sviletovi.removeIf(l -> !l.getOdrediste().getOznaka().equalsIgnoreCase(odrediste)
 					&& !l.getOdrediste().getLokacija().getGrad().equalsIgnoreCase(odrediste)
 					&& !l.getOdrediste().getLokacija().getDrzava().equalsIgnoreCase(odrediste));
+		}
+
+		if (brojMesta <= 0 || brojMesta != null) {
+			System.out.println("Broj mesta nije prazan!");
+			modelAndView.addObject("brojMesta", brojMesta);
+			sviletovi.removeIf(l -> l.getBrojMesta() < brojMesta);
 		}
 
 		if (!datumPolaska.equals("")) {
