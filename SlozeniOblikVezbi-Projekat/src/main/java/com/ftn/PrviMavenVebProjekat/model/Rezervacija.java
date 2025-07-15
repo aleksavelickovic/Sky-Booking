@@ -16,18 +16,14 @@ public class Rezervacija {
 		this.id = id;
 		this.korisnik = korisnik;
 		this.datumIVremeKreiranja = datumIVremeKreiranja;
-		for (Karta karta : this.karte) {
-			ukupnaCena = ukupnaCena + karta.getCena();
-		}
+		this.ukupnaCena = ukupnaCena;
 	}
 
-	public Rezervacija(Korisnik korisnik, Timestamp datumIVremeKreiranja, int ukupnaCena) {
+	public Rezervacija(Korisnik korisnik, int ukupnaCena) {
 		super();
 		this.korisnik = korisnik;
-		this.datumIVremeKreiranja = datumIVremeKreiranja;
-		for (Karta karta : this.karte) {
-			ukupnaCena = ukupnaCena + karta.getCena();
-		}
+//		this.datumIVremeKreiranja = datumIVremeKreiranja;
+		this.ukupnaCena = ukupnaCena;
 	}
 
 	public Rezervacija() {

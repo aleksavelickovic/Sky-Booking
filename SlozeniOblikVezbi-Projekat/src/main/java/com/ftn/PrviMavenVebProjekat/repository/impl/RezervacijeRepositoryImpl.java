@@ -40,30 +40,36 @@ public class RezervacijeRepositoryImpl implements RezervacijeRepository {
 
 		@Override
 		public void processRow(ResultSet rs) throws SQLException {
-			int index = 1;
-			Long id = rs.getLong(index++);
-			Long idKorisnika = rs.getLong(index++);
-			Timestamp datumIVremeKreiranja = rs.getTimestamp(index++);
-			int ukupnaCena = rs.getInt(index++);
+			Long id = rs.getLong("rezervacijaId");
+			Long idKorisnika = rs.getLong("idKorisnika");
+			Timestamp datumIVremeKreiranja = rs.getTimestamp("datumIVremeKreiranja");
+			int ukupnaCena = rs.getInt("ukupnaCena");
 
-			Rezervacija Rezervacija = rezervacije.get(id);
-			if (Rezervacija == null) {
-				Rezervacija = new Rezervacija(id, korisniciService.findOne(idKorisnika), datumIVremeKreiranja, ukupnaCena);
-				rezervacije.put(Rezervacija.getId(), Rezervacija);
+			System.out.println("id: " + id);
+			System.out.println("idkorisnika: " + idKorisnika);
+			System.out.println("datumivreme: " + datumIVremeKreiranja);
+			System.out.println("UKUPNACENA: " + ukupnaCena);
+
+			Rezervacija rezervacija = rezervacije.get(id);
+			if (rezervacija == null) {
+				rezervacija = new Rezervacija(id, korisniciService.findOne(idKorisnika), datumIVremeKreiranja,
+						ukupnaCena);
+				rezervacije.put(rezervacija.getId(), rezervacija);
 			}
 
-			Long kartaId = rs.getLong(index++);
-			Long kartaId2 = rs.getLong(index++);
-			Long letId = rs.getLong(index++);
-			Let let = letoviService.findOne(letId);
-			String brojSedista = rs.getString(index++);
-			int cena = rs.getInt(index++);
-			String imeIPrezimePutnika = rs.getString(index++);
-			String brojPasosa = rs.getString(index++);
+			Long kartaId = rs.getLong("kartaId");
+			if (kartaId != 0) {
+				Long letId = rs.getLong("letId");
+				Let let = letoviService.findOne(letId);
+				String brojSedista = rs.getString("brojSedista");
+				int cena = rs.getInt("cena");
+				String imeIPrezimePutnika = rs.getString("imeIPrezimePutnika");
+				String brojPasosa = rs.getString("brojPasosa");
 
-			Karta karta = new Karta(kartaId, let, brojSedista, imeIPrezimePutnika, brojPasosa);
+				Karta karta = new Karta(kartaId, let, brojSedista, imeIPrezimePutnika, brojPasosa);
 
-			Rezervacija.getKarte().add(karta);
+				rezervacija.getKarte().add(karta);
+			}
 		}
 
 		public List<Rezervacija> getRezervacije() {
@@ -73,11 +79,31 @@ public class RezervacijeRepositoryImpl implements RezervacijeRepository {
 
 	@Override
 	public Rezervacija findOne(Long id) {
-		String sql 
-				= "SELECT *" 
-				+ "FROM rezervacije r" 
-				+ "LEFT JOIN rezervacija_karta rk ON rk.rezervacijaId = r.id"
-				+ "LEFT JOIN karte k ON rk.kartaId = k.id" + "ORDER BY k.id;";
+		String sql =
+		        "SELECT " +
+		        "  r.id AS rezervacijaId, " +
+		        "  r.idKorisnika, " +
+		        "  r.datumIVremeKreiranja, " +
+		        "  r.ukupnaCena, " +
+		        "  rk.kartaId, " +
+		        "  k.id AS kartaId2, " +
+		        "  k.letId, " +
+		        "  k.brojSedista, " +
+		        "  k.cena, " +
+		        "  k.imeIPrezimePutnika, " +
+		        "  k.brojPasosa " +
+		        "FROM rezervacije r " +
+		        "LEFT JOIN rezervacija_karta rk ON rk.rezervacijaId = r.id " +
+		        "LEFT JOIN karte k ON rk.kartaId = k.id " +
+		        "WHERE r.id = ? " +
+		        "ORDER BY k.id;";
+
+
+//		sql = "SELECT *\n"
+//				+ "FROM rezervacije r\n"
+//				+ "LEFT JOIN rezervacija_karta rk ON rk.rezervacijaId = r.id\n"
+//				+ "LEFT JOIN karte k ON rk.kartaId = k.id\n"
+//				+ "ORDER BY k.id;";
 
 		RezervacijaRowCallBackhandler rowCallbackHandler = new RezervacijaRowCallBackhandler();
 		jdbcTemplate.query(sql, rowCallbackHandler, id);
@@ -87,11 +113,25 @@ public class RezervacijeRepositoryImpl implements RezervacijeRepository {
 
 	@Override
 	public List<Rezervacija> findAll() {
-		String sql 
-				= "SELECT *" 
-				+ "FROM rezervacije r" 
-				+ "LEFT JOIN rezervacija_karta rk ON rk.rezervacijaId = r.id"
-				+ "LEFT JOIN karte k ON rk.kartaId = k.id" + "ORDER BY k.id;";
+		String sql =
+		        "SELECT " +
+		        "  r.id AS rezervacijaId, " +
+		        "  r.idKorisnika, " +
+		        "  r.datumIVremeKreiranja, " +
+		        "  r.ukupnaCena, " +
+		        "  rk.kartaId, " +
+		        "  k.id AS kartaId2, " +
+		        "  k.letId, " +
+		        "  k.brojSedista, " +
+		        "  k.cena, " +
+		        "  k.imeIPrezimePutnika, " +
+		        "  k.brojPasosa " +
+		        "FROM rezervacije r " +
+		        "LEFT JOIN rezervacija_karta rk ON rk.rezervacijaId = r.id " +
+		        "LEFT JOIN karte k ON rk.kartaId = k.id " +
+
+		        "ORDER BY k.id;";
+
 
 		RezervacijaRowCallBackhandler rowCallbackHandler = new RezervacijaRowCallBackhandler();
 		jdbcTemplate.query(sql, rowCallbackHandler);
@@ -105,10 +145,11 @@ public class RezervacijeRepositoryImpl implements RezervacijeRepository {
 
 			@Override
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-				String sql = "INSERT INTO karte (ukupnaCena) VALUES (?)";
+				String sql = "INSERT INTO rezervacije (idKorisnika, ukupnaCena) VALUES (?, ?)";
 				PreparedStatement preparedStatement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 				int index = 1;
-				preparedStatement.setLong(index++, rezervacija.getUkupnaCena());
+				preparedStatement.setLong(index++, rezervacija.getKorisnik().getId());
+				preparedStatement.setInt(index++, rezervacija.getUkupnaCena());
 				return preparedStatement;
 			}
 		};
@@ -124,8 +165,9 @@ public class RezervacijeRepositoryImpl implements RezervacijeRepository {
 
 	@Override
 	public int update(Rezervacija rezervacija) {
-		String sql = "UPDATE karte SET ukupnaCena = ? WHERE id = ?";
-		boolean uspeh = jdbcTemplate.update(sql, rezervacija.getUkupnaCena(), rezervacija.getId()) == 1;
+		String sql = "UPDATE karte SET idKorisnika = ?, ukupnaCena = ? WHERE id = ?";
+		boolean uspeh = jdbcTemplate.update(sql, rezervacija.getKorisnik().getId(), rezervacija.getUkupnaCena(),
+				rezervacija.getId()) == 1;
 		if (uspeh) {
 			return 1;
 		} else {
@@ -138,4 +180,10 @@ public class RezervacijeRepositoryImpl implements RezervacijeRepository {
 		String sql = "DELETE FROM karte WHERE id = ?";
 		return jdbcTemplate.update(sql, id);
 	}
+
+	public void addKartaToRezervacija(Long rezervacijaId, Long kartaId) {
+		String sql = "INSERT INTO rezervacija_karta (rezervacijaId, kartaId) VALUES (?, ?)";
+		jdbcTemplate.update(sql, rezervacijaId, kartaId); // Use JdbcTemplate for SQL execution
+	}
+
 }
