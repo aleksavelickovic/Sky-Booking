@@ -15,13 +15,12 @@ public class Korisnik {
 	private Timestamp datumIVremeRegistracije;
 	private Uloga uloga;
 	private Boolean blokiran;
-	private String iDjeviKarataUKorpi;
 
 	public Korisnik() {
 	}
 
 	public Korisnik(long id, String korisnickoIme, String lozinka, String email, String ime, String prezime,
-			Date datumRodjenja, Timestamp datumIVremeRegistracije, Uloga uloga, Boolean blokiran, String iDjeviKarataUKorpi) {
+			Date datumRodjenja, Timestamp datumIVremeRegistracije, Uloga uloga, Boolean blokiran) {
 		super();
 		this.id = id;
 		this.korisnickoIme = korisnickoIme;
@@ -33,7 +32,6 @@ public class Korisnik {
 		this.datumIVremeRegistracije = datumIVremeRegistracije;
 		this.uloga = uloga;
 		this.blokiran = blokiran;
-		this.iDjeviKarataUKorpi = iDjeviKarataUKorpi;
 	}
 
 	public Korisnik(String korisnickoIme, String lozinka, String email, String ime, String prezime, Date datumRodjenja,
@@ -48,7 +46,6 @@ public class Korisnik {
 		this.datumIVremeRegistracije = datumIVremeRegistracije;
 		this.uloga = uloga;
 		this.blokiran = false;
-		this.iDjeviKarataUKorpi = "";
 	}
 
 	@Override
@@ -135,14 +132,6 @@ public class Korisnik {
 
 	public void setBlokiran(Boolean blokiran) {
 		this.blokiran = blokiran;
-	}
-
-	public String getiDjeviKarataUKorpi() {
-		return iDjeviKarataUKorpi;
-	}
-
-	public void setiDjeviKarataUKorpi(String iDjeviKarataUKorpi) {
-		this.iDjeviKarataUKorpi = iDjeviKarataUKorpi;
 	}
 	
 	

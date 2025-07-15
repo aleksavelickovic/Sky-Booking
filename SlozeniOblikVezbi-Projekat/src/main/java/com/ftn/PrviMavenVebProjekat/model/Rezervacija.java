@@ -6,21 +6,24 @@ import java.util.ArrayList;
 public class Rezervacija {
 
 	private Long id;
+	private Korisnik korisnik;
 	private ArrayList<Karta> karte = new ArrayList<>();
 	private Timestamp datumIVremeKreiranja;
 	private int ukupnaCena;
 
-	public Rezervacija(Long id, Timestamp datumIVremeKreiranja, int ukupnaCena) {
+	public Rezervacija(Long id, Korisnik korisnik, Timestamp datumIVremeKreiranja, int ukupnaCena) {
 		super();
 		this.id = id;
+		this.korisnik = korisnik;
 		this.datumIVremeKreiranja = datumIVremeKreiranja;
 		for (Karta karta : this.karte) {
 			ukupnaCena = ukupnaCena + karta.getCena();
 		}
 	}
 
-	public Rezervacija(Timestamp datumIVremeKreiranja, int ukupnaCena) {
+	public Rezervacija(Korisnik korisnik, Timestamp datumIVremeKreiranja, int ukupnaCena) {
 		super();
+		this.korisnik = korisnik;
 		this.datumIVremeKreiranja = datumIVremeKreiranja;
 		for (Karta karta : this.karte) {
 			ukupnaCena = ukupnaCena + karta.getCena();
@@ -61,6 +64,14 @@ public class Rezervacija {
 
 	public void setUkupnaCena(int ukupnaCena) {
 		this.ukupnaCena = ukupnaCena;
+	}
+	
+	public Korisnik getKorisnik() {
+		return korisnik;
+	}
+
+	public void setKorisnik(Korisnik korisnik) {
+		this.korisnik = korisnik;
 	}
 
 	@Override

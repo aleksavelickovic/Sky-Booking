@@ -43,6 +43,7 @@ import com.ftn.PrviMavenVebProjekat.service.AvioniService;
 import com.ftn.PrviMavenVebProjekat.service.LetoviService;
 import com.ftn.PrviMavenVebProjekat.service.LokacijaService;
 import com.mysql.cj.Session;
+import com.mysql.cj.x.protobuf.MysqlxExpr.ColumnIdentifier;
 
 @Controller
 @RequestMapping(value = "/")
@@ -227,7 +228,8 @@ public class LetoviController implements ApplicationContextAware {
 	}
 
 	@GetMapping(value = "/seatoptions")
-	public ModelAndView izbor(HttpServletResponse response, HttpSession session, @RequestParam Long letId) throws IOException {
+	public ModelAndView izbor(HttpServletResponse response, HttpSession session, @RequestParam Long letId)
+			throws IOException {
 		ModelAndView modelAndView = new ModelAndView("izbor-sedista");
 		modelAndView.addObject("letId", letId);
 
@@ -247,18 +249,24 @@ public class LetoviController implements ApplicationContextAware {
 	}
 
 	@GetMapping(value = "/reservation")
-	public ModelAndView reservation(HttpServletResponse response, HttpSession session, @RequestParam Long letId, @RequestParam List<String> sedista) throws IOException {
+	public ModelAndView reservation(HttpServletResponse response, HttpSession session, @RequestParam Long letId,
+			@RequestParam List<String> sedista) throws IOException {
 		ModelAndView modelAndView = new ModelAndView("rezervacija");
-
 
 //
 //		ArrayList<Integer> karteBrojac = new ArrayList<Integer>();
 //		for (int i = 1; i <= brojMesta; i++) {
 //			karteBrojac.add(i);
 //		}
-
+		modelAndView.addObject("letId", letId);
 		modelAndView.addObject("karteBrojac", sedista.size());
+		modelAndView.addObject("sedista", sedista);
 		return modelAndView;
+	}
+
+	@PostMapping(value = "/reservation")
+	public void reservation() {
+
 	}
 
 	@PostMapping(value = "/filter")

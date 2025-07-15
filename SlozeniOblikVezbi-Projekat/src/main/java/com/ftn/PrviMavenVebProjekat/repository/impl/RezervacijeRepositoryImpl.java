@@ -22,6 +22,7 @@ import com.ftn.PrviMavenVebProjekat.model.Karta;
 import com.ftn.PrviMavenVebProjekat.model.Let;
 import com.ftn.PrviMavenVebProjekat.model.Rezervacija;
 import com.ftn.PrviMavenVebProjekat.repository.RezervacijeRepository;
+import com.ftn.PrviMavenVebProjekat.service.KorisniciService;
 import com.ftn.PrviMavenVebProjekat.service.LetoviService;
 
 @Repository
@@ -30,6 +31,8 @@ public class RezervacijeRepositoryImpl implements RezervacijeRepository {
 	private JdbcTemplate jdbcTemplate;
 	@Autowired
 	private LetoviService letoviService;
+	@Autowired
+	private KorisniciService korisniciService;
 
 	private class RezervacijaRowCallBackhandler implements RowCallbackHandler {
 
@@ -39,17 +42,18 @@ public class RezervacijeRepositoryImpl implements RezervacijeRepository {
 		public void processRow(ResultSet rs) throws SQLException {
 			int index = 1;
 			Long id = rs.getLong(index++);
+			Long idKorisnika = rs.getLong(index++);
 			Timestamp datumIVremeKreiranja = rs.getTimestamp(index++);
 			int ukupnaCena = rs.getInt(index++);
 
 			Rezervacija Rezervacija = rezervacije.get(id);
 			if (Rezervacija == null) {
-				Rezervacija = new Rezervacija(id, datumIVremeKreiranja, ukupnaCena);
+				Rezervacija = new Rezervacija(id, korisniciService.findOne(idKorisnika), datumIVremeKreiranja, ukupnaCena);
 				rezervacije.put(Rezervacija.getId(), Rezervacija);
 			}
 
 			Long kartaId = rs.getLong(index++);
-			Long karaId2 = rs.getLong(index++);
+			Long kartaId2 = rs.getLong(index++);
 			Long letId = rs.getLong(index++);
 			Let let = letoviService.findOne(letId);
 			String brojSedista = rs.getString(index++);

@@ -27,7 +27,7 @@
 
 <body style="background-color: #05dff3">
 <nav class="navbar navbar-expand-md bg-dark py-3" data-bs-theme="dark" th:include="header-footer :: navbar"></nav>
-	<form action="/PrviMavenVebProjekat/reservationTESTTESTTEST" method="GET">
+	<form action="/PrviMavenVebProjekat/korpa/napunikorpu" method="POST">
 	
 	<div class="container py-4 py-xl-5" data-aos="flip-left" data-aos-duration="950" th:each="brojac : ${#numbers.sequence(1, karteBrojac)}">
 		<div class="row gy-4 row-cols-1" >
@@ -42,14 +42,15 @@
 						
 						<input type="text" class="form-control" name="brojPasosa" placeholder="Broj pasosa">
 						
-						<input class="text" type="text" name="brojMesta" >
-						
 						
 						</div>
             </div>
         </div>
     </div>
 </div>
+<input type="hidden" th:value="${sedista}" name="sedista"/>
+<input type="hidden" th:value="${karteBrojac}" name="brojKarata"/>
+<input type="hidden" th:value="${letId}" name="letZaRezervisati"/>
 <button class="btn btn-primary" id="rezervisibtn" type="submit" >Dodaj u korpu</button>
 </form>
 

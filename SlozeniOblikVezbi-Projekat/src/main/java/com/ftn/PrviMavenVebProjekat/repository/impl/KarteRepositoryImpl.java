@@ -30,7 +30,7 @@ public class KarteRepositoryImpl implements KarteRepository {
 
 	private class KartaRowCallBackhandler implements RowCallbackHandler {
 
-		private Map<Long, Karta> kartai = new HashMap<>();
+		private Map<Long, Karta> karte = new HashMap<>();
 
 		@Override
 		public void processRow(ResultSet rs) throws SQLException {
@@ -42,15 +42,15 @@ public class KarteRepositoryImpl implements KarteRepository {
 			String imeIPrezimePutnika = rs.getString(index++);
 			String brojPasosa = rs.getString(index++);
 
-			Karta Karta = kartai.get(id);
+			Karta Karta = karte.get(id);
 			if (Karta == null) {
-				Karta = new Karta(letoviService.findOne(letId), brojSedista, imeIPrezimePutnika, brojPasosa);
-				kartai.put(Karta.getId(), Karta);
+				Karta = new Karta(id, letoviService.findOne(letId), brojSedista, imeIPrezimePutnika, brojPasosa);
+				karte.put(Karta.getId(), Karta);
 			}
 		}
 
 		public List<Karta> getKarte() {
-			return new ArrayList<>(kartai.values());
+			return new ArrayList<>(karte.values());
 		}
 	}
 
@@ -66,7 +66,7 @@ public class KarteRepositoryImpl implements KarteRepository {
 
 	@Override
 	public List<Karta> findAll() {
-		String sql = "SELECT * " + "FROM kartai k " + "ORDER BY k.id; ";
+		String sql = "SELECT * " + "FROM karte k " + "ORDER BY k.id; ";
 
 		KartaRowCallBackhandler rowCallbackHandler = new KartaRowCallBackhandler();
 		jdbcTemplate.query(sql, rowCallbackHandler);

@@ -39,23 +39,22 @@ CREATE TABLE korisnici (
     datumIVremeRegistracije timestamp default current_timestamp not null,
     uloga ENUM("PUTNIK", "ADMIN"),
     blokiran boolean,
-    iDjeviKarataUKorpi VARCHAR(200) NOT NULL,
     PRIMARY KEY(id)
 );
 
-INSERT INTO korisnici (korisnickoIme, lozinka, email, ime, prezime, datumRodjenja, datumIVremeRegistracije, blokiran, uloga, iDjeviKarataUKorpi) VALUES
-('pera', 'pera123', 'petar.petrovic@gmail.com', 'Petar', 'Petrović', '1976-06-24', '2023-11-05 01:32:48', false, 'ADMIN', ""),
-('marko', 'marko123', 'marko.petrovic@example.com', 'Marko', 'Petrović', '1990-03-15', '2024-12-21 17:34:22', false, 'PUTNIK', ""),
-('ana.j', 'securepass', 'ana.jovanovic@example.com', 'Ana', 'Jovanović', '1985-07-10', '2024-12-21 18:45:30', false, 'PUTNIK', ""),
-('ivan.n', 'mypassword', 'ivan.nikolic@example.com', 'Ivan', 'Nikolić', '2000-01-25', '2024-12-21 19:12:10', false, 'PUTNIK', ""),
-('milica.s', 'qwerty123', 'milica.stankovic@example.com', 'Milica', 'Stanković', '1995-11-05', '2024-12-21 20:05:50', false, 'PUTNIK', ""),
-('stefan.p', 'abc12345', 'stefan.popovic@example.com', 'Stefan', 'Popović', '1988-09-12', '2024-12-21 21:30:15', false, 'PUTNIK', ""),
-('jelena.k', 'jelena2024', 'jelena.kovac@example.com', 'Jelena', 'Kovač', '1993-06-18', '2024-12-21 22:10:05', false, 'PUTNIK', ""),
-('nikola.t', 'tesla987', 'nikola.tesla@example.com', 'Nikola', 'Tesla', '1976-01-07', '2024-12-21 23:45:30', false, 'PUTNIK', ""),
-('dragana.b', 'dragon789', 'dragana.bogdanovic@example.com', 'Dragana', 'Bogdanović', '1992-04-22', '2024-12-22 00:15:40', true, 'PUTNIK', ""),
-('aleksandar.v', 'alex123', 'aleksandar.vukovsic@example.com', 'Aleksandar', 'Vuković', '1998-11-30', '2024-12-22 01:30:00', true, 'PUTNIK', ""),
-('milos', 'milos123', 'aleksandar.vukovsic@example.com', 'Aleksandar', 'Vuković', '1998-11-30', '2024-12-22 01:30:00', true, 'PUTNIK', ""),
-('katarina.m', 'katy2024', 'katarina.milosevic@example.com', 'Katarina', 'Milošević', '1994-08-15', '2024-12-22 02:20:50', false, 'PUTNIK', "");
+INSERT INTO korisnici (korisnickoIme, lozinka, email, ime, prezime, datumRodjenja, datumIVremeRegistracije, blokiran, uloga) VALUES
+('pera', 'pera123', 'petar.petrovic@gmail.com', 'Petar', 'Petrović', '1976-06-24', '2023-11-05 01:32:48', false, 'ADMIN'),
+('marko', 'marko123', 'marko.petrovic@example.com', 'Marko', 'Petrović', '1990-03-15', '2024-12-21 17:34:22', false, 'PUTNIK'),
+('nikola', 'tesla123', 'nikola.tesla@example.com', 'Nikola', 'Tesla', '1976-01-07', '2024-12-21 23:45:30', false, 'PUTNIK'),
+('ana.j', 'securepass', 'ana.jovanovic@example.com', 'Ana', 'Jovanović', '1985-07-10', '2024-12-21 18:45:30', false, 'PUTNIK'),
+('ivan.n', 'mypassword', 'ivan.nikolic@example.com', 'Ivan', 'Nikolić', '2000-01-25', '2024-12-21 19:12:10', false, 'PUTNIK'),
+('milica.s', 'qwerty123', 'milica.stankovic@example.com', 'Milica', 'Stanković', '1995-11-05', '2024-12-21 20:05:50', false, 'PUTNIK'),
+('stefan.p', 'abc12345', 'stefan.popovic@example.com', 'Stefan', 'Popović', '1988-09-12', '2024-12-21 21:30:15', false, 'PUTNIK'),
+('jelena.k', 'jelena2024', 'jelena.kovac@example.com', 'Jelena', 'Kovač', '1993-06-18', '2024-12-21 22:10:05', false, 'PUTNIK'),
+('dragana.b', 'dragon789', 'dragana.bogdanovic@example.com', 'Dragana', 'Bogdanović', '1992-04-22', '2024-12-22 00:15:40', true, 'PUTNIK'),
+('aleksandar.v', 'alex123', 'aleksandar.vukovsic@example.com', 'Aleksandar', 'Vuković', '1998-11-30', '2024-12-22 01:30:00', true, 'PUTNIK'),
+('milos', 'milos123', 'aleksandar.vukovsic@example.com', 'Aleksandar', 'Vuković', '1998-11-30', '2024-12-22 01:30:00', true, 'PUTNIK'),
+('katarina.m', 'katy2024', 'katarina.milosevic@example.com', 'Katarina', 'Milošević', '1994-08-15', '2024-12-22 02:20:50', false, 'PUTNIK');
 
 SELECT * FROM korisnici k
 ORDER BY k.id;
@@ -146,21 +145,23 @@ CREATE TABLE karte (
 );
 
 INSERT INTO karte (letId, brojSedista, cena, imeIPrezimePutnika, brojPasosa) VALUES
-(1, '2,5', 150, 'Petar Petrovic', 'SRB123456'),
-(2, '1,3', 200, 'Jovana Jovic', 'SRB654321'),
-(1, '4,7', 150, 'Nikola Nikolic', 'SRB112233');
+(1, '2-5', 150, 'Petar Petrovic', 'SRB123456'),
+(2, '1-3', 200, 'Jovana Jovic', 'SRB654321'),
+(1, '4-7', 150, 'Nikola Nikolic', 'SRB112233');
 
 SELECT * FROM karte k
 ORDER BY k.id;
 
 CREATE TABLE rezervacije (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    idKorisnika BIGINT NOT NULL,
     datumIVremeKreiranja TIMESTAMP default current_timestamp NOT NULL,
-    ukupnaCena INT NOT NULL
+    ukupnaCena INT NOT NULL,
+    FOREIGN KEY (idKorisnika) REFERENCES korisnici(id)
 );
 
-INSERT INTO rezervacije (ukupnaCena) VALUES
-(30000);
+INSERT INTO rezervacije (idKorisnika, ukupnaCena) VALUES
+(3, 30000);
 
 SELECT * FROM rezervacije r
 ORDER BY r.id;
