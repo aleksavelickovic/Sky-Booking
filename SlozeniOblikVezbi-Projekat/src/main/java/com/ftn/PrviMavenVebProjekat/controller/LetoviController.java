@@ -77,7 +77,6 @@ public class LetoviController implements ApplicationContextAware {
 	private RezervacijeService rezervacijeService;
 	@Autowired
 	private RezervacijeRepositoryImpl rezervacijeRepository;
-	private int setovanCookie = 0;
 
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
@@ -92,14 +91,15 @@ public class LetoviController implements ApplicationContextAware {
 	}
 
 	@GetMapping
-	public ModelAndView index(HttpServletResponse response) {
+	public ModelAndView index(HttpServletResponse response, HttpSession session) {
+		Integer setovanCookie = (Integer) session.getAttribute("setovanCookie");
 
-		if (setovanCookie == 0) {
+		if (setovanCookie == null) {
 			Cookie cookie = new Cookie("karteukorpi", "");
 			cookie.setMaxAge(60 * 60 * 24 * 365 * 10); // istice za 10 godina
 			cookie.setPath("/"); // Dostupan je na celom sajtu
 			response.addCookie(cookie);
-			setovanCookie = 1;
+			session.setAttribute("setovanCookie", 1);
 		}
 
 		ArrayList<Let> letovi = new ArrayList<Let>();
@@ -268,6 +268,17 @@ public class LetoviController implements ApplicationContextAware {
 		Avion avion = let.getAvion();
 		modelAndView.addObject("kolone", avion.getBrojKolona());
 		modelAndView.addObject("redovi", avion.getBrojRedova());
+
+		ArrayList<String> rezervisanaSedista = new ArrayList<String>();
+		for (Rezervacija rezervacija : rezervacijeService.findAll()) {
+			for (Karta karta : rezervacija.getKarte()) {
+				if (karta.getLet().getId() == letId) {
+					rezervisanaSedista.add(karta.getBrojSedista());
+				}
+			}
+		}
+
+		modelAndView.addObject("rezervisanaSedista", rezervisanaSedista);
 
 		return modelAndView;
 

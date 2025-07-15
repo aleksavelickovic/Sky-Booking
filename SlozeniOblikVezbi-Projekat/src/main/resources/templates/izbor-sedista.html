@@ -106,7 +106,10 @@
                 <input type="checkbox"
                        th:id="'seat-' + ${red} + '-' + ${kolona}"
                        th:name="sedista"
-                       th:value="${red} + '-' + ${kolona}">
+                       th:value="${red} + '-' + ${kolona}"
+                       th:checked="${rezervisanaSedista.contains(red + '-' + kolona)}"
+                       th:disabled="${rezervisanaSedista.contains(red + '-' + kolona)}" 
+                       th:style="${rezervisanaSedista.contains(red + '-' + kolona)} ? 'background-color: #28a745;' : 'background-color: #C23535;'"/>
                 <label th:for="'seat-' + ${red} + '-' + ${kolona}"
                        th:text="${red} + '-' + ${kolona}"></label>
             </div>

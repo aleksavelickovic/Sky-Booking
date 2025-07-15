@@ -45,7 +45,7 @@ CREATE TABLE korisnici (
 INSERT INTO korisnici (korisnickoIme, lozinka, email, ime, prezime, datumRodjenja, datumIVremeRegistracije, blokiran, uloga) VALUES
 ('pera', 'pera123', 'petar.petrovic@gmail.com', 'Petar', 'Petrović', '1976-06-24', '2023-11-05 01:32:48', false, 'ADMIN'),
 ('marko', 'marko123', 'marko.petrovic@example.com', 'Marko', 'Petrović', '1990-03-15', '2024-12-21 17:34:22', false, 'PUTNIK'),
-('nikola', 'tesla123', 'nikola.tesla@example.com', 'Nikola', 'Tesla', '1976-01-07', '2024-12-21 23:45:30', false, 'PUTNIK'),
+('nikola', 'nikola123', 'nikola.tesla@example.com', 'Nikola', 'Tesla', '1976-01-07', '2024-12-21 23:45:30', false, 'PUTNIK'),
 ('ana.j', 'securepass', 'ana.jovanovic@example.com', 'Ana', 'Jovanović', '1985-07-10', '2024-12-21 18:45:30', false, 'PUTNIK'),
 ('ivan.n', 'mypassword', 'ivan.nikolic@example.com', 'Ivan', 'Nikolić', '2000-01-25', '2024-12-21 19:12:10', false, 'PUTNIK'),
 ('milica.s', 'qwerty123', 'milica.stankovic@example.com', 'Milica', 'Stanković', '1995-11-05', '2024-12-21 20:05:50', false, 'PUTNIK'),
