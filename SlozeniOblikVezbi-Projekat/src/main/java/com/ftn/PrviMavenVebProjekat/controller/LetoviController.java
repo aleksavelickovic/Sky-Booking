@@ -229,6 +229,7 @@ public class LetoviController implements ApplicationContextAware {
 	@GetMapping(value = "/seatoptions")
 	public ModelAndView izbor(HttpServletResponse response, HttpSession session, @RequestParam Long letId) throws IOException {
 		ModelAndView modelAndView = new ModelAndView("izbor-sedista");
+		modelAndView.addObject("letId", letId);
 
 		Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute(KorisniciController.KORISNIK_KEY);
 		if (ulogovaniKorisnik == null) {
@@ -246,7 +247,7 @@ public class LetoviController implements ApplicationContextAware {
 	}
 
 	@GetMapping(value = "/reservation")
-	public ModelAndView reservation(HttpServletResponse response, HttpSession session, @RequestParam Long letId) throws IOException {
+	public ModelAndView reservation(HttpServletResponse response, HttpSession session, @RequestParam Long letId, @RequestParam List<String> sedista) throws IOException {
 		ModelAndView modelAndView = new ModelAndView("rezervacija");
 
 
@@ -256,7 +257,7 @@ public class LetoviController implements ApplicationContextAware {
 //			karteBrojac.add(i);
 //		}
 
-//		modelAndView.addObject("karteBrojac", karteBrojac);
+		modelAndView.addObject("karteBrojac", sedista.size());
 		return modelAndView;
 	}
 
@@ -300,6 +301,7 @@ public class LetoviController implements ApplicationContextAware {
 			System.out.println(datumPolaska);
 			if (traziSlicneLetove != null) {
 				System.out.println("SLICNILETOVI JE cekirano");
+				System.out.println(traziSlicneLetove);
 				modelAndView.addObject("slicnicekirano", true);
 				sviletovi.removeIf(l -> !l.getTerminPolaska().toLocalDate().isEqual(polazak)
 						&& !l.getTerminPolaska().toLocalDate().isEqual(polazak.plusDays(1))

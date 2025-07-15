@@ -98,7 +98,8 @@
 <body style="background-color: #05dff3;">
     <nav class="navbar navbar-expand-md bg-dark py-3" data-bs-theme="dark" th:include="header-footer :: navbar"></nav>
     <div class="mt-5 mb-5 container checkbox-grid">
-        <form>
+        <form action="/PrviMavenVebProjekat/reservation" method="GET">
+            <h2 class="text-center mb-4">Izaberite sedista</h2>
     <div class="seat-grid">
         <div th:each="red : ${#numbers.sequence(1, redovi)}" class="seat-row">
             <div th:each="kolona : ${#numbers.sequence(1, kolone)}" class="seat-cell">
@@ -111,6 +112,8 @@
             </div>
         </div>
     </div>
+    <input type="hidden" name="letId" th:value="${letId}" />
+    <input type="submit" class="btn btn-primary mt-3 ms-5" value="Rezervisi ova sedista" />
 </form>
         
 
