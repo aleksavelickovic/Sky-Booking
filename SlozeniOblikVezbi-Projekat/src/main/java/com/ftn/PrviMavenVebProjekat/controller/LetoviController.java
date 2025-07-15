@@ -2,6 +2,8 @@ package com.ftn.PrviMavenVebProjekat.controller;
 
 import java.io.IOException;
 import java.security.AlgorithmParameterGenerator;
+import java.sql.Timestamp;
+import java.text.CollationKey;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ import java.util.ListIterator;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -24,6 +27,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,13 +39,18 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ftn.PrviMavenVebProjekat.bean.SecondConfiguration.ApplicationMemory;
 import com.ftn.PrviMavenVebProjekat.model.Aerodrom;
 import com.ftn.PrviMavenVebProjekat.model.Avion;
+import com.ftn.PrviMavenVebProjekat.model.Karta;
 import com.ftn.PrviMavenVebProjekat.model.Korisnik;
 import com.ftn.PrviMavenVebProjekat.model.Let;
 import com.ftn.PrviMavenVebProjekat.model.Lokacija;
+import com.ftn.PrviMavenVebProjekat.model.Rezervacija;
+import com.ftn.PrviMavenVebProjekat.repository.impl.RezervacijeRepositoryImpl;
 import com.ftn.PrviMavenVebProjekat.service.AerodromiService;
 import com.ftn.PrviMavenVebProjekat.service.AvioniService;
+import com.ftn.PrviMavenVebProjekat.service.KarteService;
 import com.ftn.PrviMavenVebProjekat.service.LetoviService;
 import com.ftn.PrviMavenVebProjekat.service.LokacijaService;
+import com.ftn.PrviMavenVebProjekat.service.RezervacijeService;
 import com.mysql.cj.Session;
 import com.mysql.cj.x.protobuf.MysqlxExpr.ColumnIdentifier;
 
@@ -62,6 +71,13 @@ public class LetoviController implements ApplicationContextAware {
 	private AerodromiService aerodromiService;
 	@Autowired
 	private AvioniService avioniService;
+	@Autowired
+	private KarteService karteService;
+	@Autowired
+	private RezervacijeService rezervacijeService;
+	@Autowired
+	private RezervacijeRepositoryImpl rezervacijeRepository;
+	private int setovanCookie = 0;
 
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
@@ -72,10 +88,19 @@ public class LetoviController implements ApplicationContextAware {
 	public void init() {
 		bURL = servletContext.getContextPath() + "/";
 		applicationContext.getBean(ApplicationMemory.class);
+
 	}
 
 	@GetMapping
-	public ModelAndView index() {
+	public ModelAndView index(HttpServletResponse response) {
+
+		if (setovanCookie == 0) {
+			Cookie cookie = new Cookie("karteukorpi", "");
+			cookie.setMaxAge(60 * 60 * 24 * 365 * 10); // istice za 10 godina
+			cookie.setPath("/"); // Dostupan je na celom sajtu
+			response.addCookie(cookie);
+			setovanCookie = 1;
+		}
 
 		ArrayList<Let> letovi = new ArrayList<Let>();
 		for (Let let : service.findAll()) {
@@ -265,7 +290,37 @@ public class LetoviController implements ApplicationContextAware {
 	}
 
 	@PostMapping(value = "/reservation")
-	public void reservation() {
+	public void reservation(@CookieValue String karteukorpi, HttpSession session, HttpServletResponse response)
+			throws IOException {
+//		ModelAndView modelAndView = new ModelAndView("korpa");
+		Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute(KorisniciController.KORISNIK_KEY);
+		String[] karteukorpiids = karteukorpi.split("R");
+		ArrayList<Karta> karteukorpilist = new ArrayList<Karta>();
+		for (String id : karteukorpiids) {
+			karteukorpilist.add(karteService.findOne(Long.parseLong(id)));
+		}
+		int ukupnacenarezervacije = 0;
+		System.out.println("KARTICE U KORPICI:" + karteukorpilist);
+		for (Karta karta : karteukorpilist) {
+			ukupnacenarezervacije = ukupnacenarezervacije + karta.getCena();
+			System.out.println("UKUPnA CENA rezervacije: " + ukupnacenarezervacije);
+		}
+
+		Rezervacija rezervacija = new Rezervacija(ulogovaniKorisnik, ukupnacenarezervacije);
+		rezervacijeService.save(rezervacija);
+
+		System.out.println("KARTICE U KORPICI 2:" + karteukorpilist);
+		for (Karta karta : karteukorpilist) {
+			rezervacijeRepository.addKartaToRezervacija(rezervacijeService.findAll().getLast().getId(), karta.getId());
+		}
+		Cookie cookie = new Cookie("karteukorpi", "");
+		cookie.setMaxAge(60 * 60 * 24 * 365 * 10); // istice za 10 godina
+		cookie.setPath("/"); // Dostupan je na celom sajtu
+		response.addCookie(cookie);
+
+		System.out.println("REZERVACIJA USPESNO KOMPLETIRANA!");
+
+		response.sendRedirect(bURL);
 
 	}
 

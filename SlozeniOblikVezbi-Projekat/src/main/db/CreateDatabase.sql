@@ -145,9 +145,9 @@ CREATE TABLE karte (
 );
 
 INSERT INTO karte (letId, brojSedista, cena, imeIPrezimePutnika, brojPasosa) VALUES
-(1, '2-5', 150, 'Petar Petrovic', 'SRB123456'),
+(1, '2-5', 15000, 'Petar Petrovic', 'SRB123456'),
 (2, '1-3', 200, 'Jovana Jovic', 'SRB654321'),
-(1, '4-7', 150, 'Nikola Nikolic', 'SRB112233');
+(1, '4-7', 15000, 'Nikola Nikolic', 'SRB112233');
 
 SELECT * FROM karte k
 ORDER BY k.id;

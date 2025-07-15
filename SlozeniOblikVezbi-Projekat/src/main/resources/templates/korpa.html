@@ -54,8 +54,10 @@
             </div>
         </div>
     </div>
-    <form action="/PrviMavenVebProjekat/letovi/reservation" method="POST">
-    	
+    <h1 class="text-center mt-4 mb-4" data-aos="fade-up" data-aos-duration="950" th:text="${praznakorpaporuka}"></h1>
+    <p th:if="${praznakorpaporuka == null}" class="text-center">Ukupna cena: <span th:text="${ukupnacenarezervacije}"></span> RSD</p>
+    <form th:if="${praznakorpaporuka == null}" action="/PrviMavenVebProjekat/reservation" method="POST">
+    	<button class="btn btn-primary"  id="rezervisibtn" type="submit">Rezervisi ove karte</button>
     </form>
      <!-- <a th:href="@{/}">
      	 <button class="button floating-button" type="button">Nazad</button> 

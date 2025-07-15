@@ -60,14 +60,25 @@ public class KorpaKontroller implements ApplicationContextAware {
 	}
 
 	@GetMapping
-	public ModelAndView index(@CookieValue String karteukorpi) {
+	public ModelAndView index(@CookieValue(required = false) String karteukorpi) { // TODO uraditi validaciju za slucaj
+																					// da cookie jos nije setovan
 		ModelAndView modelAndView = new ModelAndView("korpa");
+		if (karteukorpi.equals("")) {
+			modelAndView.addObject("praznakorpaporuka", "Korpa je prazna!");
+			return modelAndView;
+		}
+
 		String[] karteukorpiids = karteukorpi.split("R");
 		ArrayList<Karta> karteukorpilist = new ArrayList<Karta>();
 		for (String id : karteukorpiids) {
 			karteukorpilist.add(karteService.findOne(Long.parseLong(id)));
 		}
 		modelAndView.addObject("karteukorpi", karteukorpilist);
+		int ukupnacenarezervacije = 0;
+		for (Karta karta : karteukorpilist) {
+			ukupnacenarezervacije = ukupnacenarezervacije + karta.getCena();
+		}
+		modelAndView.addObject("ukupnacenarezervacije", ukupnacenarezervacije);
 		return modelAndView;
 
 	}
@@ -92,22 +103,27 @@ public class KorpaKontroller implements ApplicationContextAware {
 			karteUKorpi.add(karta.getId().toString());
 			index++;
 		}
-		if (!karteukorpi.equals("") || karteukorpi != null) {
+		if (!karteukorpi.equals("")) {
 			String[] karteukorpiids = karteukorpi.split("R");
 			for (String id : karteukorpiids) {
 				karteUKorpi.add(karteService.findOne(Long.parseLong(id)).getId().toString());
 
 			}
 		}
-		Cookie cookie = new Cookie("karteukorpi", String.join("R", karteUKorpi));
-		System.out.println("KOLACIC: " + cookie.getValue());
-		cookie.setMaxAge(60 * 60 * 24 * 365 * 10); // istice za 10 godina
-		cookie.setPath("/"); // Dostupan je na celom sajtu
-		response.addCookie(cookie);
+		try {
+			Cookie cookie = new Cookie("karteukorpi", String.join("R", karteUKorpi));
+			System.out.println("KOLACIC: " + cookie.getValue());
+			cookie.setMaxAge(60 * 60 * 24 * 365 * 10); // istice za 10 godina
+			cookie.setPath("/"); // Dostupan je na celom sajtu
+			response.addCookie(cookie);
 
-		System.out.println("USPESNO NAPUNJENA KORPA!");
+			System.out.println("USPESNO NAPUNJENA KORPA!");
 
-		response.sendRedirect(bURL + "korpa");
+			response.sendRedirect(bURL + "korpa");
+		} catch (Exception e) {
+			System.out.println("GRESKA PRILIKOM PUNJENJA KORPE :(");
+			response.sendRedirect(bURL);
+		}
 
 	}
 

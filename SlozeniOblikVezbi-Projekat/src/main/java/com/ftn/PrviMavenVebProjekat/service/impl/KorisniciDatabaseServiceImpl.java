@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import com.ftn.PrviMavenVebProjekat.model.Korisnik;
@@ -11,6 +12,7 @@ import com.ftn.PrviMavenVebProjekat.repository.KorisniciRepository;
 import com.ftn.PrviMavenVebProjekat.service.KorisniciService;
 
 @Service
+@Primary
 @Qualifier("KorisniciDatabaseServis")
 public class KorisniciDatabaseServiceImpl implements KorisniciService {
 
