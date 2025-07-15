@@ -148,7 +148,7 @@ public class KorisniciController implements ApplicationContextAware {
 
 	@PostMapping(value = "/login")
 	public ModelAndView login(@RequestParam String korisnickoIme, @RequestParam String lozinka, HttpSession session,
-			HttpServletResponse response, @RequestParam Long letZaRezervisati, @RequestParam Integer brojMesta)
+			HttpServletResponse response, @RequestParam Long letZaRezervisati)
 			throws IOException {
 		ModelAndView rezultat = new ModelAndView("prijava");
 		for (Korisnik korisnik : service.findAll()) {
@@ -156,7 +156,7 @@ public class KorisniciController implements ApplicationContextAware {
 				if (korisnik.getBlokiran()) {
 					rezultat.addObject("poruka", "Ovaj nalog je blokiran od strane administratora!");
 					rezultat.addObject("letZaRezervisati", letZaRezervisati);
-					rezultat.addObject("brojMesta", brojMesta);
+//					rezultat.addObject("brojMesta", brojMesta);
 					System.out.println("KORISNIK JE BRLOKIRAN!");
 					return rezultat;
 				} else {
@@ -164,7 +164,7 @@ public class KorisniciController implements ApplicationContextAware {
 					if (letZaRezervisati != null) {
 						System.out.println("USPESNA PRIJAVA SA PREBACIVANJEM NA REZERVACIJU");
 						response.sendRedirect(
-								bURL + "reservation?letId=" + letZaRezervisati + "&brojMesta=" + brojMesta);
+								bURL + "seatoptions?letId=" + letZaRezervisati);
 						return null;
 					} else {
 						response.sendRedirect(bURL);

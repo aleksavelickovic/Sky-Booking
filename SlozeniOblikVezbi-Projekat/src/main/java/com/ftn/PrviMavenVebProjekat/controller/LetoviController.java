@@ -226,23 +226,37 @@ public class LetoviController implements ApplicationContextAware {
 
 	}
 
-	@GetMapping(value = "/reservation")
-	public ModelAndView reservation(HttpServletResponse response, HttpSession session, @RequestParam Long letId,
-			@RequestParam Integer brojMesta) throws IOException {
-		ModelAndView modelAndView = new ModelAndView("rezervacija");
+	@GetMapping(value = "/seatoptions")
+	public ModelAndView izbor(HttpServletResponse response, HttpSession session, @RequestParam Long letId) throws IOException {
+		ModelAndView modelAndView = new ModelAndView("izbor-sedista");
 
 		Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute(KorisniciController.KORISNIK_KEY);
 		if (ulogovaniKorisnik == null) {
-			response.sendRedirect(bURL + "korisnici/login?letZaRezervsati=" + letId + "&brojMesta=" + brojMesta);
+			response.sendRedirect(bURL + "korisnici/login?letZaRezervsati=" + letId);
 			return null;
 		}
-		
-		ArrayList<Integer> karteBrojac = new ArrayList<Integer>();
-		for (int i = 1; i <= brojMesta; i++) {
-			karteBrojac.add(i);
-		}
-		
-		modelAndView.addObject("karteBrojac", karteBrojac);
+
+		Let let = service.findOne(letId);
+		Avion avion = let.getAvion();
+		modelAndView.addObject("kolone", avion.getBrojKolona());
+		modelAndView.addObject("redovi", avion.getBrojRedova());
+
+		return modelAndView;
+
+	}
+
+	@GetMapping(value = "/reservation")
+	public ModelAndView reservation(HttpServletResponse response, HttpSession session, @RequestParam Long letId) throws IOException {
+		ModelAndView modelAndView = new ModelAndView("rezervacija");
+
+
+//
+//		ArrayList<Integer> karteBrojac = new ArrayList<Integer>();
+//		for (int i = 1; i <= brojMesta; i++) {
+//			karteBrojac.add(i);
+//		}
+
+//		modelAndView.addObject("karteBrojac", karteBrojac);
 		return modelAndView;
 	}
 

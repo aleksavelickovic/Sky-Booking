@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
+    <title>Izbor sedista</title>
+    <link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Titillium+Web:400,600,700}">
+    <link rel="stylesheet" th:href="@{/assets/css/aos.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Animation-Cards-_app.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Animation-Cards.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Button-Change-Text-on-Hover.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/button-materialize-materialize.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/button-materialize.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Button-Ripple-Effect-Animation-Wave-Pulse.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Footer-Multi-Column-icons.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Google-Style-Login-.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Growing-Search-Bar-Animated-Text-Input.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Overlay-Login-Form.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/Search-Input-responsive.css}">
+    
+   
+<style>
+  .seat-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.seat-row {
+    display: flex;
+    gap: 8px;
+}
+
+.seat-cell {
+    position: relative;  padding: 10px
+}
+
+.seat-cell input[type="checkbox"] {
+    display: none;
+    margin: 10px;
+}
+
+.seat-cell label {
+    display: inline;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background-color: #d3d3d3;
+    border-radius: 6px;
+    border: 2px solid #999;
+    cursor: pointer;
+    text-align: center;
+    line-height: 1;
+    font-size: 12px;
+    color: #333;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+    user-select: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.seat-cell input[type="checkbox"]:checked + label {
+    background-color: #28a745;
+    border-color: #1e7e34;
+    color: #fff;
+}
+
+.seat-cell label:hover {
+    background-color: #b3b3b3;
+}
+
+.seat-cell input[type="checkbox"]:disabled + label {
+    background-color: #dc3545;
+    border-color: #a71d2a;
+    color: #fff;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+
+</style>
+
+
+</head>
+
+<body style="background-color: #05dff3;">
+    <nav class="navbar navbar-expand-md bg-dark py-3" data-bs-theme="dark" th:include="header-footer :: navbar"></nav>
+    <div class="mt-5 mb-5 container checkbox-grid">
+        <form>
+    <div class="seat-grid">
+        <div th:each="red : ${#numbers.sequence(1, redovi)}" class="seat-row">
+            <div th:each="kolona : ${#numbers.sequence(1, kolone)}" class="seat-cell">
+                <input type="checkbox"
+                       th:id="'seat-' + ${red} + '-' + ${kolona}"
+                       th:name="sedista"
+                       th:value="${red} + '-' + ${kolona}">
+                <label th:for="'seat-' + ${red} + '-' + ${kolona}"
+                       th:text="${red} + '-' + ${kolona}"></label>
+            </div>
+        </div>
+    </div>
+</form>
+        
+
+    </div>
+    <footer class="text-center bg-dark" th:include="header-footer :: footer"></footer>
+    <script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="@{/assets/js/aos.min.js}"></script>
+    <script th:src="@{/assets/js/bs-init.js}"></script>
+    <script th:src="@{/assets/js/button-materialize-materialize.min.js}"></script>
+    <script th:src="@{/assets/js/Button-Ripple-Effect-Animation-Wave-Pulse-button-ripple-effect.js}"></script>
+</body>
+
+</html>

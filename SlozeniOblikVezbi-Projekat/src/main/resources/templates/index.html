@@ -24,6 +24,12 @@
     <link rel="stylesheet" th:href="@{/assets/css/Overlay-Login-Form.css}">
     <link rel="stylesheet" th:href="@{/assets/css/Search-Input-responsive.css}">
 </head>
+<style>
+	input[type="checkbox"] {
+        display: none;
+    }
+
+</style>
 
 <body style="background-color: #05dff3">
 <nav class="navbar navbar-expand-md bg-dark py-3" data-bs-theme="dark" th:include="header-footer :: navbar"></nav>
@@ -73,8 +79,8 @@
 						<p class="card-text">Trajanje: <span th:text="${let.trajanjeLeta}"></span></p>
 						<p class="card-text">Cena po karti: <span th:text="${let.cena}"></span></p>
 						
-						<form action="/PrviMavenVebProjekat/reservation" method="GET">
-						<input type="number" class="form-control" name="brojMesta" placeholder="Broj karata..." required>
+						<form action="/PrviMavenVebProjekat/seatoptions" method="GET">
+						<!-- <input type="number" class="form-control" name="brojMesta" placeholder="Broj karata..." required> -->
 						<button class="btn btn-primary" id="rezervisibtn" type="submit" >rezervisi</button>
 						<input class="hidden" type="hidden" name="letId" th:value="${let.id}">
 						</form>
