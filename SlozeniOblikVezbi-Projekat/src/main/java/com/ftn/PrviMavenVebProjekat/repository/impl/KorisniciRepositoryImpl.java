@@ -47,11 +47,12 @@ public class KorisniciRepositoryImpl implements KorisniciRepository {
 			Uloga uloga = Uloga.valueOf(rs.getString(index++));
 			Boolean blokiran = rs.getBoolean(index++);
 //			String idjevikarata = rs.getString(index++);
+			int loyaltyBodovi = rs.getInt(index++);
 
 			Korisnik korisnik = korisnici.get(id);
 			if (korisnik == null) {
 				korisnik = new Korisnik(id, korisnickoIme, lozinka, email, ime, prezime, datumRodjenja,
-						datumIVremeRegistracije, uloga, blokiran);
+						datumIVremeRegistracije, uloga, blokiran, loyaltyBodovi);
 				korisnici.put(korisnik.getId(), korisnik);
 			}
 		}

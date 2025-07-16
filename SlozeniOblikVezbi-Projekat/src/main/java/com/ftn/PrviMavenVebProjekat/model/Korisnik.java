@@ -15,12 +15,13 @@ public class Korisnik {
 	private Timestamp datumIVremeRegistracije;
 	private Uloga uloga;
 	private Boolean blokiran;
+	private int loyaltyBodovi;
 
 	public Korisnik() {
 	}
 
 	public Korisnik(long id, String korisnickoIme, String lozinka, String email, String ime, String prezime,
-			Date datumRodjenja, Timestamp datumIVremeRegistracije, Uloga uloga, Boolean blokiran) {
+			Date datumRodjenja, Timestamp datumIVremeRegistracije, Uloga uloga, Boolean blokiran, int loyaltyBodovi) {
 		super();
 		this.id = id;
 		this.korisnickoIme = korisnickoIme;
@@ -32,6 +33,7 @@ public class Korisnik {
 		this.datumIVremeRegistracije = datumIVremeRegistracije;
 		this.uloga = uloga;
 		this.blokiran = blokiran;
+		this.loyaltyBodovi = loyaltyBodovi;
 	}
 
 	public Korisnik(String korisnickoIme, String lozinka, String email, String ime, String prezime, Date datumRodjenja,
@@ -46,12 +48,13 @@ public class Korisnik {
 		this.datumIVremeRegistracije = datumIVremeRegistracije;
 		this.uloga = uloga;
 		this.blokiran = false;
+		loyaltyBodovi = -1;
 	}
 
 	@Override
 	public String toString() {
 		return id + ";" + korisnickoIme + ";" + lozinka + ";" + email + ";" + ime + ";" + prezime + ";" + datumRodjenja
-				+ ";" + datumIVremeRegistracije + ";" + uloga;
+				+ ";" + datumIVremeRegistracije + ";" + uloga + ";" + blokiran + ";" + loyaltyBodovi;
 	}
 
 	public Long getId() {
@@ -133,7 +136,13 @@ public class Korisnik {
 	public void setBlokiran(Boolean blokiran) {
 		this.blokiran = blokiran;
 	}
-	
-	
+
+	public int getLoyaltyBodovi() {
+		return loyaltyBodovi;
+	}
+
+	public void setLoyaltyBodovi(int loyaltyBodovi) {
+		this.loyaltyBodovi = loyaltyBodovi;
+	}
 
 }

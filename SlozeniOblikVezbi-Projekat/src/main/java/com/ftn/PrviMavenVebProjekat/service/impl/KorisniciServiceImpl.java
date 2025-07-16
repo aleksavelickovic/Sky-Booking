@@ -52,9 +52,9 @@ public class KorisniciServiceImpl implements KorisniciService {
 				Date datumRodjenja = Date.valueOf(tokens[6]);
 				Timestamp datumRegistracije = Timestamp.valueOf(tokens[7]);
 				Uloga uloga = Uloga.valueOf(tokens[8]);
-
+				int loyaltyBodovi = Integer.parseInt(tokens[9]);
 				korisnici.put(id, new Korisnik(id, korIme, lozinka, email, ime, prezime, datumRodjenja,
-						datumRegistracije, uloga, false)); 
+						datumRegistracije, uloga, false, loyaltyBodovi));
 
 				if (nextId < id)
 					nextId = id;
