@@ -33,27 +33,27 @@
 
 <body style="background-color: #05dff3;">
 <nav class="navbar navbar-expand-md bg-dark py-3" data-bs-theme="dark" th:include="header-footer :: navbar">></nav>
-    <div class="row space-rows mt-4" th:each="karta : ${karteukorpi}">
-        <div class="col">
-            <div class="card cards-shadown cards-hover" data-aos="flip-left" data-aos-duration="950">
-                <div class="card-header" style="height: 200px;">
-                    <div class="cardheader-text">
-                    	<p id="cardheader-subtext-1" th:text="${'Let: ' + karta.let.oznaka}">Let:</p>
-                        <p id="cardheader-subtext-1" th:text="${'Ime I prezime: ' + karta.imeIPrezimePutnika}">Ime I prezime:</p>
-                        <p id="cardheader-subtext-1" th:text="${'Broj Pasosa: ' + karta.brojPasosa}">Broj pasosa:</p>
-                        <p id="cardheader-subtext-1" th:text="${'Broj sedista: ' + karta.brojSedista}">Broj sedista:</p>
-                        <p id="cardheader-subtext-1" th:text="${'Cena: ' + karta.cena}">Cena:</p>
-                    </div>
+    
+<div class="row space-rows mt-4" th:each="karta, status : ${karteukorpi}">
+    <div class="col">
+        <div class="card cards-shadown cards-hover" data-aos="flip-left" data-aos-duration="950">
+            <div class="card-header" style="height: 200px;">
+                <div class="cardheader-text">
+                    <p id="cardheader-subtext-1" th:text="${'Let: ' + karta.let.oznaka}">Let:</p>
+                    <p id="cardheader-subtext-1" th:text="${'Ime I prezime: ' + karta.imeIPrezimePutnika}">Ime I prezime:</p>
+                    <p id="cardheader-subtext-1" th:text="${'Broj Pasosa: ' + karta.brojPasosa}">Broj pasosa:</p>
+                    <p id="cardheader-subtext-1" th:text="${'Broj sedista: ' + karta.brojSedista}">Broj sedista:</p>
+                    <p id="cardheader-subtext-1" th:text="${'Cena: ' + karta.cena}">Cena:</p>
                 </div>
-               <!--   <div class="card-body">
-                    <p class="card-text sub-text-color">Akcije:
-                     <a th:href="@{/lokacije/edit(id=${itLokacija.id})}"><button class="button" type="button" data-hover="Izmeni Lokaciju"><span>Izmeni Lokaciju</span></button></a>
-                        <a th:href="@{/lokacije/delete(id=${itLokacija.id})}"><button class="button" type="button" data-hover="Da li ste sigurni?"><span>OBRISI</span></button></a>
-                    </p>
-                </div> -->
             </div>
+            <form action="/PrviMavenVebProjekat/korpa/uklonistavku" method="GET">
+                <input type="hidden" th:value="${karta.id}" name="kartaZaIzbris"/>
+                <button class="btn btn-primary" type="submit">Izbriši kartu iz korpe</button>
+            </form>
         </div>
     </div>
+</div>
+
     <h1 class="text-center mt-4 mb-4" data-aos="fade-up" data-aos-duration="950" th:text="${praznakorpaporuka}"></h1>
     <p th:if="${praznakorpaporuka == null}" class="text-center">Ukupna cena: <span th:text="${ukupnacenarezervacije}"></span> RSD</p>
     <form th:if="${praznakorpaporuka == null}" action="/PrviMavenVebProjekat/reservation" method="POST">

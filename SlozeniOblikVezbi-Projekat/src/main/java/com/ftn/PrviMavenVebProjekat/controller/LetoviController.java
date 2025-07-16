@@ -7,12 +7,15 @@ import java.text.CollationKey;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
@@ -53,6 +56,8 @@ import com.ftn.PrviMavenVebProjekat.service.LokacijaService;
 import com.ftn.PrviMavenVebProjekat.service.RezervacijeService;
 import com.mysql.cj.Session;
 import com.mysql.cj.x.protobuf.MysqlxExpr.ColumnIdentifier;
+
+import ch.qos.logback.classic.spi.ILoggingEvent;
 
 @Controller
 @RequestMapping(value = "/")
@@ -294,9 +299,11 @@ public class LetoviController implements ApplicationContextAware {
 //		for (int i = 1; i <= brojMesta; i++) {
 //			karteBrojac.add(i);
 //		}
+
 		modelAndView.addObject("letId", letId);
 		modelAndView.addObject("karteBrojac", sedista.size());
 		modelAndView.addObject("sedista", sedista);
+
 		return modelAndView;
 	}
 
@@ -305,7 +312,10 @@ public class LetoviController implements ApplicationContextAware {
 			throws IOException {
 //		ModelAndView modelAndView = new ModelAndView("korpa");
 		Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute(KorisniciController.KORISNIK_KEY);
-		String[] karteukorpiids = karteukorpi.split("R");
+		ArrayList<String> karteukorpiids = new ArrayList<>(Arrays.asList(karteukorpi.split("R")));
+		karteukorpiids.removeAll(Collections.singleton(null));
+		karteukorpiids.removeIf(s -> s.equals(""));
+		System.out.println(karteukorpiids);
 		ArrayList<Karta> karteukorpilist = new ArrayList<Karta>();
 		for (String id : karteukorpiids) {
 			karteukorpilist.add(karteService.findOne(Long.parseLong(id)));
@@ -328,6 +338,24 @@ public class LetoviController implements ApplicationContextAware {
 		cookie.setMaxAge(60 * 60 * 24 * 365 * 10); // istice za 10 godina
 		cookie.setPath("/"); // Dostupan je na celom sajtu
 		response.addCookie(cookie);
+
+		Rezervacija rezervacija2 = rezervacijeService.findAll().getLast();
+
+		Map<Let, Long> letoviSaBrojemKarata = rezervacija2.getKarte().stream()
+				.collect(Collectors.groupingBy(Karta::getLet, Collectors.counting()));
+
+		for (Map.Entry<Let, Long> entry : letoviSaBrojemKarata.entrySet()) {
+			Let letFromMap = entry.getKey();
+			long brojKarata = entry.getValue();
+
+			// Load latest Let from DB
+			Let let = service.findOne(letFromMap.getId());
+
+			int novaBrojMesta = let.getBrojMesta() - (int) brojKarata;
+
+			let.setBrojMesta(novaBrojMesta);
+			service.update(let);
+		}
 
 		System.out.println("REZERVACIJA USPESNO KOMPLETIRANA!");
 

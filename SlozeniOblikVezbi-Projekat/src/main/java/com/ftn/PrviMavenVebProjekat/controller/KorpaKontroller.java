@@ -2,6 +2,9 @@ package com.ftn.PrviMavenVebProjekat.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
@@ -60,15 +63,18 @@ public class KorpaKontroller implements ApplicationContextAware {
 	}
 
 	@GetMapping
-	public ModelAndView index(@CookieValue(required = false) String karteukorpi) { // TODO uraditi validaciju za slucaj
-																					// da cookie jos nije setovan
+	public ModelAndView index(@CookieValue(required = false) String karteukorpi) {
 		ModelAndView modelAndView = new ModelAndView("korpa");
-		if (karteukorpi.equals("")) {
+		if (karteukorpi.equals("") || karteukorpi.matches("R+")) {
 			modelAndView.addObject("praznakorpaporuka", "Korpa je prazna!");
 			return modelAndView;
 		}
 
-		String[] karteukorpiids = karteukorpi.split("R");
+		ArrayList<String> karteukorpiids = new ArrayList<>(Arrays.asList(karteukorpi.split("R")));
+		karteukorpiids.removeAll(Collections.singleton(null));
+		karteukorpiids.removeIf(s -> s.equals(""));
+		System.out.println(karteukorpiids);
+
 		ArrayList<Karta> karteukorpilist = new ArrayList<Karta>();
 		for (String id : karteukorpiids) {
 			karteukorpilist.add(karteService.findOne(Long.parseLong(id)));
@@ -79,7 +85,39 @@ public class KorpaKontroller implements ApplicationContextAware {
 			ukupnacenarezervacije = ukupnacenarezervacije + karta.getCena();
 		}
 		modelAndView.addObject("ukupnacenarezervacije", ukupnacenarezervacije);
+
+		Long poslednjiIdKarte = karteService.findAll().getLast().getId();
+		System.out.println("ID POSLEDNJE KARTE " + poslednjiIdKarte);
+		modelAndView.addObject("poslednjiIdKarte", poslednjiIdKarte);
+
 		return modelAndView;
+
+	}
+
+	@GetMapping(value = "/uklonistavku")
+	public void uklonistavku(@RequestParam Long kartaZaIzbris, @CookieValue String karteukorpi,
+			HttpServletResponse response) throws IOException {
+//		String[] karteukorpiids = karteukorpi.split("R");
+//		ArrayList<Karta> karteukorpilist = new ArrayList<Karta>();
+//		for (String id : karteukorpiids) {
+//			karteukorpilist.add(karteService.findOne(Long.parseLong(id)));
+//		}
+//
+//		for (Karta karta : karteukorpilist) {
+//			if (karta.getId() == kartaZaIzbris) {
+//				karteukorpilist.remove(karta);
+//			}
+//		}
+//
+//		karteukorpiids = karteukorpilist.toString().split("R");
+
+		Cookie cookie = new Cookie("karteukorpi", karteukorpi.replace(kartaZaIzbris.toString(), ""));
+		System.out.println("KOLACIC: " + cookie.getValue());
+		cookie.setMaxAge(60 * 60 * 24 * 365 * 10); // istice za 10 godina
+		cookie.setPath("/"); // Dostupan je na celom sajtu
+		response.addCookie(cookie);
+
+		response.sendRedirect(bURL + "korpa");
 
 	}
 
