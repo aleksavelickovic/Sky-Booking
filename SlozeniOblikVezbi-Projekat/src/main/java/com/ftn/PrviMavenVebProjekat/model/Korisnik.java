@@ -23,7 +23,8 @@ public class Korisnik {
 	}
 
 	public Korisnik(long id, String korisnickoIme, String lozinka, String email, String ime, String prezime,
-			Date datumRodjenja, Timestamp datumIVremeRegistracije, Uloga uloga, Boolean blokiran, int loyaltyBodovi, boolean zahtevaLoyalty, int paraPotroseno) {
+			Date datumRodjenja, Timestamp datumIVremeRegistracije, Uloga uloga, Boolean blokiran, int loyaltyBodovi,
+			boolean zahtevaLoyalty, int paraPotroseno) {
 		super();
 		this.id = id;
 		this.korisnickoIme = korisnickoIme;
@@ -60,7 +61,8 @@ public class Korisnik {
 	@Override
 	public String toString() {
 		return id + ";" + korisnickoIme + ";" + lozinka + ";" + email + ";" + ime + ";" + prezime + ";" + datumRodjenja
-				+ ";" + datumIVremeRegistracije + ";" + uloga + ";" + blokiran + ";" + loyaltyBodovi + ";" + zahtevaLoyalty + ";" + paraPotroseno;
+				+ ";" + datumIVremeRegistracije + ";" + uloga + ";" + blokiran + ";" + loyaltyBodovi + ";"
+				+ zahtevaLoyalty + ";" + paraPotroseno;
 	}
 
 	public Long getId() {
@@ -166,8 +168,5 @@ public class Korisnik {
 	public void setParaPotroseno(int paraPotroseno) {
 		this.paraPotroseno = paraPotroseno;
 	}
-	
-	
 
-	
 }

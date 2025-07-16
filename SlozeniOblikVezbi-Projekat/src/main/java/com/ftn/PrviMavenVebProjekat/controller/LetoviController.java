@@ -311,8 +311,10 @@ public class LetoviController implements ApplicationContextAware {
 	}
 
 	@PostMapping(value = "/reservation")
-	public void reservation(@CookieValue String karteukorpi, HttpSession session, HttpServletResponse response)
-			throws IOException {
+	public void reservation(@CookieValue String karteukorpi, HttpSession session, HttpServletResponse response,
+			@RequestParam(required = false) Integer loyaltyBodovi) throws IOException {
+		System.out.println("Korisnik želi da iskoristi bodova: " + loyaltyBodovi);
+
 //		ModelAndView modelAndView = new ModelAndView("korpa");
 		Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute(KorisniciController.KORISNIK_KEY);
 		ArrayList<String> karteukorpiids = new ArrayList<>(Arrays.asList(karteukorpi.split("R")));
@@ -328,6 +330,24 @@ public class LetoviController implements ApplicationContextAware {
 		for (Karta karta : karteukorpilist) {
 			ukupnacenarezervacije = ukupnacenarezervacije + karta.getCena();
 			System.out.println("UKUPnA CENA rezervacije: " + ukupnacenarezervacije);
+		}
+
+		if (ulogovaniKorisnik.getLoyaltyBodovi() >= 0) {
+			double procenatPopusta = loyaltyBodovi * 0.07;
+
+			if (procenatPopusta > 1.0) {
+				procenatPopusta = 1.0;
+			}
+
+			ukupnacenarezervacije = (int) Math.ceil(ukupnacenarezervacije - (ukupnacenarezervacije * procenatPopusta));
+
+			ulogovaniKorisnik.setLoyaltyBodovi(ulogovaniKorisnik.getLoyaltyBodovi() - loyaltyBodovi); // TODO napravi da
+																										// mu napise
+																										// kolko je
+																										// bodova
+																										// skinuto
+			korisniciService.update(ulogovaniKorisnik);
+			session.setAttribute(KorisniciController.KORISNIK_KEY, ulogovaniKorisnik);
 		}
 
 		Rezervacija rezervacija = new Rezervacija(ulogovaniKorisnik, ukupnacenarezervacije);
@@ -365,7 +385,8 @@ public class LetoviController implements ApplicationContextAware {
 
 		if (ulogovaniKorisnik.getLoyaltyBodovi() >= 0) {
 			ulogovaniKorisnik.setLoyaltyBodovi(ulogovaniKorisnik.getLoyaltyBodovi()
-					+ (int) Math.floor(ulogovaniKorisnik.getParaPotroseno() / 30000));
+					+ (int) Math.floor(ulogovaniKorisnik.getParaPotroseno() / 30000)); // TODO napravi da mu napise
+																						// kolko je bodova dobio
 			korisniciService.update(ulogovaniKorisnik);
 		}
 
