@@ -58,6 +58,9 @@
                  th:if="${session.prijavljeniKorisnik != null && session.prijavljeniKorisnik.loyaltyBodovi >= 0}">Loyalty bodovi</p>
             
             <div class="d-none d-md-block">
+            <p class="text-center mt-5" style="background-color: #408643;" data-aos="fade-up" data-aos-duration="950" th:if="${#request.getParameter('loyaltyuspeh')}">Podneli ste zahtev za kreiranje loyalty kartice!</p>
+            	<p class="text-center mt-5" style="background-color: #D83F3B;" data-aos="fade-up" data-aos-duration="950" th:if="${#request.getParameter('loyaltyfail')}">Vec ste podneli zahtev za kreiranje loyalty kartice!</p>
+            
                 <a class="btn btn-light me-2" role="button" th:if="${session.prijavljeniKorisnik != null && session.prijavljeniKorisnik.loyaltyBodovi < 0}"
                  th:href="@{/korisnici/loyaltyrequest}">Napravite Loyalty karticu</a>
                  

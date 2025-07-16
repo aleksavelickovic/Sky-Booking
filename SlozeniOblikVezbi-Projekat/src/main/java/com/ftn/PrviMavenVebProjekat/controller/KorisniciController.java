@@ -202,6 +202,23 @@ public class KorisniciController implements ApplicationContextAware {
 		ModelAndView modelAndView = new ModelAndView("admin");
 		return modelAndView;
 	}
+	
+	@GetMapping(value = "/loyaltyrequest")
+	public void loyaltyrequest(HttpSession session, HttpServletResponse response) throws IOException {
+		Korisnik ulogovanikorisnik = (Korisnik) session.getAttribute(KORISNIK_KEY);
+		if (ulogovanikorisnik.getZahtevaLoyalty()) {
+			response.sendRedirect(bURL + "?loyaltyfail=true");
+			return;
+		}
+
+		ulogovanikorisnik.setZahtevaLoyalty(true);
+		service.update(ulogovanikorisnik);
+		session.setAttribute(KORISNIK_KEY, ulogovanikorisnik); // osvezavanje sesije
+		
+		response.sendRedirect(bURL + "?loyaltyuspeh=true");
+		return;
+		
+	}
 
 	/**
 	 * Metoda za filtriranje korisnika na osnovu unetih kriterijuma.

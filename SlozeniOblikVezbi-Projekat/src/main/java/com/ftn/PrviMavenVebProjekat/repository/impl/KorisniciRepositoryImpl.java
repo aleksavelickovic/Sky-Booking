@@ -48,11 +48,12 @@ public class KorisniciRepositoryImpl implements KorisniciRepository {
 			Boolean blokiran = rs.getBoolean(index++);
 //			String idjevikarata = rs.getString(index++);
 			int loyaltyBodovi = rs.getInt(index++);
+			Boolean zahtevaLoyalty = rs.getBoolean(index++);
 
 			Korisnik korisnik = korisnici.get(id);
 			if (korisnik == null) {
 				korisnik = new Korisnik(id, korisnickoIme, lozinka, email, ime, prezime, datumRodjenja,
-						datumIVremeRegistracije, uloga, blokiran, loyaltyBodovi);
+						datumIVremeRegistracije, uloga, blokiran, loyaltyBodovi, zahtevaLoyalty);
 				korisnici.put(korisnik.getId(), korisnik);
 			}
 		}
@@ -88,7 +89,7 @@ public class KorisniciRepositoryImpl implements KorisniciRepository {
 
 			@Override
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-				String sql = "INSERT INTO korisnici (korisnickoIme, lozinka, email, ime, prezime, datumRodjenja, uloga) VALUES (?, ?, ?, ?, ?, ?, 'PUTNIK')";
+				String sql = "INSERT INTO korisnici (korisnickoIme, lozinka, email, ime, prezime, datumRodjenja, uloga, loyaltyBodovi) VALUES (?, ?, ?, ?, ?, ?, 'PUTNIK', ?, 'false')";
 				PreparedStatement preparedStatement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 				int index = 1;
 				preparedStatement.setString(index++, Korisnik.getKorisnickoIme());
@@ -97,6 +98,8 @@ public class KorisniciRepositoryImpl implements KorisniciRepository {
 				preparedStatement.setString(index++, Korisnik.getIme());
 				preparedStatement.setString(index++, Korisnik.getPrezime());
 				preparedStatement.setDate(index++, Korisnik.getDatumRodjenja());
+				preparedStatement.setInt(index++, Korisnik.getLoyaltyBodovi());
+//				preparedStatement.setBoolean(index++, false);
 
 				return preparedStatement;
 			}
@@ -116,11 +119,12 @@ public class KorisniciRepositoryImpl implements KorisniciRepository {
 	public int update(Korisnik korisnik) { // TODO edit korisnika ce se verovatno raditi iz ugla korisnika a ne admina
 
 		String sql = "UPDATE korisnici SET korisnickoIme = ?, lozinka = ?, email = ?, ime = ?, prezime = ?, datumRodjenja = ?, "
-				+ "datumIVremeRegistracije = ?, uloga = ?, blokiran = ? WHERE id = ?";
-		
+				+ "datumIVremeRegistracije = ?, uloga = ?, blokiran = ?, loyaltyBodovi = ?, zahtevaLoyalty = ? WHERE id = ?";
+
 		boolean uspeh = jdbcTemplate.update(sql, korisnik.getKorisnickoIme(), korisnik.getLozinka(),
 				korisnik.getEmail(), korisnik.getIme(), korisnik.getPrezime(), korisnik.getDatumRodjenja(),
-				korisnik.getDatumIVremeRegistracije(), korisnik.getUloga().name(), korisnik.getBlokiran(), korisnik.getId()) == 1;
+				korisnik.getDatumIVremeRegistracije(), korisnik.getUloga().name(), korisnik.getBlokiran(),
+				korisnik.getLoyaltyBodovi(), korisnik.getZahtevaLoyalty(), korisnik.getId()) == 1;
 
 		if (uspeh) {
 			return 1;
