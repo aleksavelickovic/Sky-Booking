@@ -148,8 +148,7 @@ public class KorisniciController implements ApplicationContextAware {
 
 	@PostMapping(value = "/login")
 	public ModelAndView login(@RequestParam String korisnickoIme, @RequestParam String lozinka, HttpSession session,
-			HttpServletResponse response, @RequestParam Long letZaRezervisati)
-			throws IOException {
+			HttpServletResponse response, @RequestParam Long letZaRezervisati) throws IOException {
 		ModelAndView rezultat = new ModelAndView("prijava");
 		for (Korisnik korisnik : service.findAll()) {
 			if (korisnik.getKorisnickoIme().equals(korisnickoIme) && korisnik.getLozinka().equals(lozinka)) {
@@ -163,8 +162,7 @@ public class KorisniciController implements ApplicationContextAware {
 					session.setAttribute(KorisniciController.KORISNIK_KEY, korisnik);
 					if (letZaRezervisati != null) {
 						System.out.println("USPESNA PRIJAVA SA PREBACIVANJEM NA REZERVACIJU");
-						response.sendRedirect(
-								bURL + "seatoptions?letId=" + letZaRezervisati);
+						response.sendRedirect(bURL + "seatoptions?letId=" + letZaRezervisati);
 						return null;
 					} else {
 						response.sendRedirect(bURL);
@@ -202,7 +200,7 @@ public class KorisniciController implements ApplicationContextAware {
 		ModelAndView modelAndView = new ModelAndView("admin");
 		return modelAndView;
 	}
-	
+
 	@GetMapping(value = "/loyaltyrequest")
 	public void loyaltyrequest(HttpSession session, HttpServletResponse response) throws IOException {
 		Korisnik ulogovanikorisnik = (Korisnik) session.getAttribute(KORISNIK_KEY);
@@ -214,10 +212,19 @@ public class KorisniciController implements ApplicationContextAware {
 		ulogovanikorisnik.setZahtevaLoyalty(true);
 		service.update(ulogovanikorisnik);
 		session.setAttribute(KORISNIK_KEY, ulogovanikorisnik); // osvezavanje sesije
-		
+
 		response.sendRedirect(bURL + "?loyaltyuspeh=true");
 		return;
-		
+
+	}
+
+	@GetMapping(value = "odobrizahtevzaloyalty")
+	public void odobrizahtev(@RequestParam Long id, HttpServletResponse response) throws IOException {
+		Korisnik korisnik = service.findOne(id);
+		korisnik.setLoyaltyBodovi(5);
+		korisnik.setZahtevaLoyalty(false);
+		service.update(korisnik);
+		response.sendRedirect(bURL + "korisnici");
 	}
 
 	/**
