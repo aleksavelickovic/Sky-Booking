@@ -93,6 +93,12 @@
         					<span>ODOBRI ZAHTEV ZA LOYALTY KARTICU</span>
    						</button>
 					</a> 
+					
+					<a th:href="@{/korisnici/odbijzahtevzaloyalty(id=${itKorisnik.id})}" th:if="${itKorisnik.zahtevaLoyalty}">
+    					<button class="button" type="button" data-hover="Da li ste sigurni?">
+        					<span>ODBIJ ZAHTEV ZA LOYALTY KARTICU</span>
+   						</button>
+					</a> 
                        
 					<a th:href="@{/korisnici/blockunblock(id=${itKorisnik.id})}">
     					<button class="button" type="button" th:classappend="${itKorisnik.uloga.name() == 'ADMIN'} ? 'blok' : ''" th:disabled="${itKorisnik.uloga.name() == 'ADMIN'} ? 'true' : 'false'" th:data-hover="${itKorisnik.uloga.name() == 'ADMIN'} ? 'NE MOŽETE DA BLOKIRATE ADMINISTRATORA!' : 'Da li ste sigurni?'">

@@ -51,6 +51,7 @@ import com.ftn.PrviMavenVebProjekat.repository.impl.RezervacijeRepositoryImpl;
 import com.ftn.PrviMavenVebProjekat.service.AerodromiService;
 import com.ftn.PrviMavenVebProjekat.service.AvioniService;
 import com.ftn.PrviMavenVebProjekat.service.KarteService;
+import com.ftn.PrviMavenVebProjekat.service.KorisniciService;
 import com.ftn.PrviMavenVebProjekat.service.LetoviService;
 import com.ftn.PrviMavenVebProjekat.service.LokacijaService;
 import com.ftn.PrviMavenVebProjekat.service.RezervacijeService;
@@ -82,6 +83,8 @@ public class LetoviController implements ApplicationContextAware {
 	private RezervacijeService rezervacijeService;
 	@Autowired
 	private RezervacijeRepositoryImpl rezervacijeRepository;
+	@Autowired
+	private KorisniciService korisniciService;
 
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
@@ -348,13 +351,22 @@ public class LetoviController implements ApplicationContextAware {
 			Let letFromMap = entry.getKey();
 			long brojKarata = entry.getValue();
 
-			// Load latest Let from DB
+			// Ucitavanje poslednjeg leta iz baze
 			Let let = service.findOne(letFromMap.getId());
 
 			int novaBrojMesta = let.getBrojMesta() - (int) brojKarata;
 
 			let.setBrojMesta(novaBrojMesta);
 			service.update(let);
+		}
+
+		ulogovaniKorisnik.setParaPotroseno(ulogovaniKorisnik.getParaPotroseno() + ukupnacenarezervacije);
+		korisniciService.update(ulogovaniKorisnik);
+
+		if (ulogovaniKorisnik.getLoyaltyBodovi() >= 0) {
+			ulogovaniKorisnik.setLoyaltyBodovi(ulogovaniKorisnik.getLoyaltyBodovi()
+					+ (int) Math.floor(ulogovaniKorisnik.getParaPotroseno() / 30000));
+			korisniciService.update(ulogovaniKorisnik);
 		}
 
 		System.out.println("REZERVACIJA USPESNO KOMPLETIRANA!");

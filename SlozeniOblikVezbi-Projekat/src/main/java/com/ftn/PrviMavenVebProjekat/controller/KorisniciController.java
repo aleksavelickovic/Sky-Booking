@@ -226,6 +226,15 @@ public class KorisniciController implements ApplicationContextAware {
 		service.update(korisnik);
 		response.sendRedirect(bURL + "korisnici");
 	}
+	
+	@GetMapping(value = "odbijzahtevzaloyalty")
+	public void odbij(@RequestParam Long id, HttpServletResponse response) throws IOException {
+		Korisnik korisnik = service.findOne(id);
+//		korisnik.setLoyaltyBodovi(5);
+		korisnik.setZahtevaLoyalty(false);
+		service.update(korisnik);
+		response.sendRedirect(bURL + "korisnici");
+	}
 
 	/**
 	 * Metoda za filtriranje korisnika na osnovu unetih kriterijuma.
