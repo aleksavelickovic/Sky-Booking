@@ -27,6 +27,8 @@
 
 <body style="background-color: #05dff3">
 <nav class="navbar navbar-expand-md bg-dark py-3" data-bs-theme="dark" th:include="header-footer :: navbar"></nav>
+	<h3 class="text-center mt-4 mb-4" style="background-color: #D83F3B;" data-aos="fade-up" data-aos-duration="950" th:text="${porukaogresci}"></h3>
+
 	<form action="/PrviMavenVebProjekat/korpa/napunikorpu" method="POST">
 	
 	<div class="container py-4 py-xl-5" data-aos="flip-left" data-aos-duration="950" th:each="brojac : ${#numbers.sequence(1, karteBrojac)}">

@@ -122,10 +122,22 @@ public class KorpaKontroller implements ApplicationContextAware {
 	}
 
 	@PostMapping(value = "/napunikorpu")
-	public void napunikorpu(@RequestParam Long letZaRezervisati, @RequestParam ArrayList<String> imeIPrezime,
+	public ModelAndView napunikorpu(@RequestParam Long letZaRezervisati, @RequestParam ArrayList<String> imeIPrezime,
 			@RequestParam ArrayList<String> brojPasosa, @RequestParam Integer brojKarata,
 			@RequestParam ArrayList<String> sedista, HttpServletResponse response,
 			@CookieValue(required = false) String karteukorpi) throws IOException {
+		imeIPrezime.removeIf(ip -> ip.equals(""));
+		brojPasosa.removeIf(ip -> ip.equals(""));
+
+		if (imeIPrezime.size() != sedista.size() || brojPasosa.size() != sedista.size()) {
+			ModelAndView modelAndView = new ModelAndView("rezervacija");
+			modelAndView.addObject("letId", letZaRezervisati);
+			modelAndView.addObject("karteBrojac", sedista.size());
+			modelAndView.addObject("sedista", sedista);
+			modelAndView.addObject("porukaogresci", "Morate popuniti sve podatke!");
+			return modelAndView;
+		}
+
 		System.out.println("LET: " + letZaRezervisati);
 		Let let = letoviService.findOne(letZaRezervisati);
 		ArrayList<String> karteUKorpi = new ArrayList<String>();
@@ -158,9 +170,11 @@ public class KorpaKontroller implements ApplicationContextAware {
 			System.out.println("USPESNO NAPUNJENA KORPA!");
 
 			response.sendRedirect(bURL + "korpa");
+			return null;
 		} catch (Exception e) {
 			System.out.println("GRESKA PRILIKOM PUNJENJA KORPE :(");
 			response.sendRedirect(bURL);
+			return null;
 		}
 
 	}
