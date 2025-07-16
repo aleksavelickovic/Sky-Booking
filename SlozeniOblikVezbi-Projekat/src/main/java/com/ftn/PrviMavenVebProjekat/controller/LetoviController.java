@@ -332,22 +332,25 @@ public class LetoviController implements ApplicationContextAware {
 			System.out.println("UKUPnA CENA rezervacije: " + ukupnacenarezervacije);
 		}
 
-		if (ulogovaniKorisnik.getLoyaltyBodovi() >= 0) {
-			double procenatPopusta = loyaltyBodovi * 0.07;
+		try {
+			if (ulogovaniKorisnik.getLoyaltyBodovi() >= 0) {
+				double procenatPopusta = loyaltyBodovi * 0.07;
 
-			if (procenatPopusta > 1.0) {
-				procenatPopusta = 1.0;
+				if (procenatPopusta > 1.0) {
+					procenatPopusta = 1.0;
+				}
+
+				ukupnacenarezervacije = (int) Math
+						.ceil(ukupnacenarezervacije - (ukupnacenarezervacije * procenatPopusta));
+
+				// TODO napravi da mu napise kolko je bodova skinuto
+
+				ulogovaniKorisnik.setLoyaltyBodovi(ulogovaniKorisnik.getLoyaltyBodovi() - loyaltyBodovi);
+				session.setAttribute(KorisniciController.KORISNIK_KEY, ulogovaniKorisnik);
 			}
+		} catch (Exception e) {
+			// TODO: handle exception
 
-			ukupnacenarezervacije = (int) Math.ceil(ukupnacenarezervacije - (ukupnacenarezervacije * procenatPopusta));
-
-			ulogovaniKorisnik.setLoyaltyBodovi(ulogovaniKorisnik.getLoyaltyBodovi() - loyaltyBodovi); // TODO napravi da
-																										// mu napise
-																										// kolko je
-																										// bodova
-																										// skinuto
-			korisniciService.update(ulogovaniKorisnik);
-			session.setAttribute(KorisniciController.KORISNIK_KEY, ulogovaniKorisnik);
 		}
 
 		Rezervacija rezervacija = new Rezervacija(ulogovaniKorisnik, ukupnacenarezervacije);
@@ -383,11 +386,16 @@ public class LetoviController implements ApplicationContextAware {
 		ulogovaniKorisnik.setParaPotroseno(ulogovaniKorisnik.getParaPotroseno() + ukupnacenarezervacije);
 		korisniciService.update(ulogovaniKorisnik);
 
-		if (ulogovaniKorisnik.getLoyaltyBodovi() >= 0) {
-			ulogovaniKorisnik.setLoyaltyBodovi(ulogovaniKorisnik.getLoyaltyBodovi()
-					+ (int) Math.floor(ulogovaniKorisnik.getParaPotroseno() / 30000)); // TODO napravi da mu napise
-																						// kolko je bodova dobio
-			korisniciService.update(ulogovaniKorisnik);
+		try {
+			if (ulogovaniKorisnik.getLoyaltyBodovi() >= 0) {
+				ulogovaniKorisnik.setLoyaltyBodovi(
+						ulogovaniKorisnik.getLoyaltyBodovi() + (int) Math.floor(ukupnacenarezervacije / 30000));
+				// TODO napravi da mu napise kolko je bodova dobio
+				korisniciService.update(ulogovaniKorisnik);
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
 
 		System.out.println("REZERVACIJA USPESNO KOMPLETIRANA!");

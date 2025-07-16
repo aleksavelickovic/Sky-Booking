@@ -41,22 +41,24 @@ CREATE TABLE korisnici (
     blokiran BOOLEAN,
     loyaltyBodovi INT,
     zahtevaLoyalty BOOLEAN,
+    paraPotroseno INT,
     PRIMARY KEY(id)
 );
 
-INSERT INTO korisnici (korisnickoIme, lozinka, email, ime, prezime, datumRodjenja, datumIVremeRegistracije, blokiran, uloga, loyaltyBodovi, zahtevaLoyalty) VALUES
-('pera', 'pera123', 'petar.petrovic@gmail.com', 'Petar', 'Petrović', '1976-06-24', '2023-11-05 01:32:48', false, 'ADMIN', 5, false),
-('marko', 'marko123', 'marko.petrovic@example.com', 'Marko', 'Petrović', '1990-03-15', '2024-12-21 17:34:22', false, 'PUTNIK', -1, false),
-('nikola', 'nikola123', 'nikola.tesla@example.com', 'Nikola', 'Tesla', '1976-01-07', '2024-12-21 23:45:30', false, 'PUTNIK', -1, false),
-('ana.j', 'securepass', 'ana.jovanovic@example.com', 'Ana', 'Jovanović', '1985-07-10', '2024-12-21 18:45:30', false, 'PUTNIK', -1, false),
-('ivan.n', 'mypassword', 'ivan.nikolic@example.com', 'Ivan', 'Nikolić', '2000-01-25', '2024-12-21 19:12:10', false, 'PUTNIK', -1, false),
-('milica.s', 'qwerty123', 'milica.stankovic@example.com', 'Milica', 'Stanković', '1995-11-05', '2024-12-21 20:05:50', false, 'PUTNIK', -1, false),
-('stefan.p', 'abc12345', 'stefan.popovic@example.com', 'Stefan', 'Popović', '1988-09-12', '2024-12-21 21:30:15', false, 'PUTNIK', -1, false),
-('jelena.k', 'jelena2024', 'jelena.kovac@example.com', 'Jelena', 'Kovač', '1993-06-18', '2024-12-21 22:10:05', false, 'PUTNIK', -1, false),
-('dragana.b', 'dragon789', 'dragana.bogdanovic@example.com', 'Dragana', 'Bogdanović', '1992-04-22', '2024-12-22 00:15:40', true, 'PUTNIK', -1, false),
-('aleksandar.v', 'alex123', 'aleksandar.vukovsic@example.com', 'Aleksandar', 'Vuković', '1998-11-30', '2024-12-22 01:30:00', true, 'PUTNIK', -1, false),
-('milos', 'milos123', 'aleksandar.vukovsic@example.com', 'Aleksandar', 'Vuković', '1998-11-30', '2024-12-22 01:30:00', true, 'PUTNIK', -1, false),
-('katarina.m', 'katy2024', 'katarina.milosevic@example.com', 'Katarina', 'Milošević', '1994-08-15', '2024-12-22 02:20:50', false, 'PUTNIK', -1, false);
+INSERT INTO korisnici (korisnickoIme, lozinka, email, ime, prezime, datumRodjenja, datumIVremeRegistracije, blokiran, uloga, loyaltyBodovi, zahtevaLoyalty,
+paraPotroseno) VALUES
+('pera', 'pera123', 'petar.petrovic@gmail.com', 'Petar', 'Petrović', '1976-06-24', '2023-11-05 01:32:48', false, 'ADMIN', 5, false, 0),
+('marko', 'marko123', 'marko.petrovic@example.com', 'Marko', 'Petrović', '1990-03-15', '2024-12-21 17:34:22', false, 'PUTNIK', -1, false, 0),
+('nikola', 'nikola123', 'nikola.tesla@example.com', 'Nikola', 'Tesla', '1976-01-07', '2024-12-21 23:45:30', false, 'PUTNIK', -1, false, 0),
+('ana.j', 'securepass', 'ana.jovanovic@example.com', 'Ana', 'Jovanović', '1985-07-10', '2024-12-21 18:45:30', false, 'PUTNIK', -1, false, 0),
+('ivan.n', 'mypassword', 'ivan.nikolic@example.com', 'Ivan', 'Nikolić', '2000-01-25', '2024-12-21 19:12:10', false, 'PUTNIK', -1, false, 0),
+('milica.s', 'qwerty123', 'milica.stankovic@example.com', 'Milica', 'Stanković', '1995-11-05', '2024-12-21 20:05:50', false, 'PUTNIK', -1, false, 0),
+('stefan.p', 'abc12345', 'stefan.popovic@example.com', 'Stefan', 'Popović', '1988-09-12', '2024-12-21 21:30:15', false, 'PUTNIK', -1, false, 0),
+('jelena.k', 'jelena2024', 'jelena.kovac@example.com', 'Jelena', 'Kovač', '1993-06-18', '2024-12-21 22:10:05', false, 'PUTNIK', -1, false, 0),
+('dragana.b', 'dragon789', 'dragana.bogdanovic@example.com', 'Dragana', 'Bogdanović', '1992-04-22', '2024-12-22 00:15:40', true, 'PUTNIK', -1, false, 0),
+('aleksandar.v', 'alex123', 'aleksandar.vukovsic@example.com', 'Aleksandar', 'Vuković', '1998-11-30', '2024-12-22 01:30:00', true, 'PUTNIK', -1, false, 0),
+('milos', 'milos123', 'aleksandar.vukovsic@example.com', 'Aleksandar', 'Vuković', '1998-11-30', '2024-12-22 01:30:00', true, 'PUTNIK', -1, false, 0),
+('katarina.m', 'katy2024', 'katarina.milosevic@example.com', 'Katarina', 'Milošević', '1994-08-15', '2024-12-22 02:20:50', false, 'PUTNIK', -1, false, 0);
 
 SELECT * FROM korisnici k
 ORDER BY k.id;
