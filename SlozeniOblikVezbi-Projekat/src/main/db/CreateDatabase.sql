@@ -137,7 +137,7 @@ ORDER BY lt.id;
 CREATE TABLE karte (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
     letId BIGINT,
-    brojSedista VARCHAR(10) NOT NULL,
+    brojSedista VARCHAR(10) NOT NULL, -- Trebalo bi biti unikatno za celu bazu, pa try/catch u kodu ako dvojica iz razlicitih sesija pokusaju da rezervisu isto mesto
     cena INT NOT NULL,
     imeIPrezimePutnika VARCHAR(100) NOT NULL,
     brojPasosa VARCHAR(50) NOT NULL,
