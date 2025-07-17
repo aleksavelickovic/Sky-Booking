@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    console.log('Definisanje akcije script loaded');
+    console.log('Skript za definisanje akcije je učitana');
      $('.akcijaform').hide();
     var formaPrikazana = false;
 
@@ -21,9 +21,21 @@ $(document).ready(function(){
     const $definisipopustbtn = $('.definisipopustbtn');
 
     $definisipopustbtn.on('click', function() {
-        console.log('Definisanje popusta button clicked');
+        console.log('Dugme definisipopustbtn je kliknuto');
         const letId = $(this).data('let-id');
-        $.post('/PrviMavenVebProjekat/letovi/definisiakciju', {teststring: 'TEST STRING, id leta: ' +  letId + ' ', drugiteststring: ' DRUGI TEST STRING'}, 'json');
+        $.ajax({
+            url: '/PrviMavenVebProjekat/letovi/definisiakciju',
+            type: 'POST',
+            data: {teststring: 'TEST STRING, id leta: ' + letId + ' ', drugiteststring: ' DRUGI TEST STRING'},
+            dataType: 'json',
+            success: function(response) {
+            // response contains the returned data from the server
+            console.log('Povratni podaci:', response);
+            },
+            complete: function(xhr) {
+            console.log('Status kod:', xhr.status);
+            }
+        });
     });
 
 });
