@@ -33,6 +33,11 @@
 
 <body style="background-color: #05dff3">
 <nav class="navbar navbar-expand-md bg-dark py-3" data-bs-theme="dark" th:include="header-footer :: navbar"></nav>
+					<div class="container mt-4 mb-2">
+						<h2 th:text="${otkazuspeh}" style="background-color:#4A9A4E;" id="uspeh">Ispis uspeha otkaza</h2>
+						<h2 th:text="${otkazgreska}" style="background-color:#CE3936;" id="neuspeh">Ispis greske otkaza</h2>
+						<h5 th:text="${razlogOtkaza}" style="background-color:#CE3936;" id="otkaz">Ispis otkazanog leta</h5>
+					</div>
     <div class="container">
         <form action="/PrviMavenVebProjekat/filter" method="POST">
             <input class="form-control" name="polaziste" type="text" th:value="${polaziste}" placeholder="Polaziste">
@@ -63,6 +68,7 @@
         </form>
     </div>
     <h1 class="text-center mt-4 mb-4" data-aos="fade-up" data-aos-duration="950" th:text="${nemaletovaporuka}"></h1>
+    
 	<div class="container py-4 py-xl-5" data-aos="flip-left" data-aos-duration="950" th:each="let : ${letovi}">
 		<div class="row gy-4 row-cols-1" >
 			<div class="col">
@@ -89,7 +95,18 @@
 						th:href="@{/letovi/edit(letId=${let.id})}">
 						<button class="btn btn-primary mt-2" id="listazeljabtn" type="button">Izmeni let (Samo za administratore)
 						
-						</button> </a>     </div>
+						</button> </a> 
+						<form th:if="${session.prijavljeniKorisnik != null && session.prijavljeniKorisnik.uloga.name() == 'ADMIN'}" 
+						action="/PrviMavenVebProjekat/otkazi" method="GET">
+						<input type="text" class="form-control mt-2" name="razlogOtkaza" placeholder="Razlog otkazivanja leta..." required>
+						<input type="hidden" name="letId" th:value="${let.id}">
+						<button class="btn btn-primary mt-2" id="listazeljabtn" type="submit">Otkazi let (Samo za administratore)
+
+						</button> </form> 
+						
+						
+						
+						    </div>
             </div>
         </div>
     </div>

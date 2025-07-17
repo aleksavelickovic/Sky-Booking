@@ -14,9 +14,10 @@ public class Let {
 	private int cena;
 	private Boolean naAkciji;
 	private int brojMesta;
+	private String razlogOtkaza;
 
 	public Let(Long id, String oznaka, Aerodrom polaziste, Aerodrom odrediste, Avion avion, LocalDateTime terminPolaska,
-			int trajanjeLeta, int cena, Boolean naAkciji, int brojMesta) {
+			int trajanjeLeta, int cena, Boolean naAkciji, int brojMesta, String razlogOtkaza) {
 		super();
 		this.id = id;
 		this.oznaka = oznaka;
@@ -28,6 +29,7 @@ public class Let {
 		this.cena = cena;
 		this.naAkciji = naAkciji;
 		this.brojMesta = brojMesta;
+		this.razlogOtkaza = razlogOtkaza;
 	}
 
 	public Let(String oznaka, Aerodrom polaziste, Aerodrom odrediste, Avion avion, LocalDateTime terminPolaska,
@@ -43,6 +45,8 @@ public class Let {
 		this.naAkciji = naAkciji;
 
 		this.brojMesta = this.avion.getBrojKolona() * this.avion.getBrojRedova();
+
+		this.razlogOtkaza = "";
 	}
 
 	public Let() { // Prazan constructor zbog @ModelAttribute
@@ -129,13 +133,19 @@ public class Let {
 		this.brojMesta = brojMesta;
 	}
 
+	public String getRazlogOtkaza() {
+		return razlogOtkaza;
+	}
+
+	public void setRazlogOtkaza(String razlogOtkaza) {
+		this.razlogOtkaza = razlogOtkaza;
+	}
+
 	@Override
 	public String toString() {
 		return "Let [id=" + id + ", oznaka=" + oznaka + ", polaziste=" + polaziste + ", odrediste=" + odrediste
 				+ ", avion=" + avion + ", terminPolaska=" + terminPolaska + ", trajanjeLeta=" + trajanjeLeta + ", cena="
 				+ cena + ", naAkciji=" + naAkciji + ", brojMesta=" + brojMesta + "]";
 	}
-
-	
 
 }

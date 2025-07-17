@@ -48,7 +48,7 @@ CREATE TABLE korisnici (
 INSERT INTO korisnici (korisnickoIme, lozinka, email, ime, prezime, datumRodjenja, datumIVremeRegistracije, blokiran, uloga, loyaltyBodovi, zahtevaLoyalty,
 paraPotroseno) VALUES
 ('pera', 'pera123', 'petar.petrovic@gmail.com', 'Petar', 'Petrović', '1976-06-24', '2023-11-05 01:32:48', false, 'ADMIN', 5, false, 0),
-('marko', 'marko123', 'marko.petrovic@example.com', 'Marko', 'Petrović', '1990-03-15', '2024-12-21 17:34:22', false, 'PUTNIK', -1, false, 0),
+('marko', 'marko123', 'marko.petrovic@example.com', 'Marko', 'Petrović', '1990-03-15', '2024-12-21 17:34:22', false, 'PUTNIK', 6, false, 0),
 ('nikola', 'nikola123', 'nikola.tesla@example.com', 'Nikola', 'Tesla', '1976-01-07', '2024-12-21 23:45:30', false, 'PUTNIK', -1, false, 0),
 ('ana.j', 'securepass', 'ana.jovanovic@example.com', 'Ana', 'Jovanović', '1985-07-10', '2024-12-21 18:45:30', false, 'PUTNIK', -1, false, 0),
 ('ivan.n', 'mypassword', 'ivan.nikolic@example.com', 'Ivan', 'Nikolić', '2000-01-25', '2024-12-21 19:12:10', false, 'PUTNIK', -1, false, 0),
@@ -115,25 +115,27 @@ CREATE TABLE letovi (
     cena INT NOT NULL,
     naAkciji BOOLEAN NOT NULL,
     brojMesta INT NOT NULL,
+    razlogOtkaza VARCHAR(100) NOT NULL,
 
     FOREIGN KEY (polazisteId) REFERENCES aerodromi(id),
     FOREIGN KEY (odredisteId) REFERENCES aerodromi(id),
     FOREIGN KEY (avionId) REFERENCES avioni(id)
 );
 
-INSERT INTO letovi (oznaka, polazisteId, odredisteId, avionId, terminPolaska, trajanjeLeta, cena, naAkciji, brojMesta) VALUES
-('FL001', 1, 2, 1, '2025-07-15 08:30:00', 600, 40000, TRUE, 32),
-('FL002', 2, 3, 2, '2025-07-16 12:00:00', 840, 55000, TRUE, 50),
-('FL003', 3, 4, 3, '2025-07-17 05:45:00', 540, 38000, TRUE, 10),
-('FL004', 4, 5, 1, '2025-07-18 19:20:00', 420, 30000, FALSE, 32),
-('FL005', 5, 6, 2, '2025-07-19 07:10:00', 720, 47000, TRUE, 50),
-('FL006', 8, 2, 1, '2025-07-15 08:30:00', 600, 40000, FALSE, 32),
-('FL007', 9, 3, 2, '2025-07-16 12:00:00', 840, 55000, FALSE, 50),
-('FL008', 10, 4, 3, '2025-07-17 05:45:00', 540, 38000, FALSE, 10),
-('FL009', 2, 4, 1, '2025-07-18 19:20:00', 420, 30000, FALSE, 32),
-('FL010', 1, 9, 2, '2025-07-19 07:10:00', 720, 47000, FALSE, 50),
-('FL011', 1, 2, 1, '2025-07-16 08:30:00', 600, 40000, FALSE, 32),
-('FL012', 1, 12, 1, '2025-07-16 08:30:00', 600, 40000, FALSE, 32);
+INSERT INTO letovi (oznaka, polazisteId, odredisteId, avionId, terminPolaska, trajanjeLeta, cena, naAkciji, brojMesta ,razlogOtkaza) VALUES
+('FL001', 1, 2, 1, '2025-07-15 08:30:00', 600, 40000, TRUE, 32, ''),
+('FL002', 2, 3, 2, '2025-07-16 12:00:00', 840, 55000, TRUE, 50, ''),
+('FL003', 3, 4, 3, '2025-07-17 05:45:00', 540, 38000, TRUE, 10, ''),
+('FL004', 4, 5, 1, '2025-07-18 19:20:00', 420, 30000, FALSE, 32, ''),
+('FL005', 5, 6, 2, '2025-07-19 07:10:00', 720, 47000, TRUE, 50, ''),
+('FL006', 8, 2, 1, '2025-07-15 08:30:00', 600, 40000, FALSE, 32, ''),
+('FL007', 9, 3, 2, '2025-07-16 12:00:00', 840, 55000, FALSE, 50, ''),
+('FL008', 10, 4, 3, '2025-07-17 05:45:00', 540, 38000, FALSE, 10, ''),
+('FL009', 2, 4, 1, '2025-07-18 19:20:00', 420, 30000, FALSE, 32, ''),
+('FL010', 1, 9, 2, '2025-07-19 07:10:00', 720, 47000, FALSE, 50, ''),
+('FL011', 1, 2, 1, '2025-07-16 08:30:00', 600, 40000, FALSE, 32, ''),
+('FL012', 1, 12, 1, '2025-07-16 08:30:00', 600, 40000, FALSE, 32, ''),
+('FLT', 4, 9, 2, '2027-04-26 13:15:00', 555, 5000, FALSE, 50, '');
 
 SELECT * FROM letovi lt
 ORDER BY lt.id;

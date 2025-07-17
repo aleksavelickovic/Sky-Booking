@@ -79,25 +79,11 @@ public class RezervacijeRepositoryImpl implements RezervacijeRepository {
 
 	@Override
 	public Rezervacija findOne(Long id) {
-		String sql =
-		        "SELECT " +
-		        "  r.id AS rezervacijaId, " +
-		        "  r.idKorisnika, " +
-		        "  r.datumIVremeKreiranja, " +
-		        "  r.ukupnaCena, " +
-		        "  rk.kartaId, " +
-		        "  k.id AS kartaId2, " +
-		        "  k.letId, " +
-		        "  k.brojSedista, " +
-		        "  k.cena, " +
-		        "  k.imeIPrezimePutnika, " +
-		        "  k.brojPasosa " +
-		        "FROM rezervacije r " +
-		        "LEFT JOIN rezervacija_karta rk ON rk.rezervacijaId = r.id " +
-		        "LEFT JOIN karte k ON rk.kartaId = k.id " +
-		        "WHERE r.id = ? " +
-		        "ORDER BY k.id;";
-
+		String sql = "SELECT " + "  r.id AS rezervacijaId, " + "  r.idKorisnika, " + "  r.datumIVremeKreiranja, "
+				+ "  r.ukupnaCena, " + "  rk.kartaId, " + "  k.id AS kartaId2, " + "  k.letId, " + "  k.brojSedista, "
+				+ "  k.cena, " + "  k.imeIPrezimePutnika, " + "  k.brojPasosa " + "FROM rezervacije r "
+				+ "LEFT JOIN rezervacija_karta rk ON rk.rezervacijaId = r.id "
+				+ "LEFT JOIN karte k ON rk.kartaId = k.id " + "WHERE r.id = ? " + "ORDER BY k.id;";
 
 //		sql = "SELECT *\n"
 //				+ "FROM rezervacije r\n"
@@ -113,25 +99,13 @@ public class RezervacijeRepositoryImpl implements RezervacijeRepository {
 
 	@Override
 	public List<Rezervacija> findAll() {
-		String sql =
-		        "SELECT " +
-		        "  r.id AS rezervacijaId, " +
-		        "  r.idKorisnika, " +
-		        "  r.datumIVremeKreiranja, " +
-		        "  r.ukupnaCena, " +
-		        "  rk.kartaId, " +
-		        "  k.id AS kartaId2, " +
-		        "  k.letId, " +
-		        "  k.brojSedista, " +
-		        "  k.cena, " +
-		        "  k.imeIPrezimePutnika, " +
-		        "  k.brojPasosa " +
-		        "FROM rezervacije r " +
-		        "LEFT JOIN rezervacija_karta rk ON rk.rezervacijaId = r.id " +
-		        "LEFT JOIN karte k ON rk.kartaId = k.id " +
+		String sql = "SELECT " + "  r.id AS rezervacijaId, " + "  r.idKorisnika, " + "  r.datumIVremeKreiranja, "
+				+ "  r.ukupnaCena, " + "  rk.kartaId, " + "  k.id AS kartaId2, " + "  k.letId, " + "  k.brojSedista, "
+				+ "  k.cena, " + "  k.imeIPrezimePutnika, " + "  k.brojPasosa " + "FROM rezervacije r "
+				+ "LEFT JOIN rezervacija_karta rk ON rk.rezervacijaId = r.id "
+				+ "LEFT JOIN karte k ON rk.kartaId = k.id " +
 
-		        "ORDER BY k.id;";
-
+				"ORDER BY k.id;";
 
 		RezervacijaRowCallBackhandler rowCallbackHandler = new RezervacijaRowCallBackhandler();
 		jdbcTemplate.query(sql, rowCallbackHandler);
@@ -165,7 +139,7 @@ public class RezervacijeRepositoryImpl implements RezervacijeRepository {
 
 	@Override
 	public int update(Rezervacija rezervacija) {
-		String sql = "UPDATE karte SET idKorisnika = ?, ukupnaCena = ? WHERE id = ?";
+		String sql = "UPDATE rezervacije SET idKorisnika = ?, ukupnaCena = ? WHERE id = ?";
 		boolean uspeh = jdbcTemplate.update(sql, rezervacija.getKorisnik().getId(), rezervacija.getUkupnaCena(),
 				rezervacija.getId()) == 1;
 		if (uspeh) {
@@ -177,7 +151,9 @@ public class RezervacijeRepositoryImpl implements RezervacijeRepository {
 
 	@Override
 	public int delete(Long id) {
-		String sql = "DELETE FROM karte WHERE id = ?";
+		String sql = "DELETE FROM rezervacija_karta WHERE rezervacijaId = ?";
+		jdbcTemplate.update(sql, id);
+		sql = "DELETE FROM rezervacije WHERE id = ?";
 		return jdbcTemplate.update(sql, id);
 	}
 

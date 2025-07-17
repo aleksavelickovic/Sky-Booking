@@ -119,6 +119,22 @@ public class LetoviController implements ApplicationContextAware {
 		ModelAndView modelAndView = new ModelAndView("index");
 		modelAndView.addObject("letovi", letovi);
 		System.out.println(letovi);
+
+		Korisnik ulogovanKorisnik = (Korisnik) session.getAttribute(KorisniciController.KORISNIK_KEY);
+		if (ulogovanKorisnik != null) {
+			for (Rezervacija rezervacija : rezervacijeService.findAll()) {
+				if (rezervacija.getKorisnik().getId().equals(ulogovanKorisnik.getId())) {
+					for (Karta karta : rezervacija.getKarte()) {
+						if (!karta.getLet().getRazlogOtkaza().equals("")) {
+							modelAndView.addObject("razlogOtkaza", "Let " + karta.getLet().getOznaka()
+									+ " je otkazan, ukoliko imate Loyalty Karticu, kao kompenzaciju dobili ste 5 loyalty bodova\n"
+									+ System.lineSeparator() + "\nRazlog otkaza: " + karta.getLet().getRazlogOtkaza());
+						}
+					}
+				}
+			}
+		}
+
 		return modelAndView;
 
 	}
@@ -204,7 +220,8 @@ public class LetoviController implements ApplicationContextAware {
 			@RequestParam(required = false) String polazak, @RequestParam(required = false) Integer trajanje,
 			@RequestParam(required = false) Integer cena, @RequestParam(required = false) Long polaziste,
 			@RequestParam(required = false) Long odrediste, @RequestParam(required = false) Long avion,
-			@RequestParam(required = false) Boolean naAkciji, @RequestParam(required = false) Integer brojMesta) {
+			@RequestParam(required = false) Boolean naAkciji, @RequestParam(required = false) Integer brojMesta,
+			@RequestParam(required = false) String razlogOtkaza) {
 		ModelAndView modelAndView = new ModelAndView("izmeni-let");
 //		Let letZaEdit = service.findOne(letId);
 
@@ -248,7 +265,7 @@ public class LetoviController implements ApplicationContextAware {
 
 		Let letEdited = new Let(id, oznaka.toUpperCase(), aerodromiService.findOne(polaziste),
 				aerodromiService.findOne(odrediste), avioniService.findOne(avion), LocalDateTime.parse(polazak),
-				trajanje, cena, naAkciji, brojMesta);
+				trajanje, cena, naAkciji, brojMesta, razlogOtkaza);
 		modelAndView.addObject("let", letEdited);
 
 		letEdited.setOznaka(letEdited.getOznaka().toUpperCase());
@@ -402,6 +419,42 @@ public class LetoviController implements ApplicationContextAware {
 
 		response.sendRedirect(bURL);
 
+	}
+
+	@GetMapping(value = "/otkazi")
+	public ModelAndView otkazilet(@RequestParam Long letId, HttpServletResponse response,
+			@RequestParam String razlogOtkaza) throws IOException {
+		ModelAndView modelAndView = new ModelAndView("index");
+		Let letZaOtkazivanje = service.findOne(letId);
+
+		if (letZaOtkazivanje.getTerminPolaska().minusHours(1).isBefore(LocalDateTime.now())) {
+			modelAndView.addObject("otkazgreska", "Let je za manje od sat vremena, nemoguce je otkazati ga!");
+			return modelAndView;
+		}
+
+		for (Rezervacija rezervacija : rezervacijeService.findAll()) {
+			System.out.println("PETLJA ZA REZERVACIJE");
+			for (Karta karta : rezervacija.getKarte()) {
+				System.out.println("PETLJA ZA KARTE");
+				if (karta.getLet().getId() == letId) {
+					System.out.println("PETLJA ZA LETOVE");
+					Korisnik korisnik = rezervacija.getKorisnik();
+					if (korisnik.getLoyaltyBodovi() >= 0) {
+						korisnik.setLoyaltyBodovi(korisnik.getLoyaltyBodovi() + 5);
+						System.out.println("PETLJA ZA DODELU BODOVA");
+						korisniciService.update(korisnik);
+					}
+
+//					break;
+				}
+			}
+		}
+		letZaOtkazivanje.setRazlogOtkaza(razlogOtkaza);
+		service.update(letZaOtkazivanje);
+
+		modelAndView.addObject("otkazuspeh",
+				"Uspesno ste otkazali let, svim ostecenim strankama je dodeljeno 5 loyalty bodova");
+		return modelAndView;
 	}
 
 	@PostMapping(value = "/filter")
