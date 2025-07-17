@@ -23,6 +23,11 @@
     <link rel="stylesheet" th:href="@{/assets/css/Growing-Search-Bar-Animated-Text-Input.css}">
     <link rel="stylesheet" th:href="@{/assets/css/Overlay-Login-Form.css}">
     <link rel="stylesheet" th:href="@{/assets/css/Search-Input-responsive.css}">
+    <script
+      th:src="@{/webjars/jquery/3.2.1/jquery.js}"
+      type="text/javascript"
+    ></script>
+    <script th:src="@{/assets/js/definisanjeakcije.js}"></script>
 </head>
 <style>
 	input[type="checkbox"] {
@@ -102,9 +107,18 @@
 						<input type="hidden" name="letId" th:value="${let.id}">
 						<button class="btn btn-primary mt-2" id="listazeljabtn" type="submit">Otkazi let (Samo za administratore)
 
-						</button> </form> 
+						</button> </form>
 						
+						<button class="btn btn-primary mt-2 definisiakcijubtn" id="definisiakcijubtn" type="button" 
+						th:if="${session.prijavljeniKorisnik != null && session.prijavljeniKorisnik.uloga.name() == 'ADMIN'}" >
+						Stavi let pod akciju</button>
 						
+						<form action="/PrviMavenVebProjekat/letovi/akcija" class="akcijaform" method="POST">
+						<input type="number" id="procenatPopusta" class="form-control mt-2" name="procenatPopusta" placeholder="Procenat popusta..." required>
+						<input type="hidden" name="letId" th:value="${let.id}">
+						<button class="btn btn-primary mt-2 definisipopustbtn" id="definisipopustbtn" type="button" th:data-let-id="${let.id}">Definisi</button>
+						
+						</form>
 						
 						    </div>
             </div>
@@ -118,6 +132,7 @@
     <script th:src="@{/assets/js/bs-init.js}"></script>
     <script th:src="@{/assets/js/button-materialize-materialize.min.js}"></script>
     <script th:src="@{/assets/js/Button-Ripple-Effect-Animation-Wave-Pulse-button-ripple-effect.js}"></script>
+    
 </body>
 
 </html>

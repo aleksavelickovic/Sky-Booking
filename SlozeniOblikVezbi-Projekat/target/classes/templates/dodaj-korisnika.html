@@ -46,9 +46,9 @@
             if(day < 10)
                 day = '0' + day.toString();
 			// Formatiraj danasnji tj. maksimalni datum u string koji input moze da primi kao atribut
-            var minDate = year + '-' + month + '-' + day;  
+            var maxDate = year + '-' + month + '-' + day;  
          	// Setuj maksimalni datum na danasnji datumm
-            $('#birth_date').attr('max', minDate);
+            $('#birth_date').attr('max', maxDate);
             
         });
     </script>

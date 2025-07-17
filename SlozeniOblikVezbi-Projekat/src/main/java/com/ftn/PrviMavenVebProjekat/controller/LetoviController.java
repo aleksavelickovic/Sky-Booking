@@ -139,6 +139,13 @@ public class LetoviController implements ApplicationContextAware {
 
 	}
 
+	@PostMapping(value = "/letovi/definisiakciju")
+	@ResponseBody
+	public void definisiakciju(@RequestParam String teststring, @RequestParam String drugiteststring) {
+		System.out.println("Poruka stigla do servera, test string: " + teststring + "Drugi string: " + drugiteststring);
+		return;
+	}
+
 	@GetMapping(value = "/letovi/add")
 	public ModelAndView add() {
 		ModelAndView modelAndView = new ModelAndView("dodaj-let");
