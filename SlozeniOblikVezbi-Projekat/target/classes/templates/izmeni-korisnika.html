@@ -1,90 +1,131 @@
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	<meta charset="UTF-8">
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 	<meta http-equiv="Pragma" content="no-cache" />
 	<meta http-equiv="Expires" content="0" />
+	<title>Izmeni podatke o korisniku</title>
+	<link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Titillium+Web:400,600,700}">
+	<link rel="stylesheet" th:href="@{/assets/css/aos.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/Animation-Cards-_app.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/Animation-Cards.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/button-materialize-materialize.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/button-materialize.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/Button-Ripple-Effect-Animation-Wave-Pulse.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/Overlay-Login-Form.css}">
+	<base th:href="@{/}">
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f4f4f9;
+			margin: 0;
+			padding: 0;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+		}
 
-<title>Izmeni podatke o korisniku</title>
-<link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Titillium+Web:400,600,700}">
-    <link rel="stylesheet" th:href="@{/assets/css/aos.min.css}">
-    <link rel="stylesheet" th:href="@{/assets/css/Animation-Cards-_app.css}">
-    <link rel="stylesheet" th:href="@{/assets/css/Animation-Cards.css}">
-    <link rel="stylesheet" th:href="@{/assets/css/Button-Change-Text-on-Hover.css}">
-    <link rel="stylesheet" th:href="@{/assets/css/button-materialize-materialize.min.css}">
-    <link rel="stylesheet" th:href="@{/assets/css/button-materialize.css}">
-    <link rel="stylesheet" th:href="@{/assets/css/Button-Ripple-Effect-Animation-Wave-Pulse.css}">
-    <link rel="stylesheet" th:href="@{/assets/css/Overlay-Login-Form.css}">
-    <base th:href="@{/}">
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f9;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-    }
-    form {
-        background-color: #ffffff;
-        border: 1px solid #dddddd;
-        border-radius: 8px;
-        padding: 20px 30px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        width: 300px;
-    }
-    label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: bold;
-    }
-    input[type="text"], select {
-        width: 100%;
-        padding: 8px;
-        margin-bottom: 16px;
-        border: 1px solid #cccccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-    }
-    input[type="submit"] {
-        background-color: #007bff;
-        color: #ffffff;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        width: 100%;
-        font-size: 16px;
-        transition: background-color 0.3s ease;
-    }
-    input[type="submit"]:hover {
-        background-color: #0056b3;
-    }
-</style>
+		form {
+			background-color: #ffffff;
+			border: 1px solid #dddddd;
+			border-radius: 8px;
+			padding: 20px 30px;
+			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+			width: 300px;
+		}
+
+		label {
+			display: block;
+			margin-bottom: 8px;
+			font-weight: bold;
+		}
+
+		input[type="text"],
+		select {
+			width: 100%;
+			padding: 8px;
+			margin-bottom: 16px;
+			border: 1px solid #cccccc;
+			border-radius: 4px;
+			box-sizing: border-box;
+		}
+
+		input[type="submit"] {
+			background-color: #007bff;
+			color: #ffffff;
+			padding: 10px 15px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			width: 100%;
+			font-size: 16px;
+			transition: background-color 0.3s ease;
+		}
+
+		input[type="submit"]:hover {
+			background-color: #0056b3;
+		}
+
+		@keyframes flip-left {
+			0% {
+				transform: perspective(400px) rotateY(180deg);
+			}
+
+			100% {
+				transform: perspective(400px) rotateY(0deg);
+			}
+		}
+
+		.flip-left {
+			animation: flip-left 1s;
+			backface-visibility: hidden;
+		}
+	</style>
 </head>
+
 <body style="background-color: #05dff3;">
-<nav class="navbar navbar-expand-md bg-dark py-3" data-bs-theme="dark" th:include="header-footer :: navbar">></nav>
-<form th:action="@{/korisnici/edit}" method="POST">
-    <label for="korime">Korisničko ime:</label>
-    <input type="text" name="korime" th:value="${korisnik.korisnickoIme}" />
+<div class="flip-left">
+	<form th:action="@{/korisnici/edit}" class="flip-left" method="POST">
+		<label for="korime">Korisničko ime:</label>
+		<input type="text" name="korime" th:value="${korisnik.korisnickoIme}" required />
 
-    <label for="staralozinka">Stara lozinka:</label>
-    <input type="text" name="staralozinka" th:value="${null}" />
-    
-    <label for="novalozinka">Nova lozinka:</label>
-    <input type="text" name="staralozinka" th:value="${null}" />
+		<label for="staralozinka">Stara lozinka:</label>
+		<input type="text" name="staralozinka" placeholder="Unesite staru lozinku..." th:value="${null}" required />
 
-    
-	<input type="hidden" name="id" th:value="${korisnik.id}">
-    <input type="submit" value="Potvrdi">
-</form>
-<footer class="text-center bg-dark" th:include="header-footer :: footer"></footer>
-<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+		<label for="novalozinka">Nova lozinka:</label>
+		<input type="text" name="novalozinka" placeholder="Unesite novu lozinku..." th:value="${null}" />
+
+		<label for="email">Email:</label>
+		<input type="text" name="email" placeholder="Unesite nov email..." th:value="${korisnik.email}" required />
+
+		<label for="ime">Ime:</label>
+		<input type="text" name="ime" placeholder="Unesite novo ime..." th:value="${korisnik.ime}" required />
+
+		<label for="prezime">Prezime:</label>
+		<input type="text" name="prezime" placeholder="Unesite novo prezime..." th:value="${korisnik.prezime}"
+			required />
+
+		<label for="datumRodjenja">Datum rodjenja:</label>
+		<input type="date" name="datumRodjenja" th:value="${korisnik.datumRodjenja}" required />
+
+		<input type="hidden" name="id" th:value="${korisnik.id}">
+		<input type="submit" value="Potvrdi">
+
+		
+	</form>
+	
+	<div th:if="${uspehporuka != null}">
+			<p th:text="${uspehporuka}" style="background-color: green;" id="greska">Ispis uspeha</p>
+			<a th:href="@{/}">
+			<button th:href="@{/}" class="btn btn-primary">Pocetna</button>
+			</a>
+		</div>
+</div>
+	<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
     <script th:src="@{/assets/js/aos.min.js}"></script>
     <script th:src="@{/assets/js/bs-init.js}"></script>
     <script th:src="@{/assets/js/button-materialize-materialize.min.js}"></script>

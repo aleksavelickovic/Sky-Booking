@@ -3,6 +3,7 @@ package com.ftn.PrviMavenVebProjekat.controller;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
@@ -136,6 +137,40 @@ public class KorisniciController implements ApplicationContextAware {
 		return;
 	}
 
+	@GetMapping(value = "/edit")
+	public ModelAndView edit(HttpSession session) {
+		ModelAndView modelAndView = new ModelAndView("izmeni-korisnika");
+		modelAndView.addObject("korisnik", session.getAttribute(KORISNIK_KEY));
+		return modelAndView;
+
+	}
+
+	@PostMapping(value = "/edit")
+	public ModelAndView edit(@RequestParam Long id, @RequestParam String korime, @RequestParam String staralozinka,
+			@RequestParam(required = false) String novalozinka, @RequestParam String email, @RequestParam String ime,
+			@RequestParam String prezime, @RequestParam String datumRodjenja, HttpSession session) {
+		ModelAndView modelAndView = new ModelAndView("izmeni-korisnika");
+		Korisnik korisnikZaEdit = service.findOne(id);
+
+		korisnikZaEdit.setKorisnickoIme(korime);
+		korisnikZaEdit.setEmail(email);
+		korisnikZaEdit.setIme(ime);
+		korisnikZaEdit.setPrezime(prezime);
+		korisnikZaEdit.setDatumRodjenja(Date.valueOf(datumRodjenja));
+
+		if (novalozinka != null && novalozinka.equals(staralozinka)) {
+			korisnikZaEdit.setLozinka(novalozinka);
+		}
+		System.out.println(service.update(korisnikZaEdit));
+
+		modelAndView.addObject("korisnik", korisnikZaEdit);
+		modelAndView.addObject("uspehporuka", "Uspesno ste izmenili Vase podatke!");
+
+		session.setAttribute(KORISNIK_KEY, korisnikZaEdit);
+
+		return modelAndView;
+	}
+
 	@GetMapping(value = "/login")
 	public ModelAndView login(@RequestParam(required = false) Long letZaRezervsati,
 			@RequestParam(required = false) Integer brojMesta) throws IOException {
@@ -156,7 +191,7 @@ public class KorisniciController implements ApplicationContextAware {
 					rezultat.addObject("poruka", "Ovaj nalog je blokiran od strane administratora!");
 					rezultat.addObject("letZaRezervisati", letZaRezervisati);
 //					rezultat.addObject("brojMesta", brojMesta);
-					System.out.println("KORISNIK JE BRLOKIRAN!");
+					System.out.println("KORISNIK JE BLOKIRAN!");
 					return rezultat;
 				} else {
 					session.setAttribute(KorisniciController.KORISNIK_KEY, korisnik);
@@ -226,7 +261,7 @@ public class KorisniciController implements ApplicationContextAware {
 		service.update(korisnik);
 		response.sendRedirect(bURL + "korisnici");
 	}
-	
+
 	@GetMapping(value = "odbijzahtevzaloyalty")
 	public void odbij(@RequestParam Long id, HttpServletResponse response) throws IOException {
 		Korisnik korisnik = service.findOne(id);

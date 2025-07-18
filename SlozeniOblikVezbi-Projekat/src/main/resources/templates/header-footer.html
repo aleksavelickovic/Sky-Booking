@@ -40,8 +40,9 @@
             </button>
             <div class="collapse navbar-collapse flex-grow-0 order-md-first" id="navcol-6">
                 <ul class="navbar-nav me-auto">
-                	<p class="nav-item nav-link" th:if="${session.prijavljeniKorisnik != null}" th:text="${'Prijavljeni ste kao: ' + session.prijavljeniKorisnik.ime + ' ' + session.prijavljeniKorisnik.prezime}"></p>
-                	
+                <a th:href="@{/korisnici/edit}" th:if="${session.prijavljeniKorisnik != null}" class="nav-item nav-link active">
+                	<p class="nav-item nav-link" th:text="${'Prijavljeni ste kao: ' + session.prijavljeniKorisnik.ime + ' ' + session.prijavljeniKorisnik.prezime}"></p>
+                	</a>
 <a class="nav-item" th:if="${session.prijavljeniKorisnik != null && session.prijavljeniKorisnik.uloga.name() == 'ADMIN'}" th:href="@{/korisnici/admin}">Admin stranica</a>
 
                 	<li class="nav-item"><a class="nav-link active" th:if="${session.prijavljeniKorisnik != null}" th:href="@{/korisnici/logout}">Odjava</a></li>
