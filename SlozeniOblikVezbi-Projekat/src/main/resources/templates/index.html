@@ -28,7 +28,32 @@
       type="text/javascript"
     ></script>
     <script th:src="@{/assets/js/definisanjeakcije.js}"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+    	  
+      
+      		// Kod za sprecavanje korisnika da unese datum u buducnosti
+      		
+            var dtToday = new Date();
+			// Uzmi treuntni mesec, dan i godinu
+            var month = dtToday.getMonth() + 1;
+            var day = dtToday.getDate();
+            var year = dtToday.getFullYear();
+			
+            // Dodaj vodecu nulu ako je mesec ili dan manji od 0
+            if(month < 10)
+                month = '0' + month.toString();
+            if(day < 10)
+                day = '0' + day.toString();
+			// Formatiraj danasnji tj. maksimalni datum u string koji input moze da primi kao atribut
+            var minDate = year + '-' + month + '-' + day;  
+         	// Setuj maksimalni datum na danasnji datumm
+            $('.datumar').attr('min', minDate);
+            
+        });
+    </script>
 </head>
+
 <style>
 	input[type="checkbox"] {
         display: none;
@@ -81,14 +106,15 @@
 					<img class="object-fit-cover card-img-top w-100 d-block" style="height: 200px;"
 						th:src="@{https://cdn.bootstrapstudio.io/placeholders/1400x800.png}">
 					<div class="card-body p-4">
-						<p class="text-primary mb-0 card-text" th:if="${let.naAkciji}">Akcija!</p>
-						<h4 class="card-title">Oznaka:&nbsp;<span th:text="${let.oznaka}"></span></h4>
-						<p class="card-text">Polaziste: <span th:text="${let.polaziste.oznaka}"></span></p>
-						<p class="card-text">Odrediste: <span th:text="${let.odrediste.oznaka}"></span></p>
-						<p class="card-text">Avion: <span th:text="${let.avion.naziv}"></span></p>
-						<p class="card-text">Datum i vreme polaska: <span th:text="${let.terminPolaska}"></span></p>
-						<p class="card-text">Trajanje: <span th:text="${let.trajanjeLeta}"></span></p>
-						<p class="card-text">Cena po karti: <span th:text="${let.cena}"></span></p>
+						<p class="text-primary mb-0 card-text" th:if="${let.naAkciji}" >Akcija!</p>
+						<p class="text-primary mb-0 card-text naakcijilabela" th:id="${'naAkciji' + let.id}">Akcija!</p>
+						<h4 class="card-title">Oznaka:&nbsp;<span th:text="${let.oznaka}" th:id="${'oznaka' + let.id}"></span></h4>
+						<p class="card-text">Polaziste: <span th:text="${let.polaziste.oznaka}" th:id="${'polaziste' + let.id}"></span></p>
+						<p class="card-text">Odrediste: <span th:text="${let.odrediste.oznaka}" th:id="${'odrediste' + let.id}"></span></p>
+						<p class="card-text">Avion: <span th:text="${let.avion.naziv}" th:id="${'avion' + let.id}"></span></p>
+						<p class="card-text">Datum i vreme polaska: <span th:text="${let.terminPolaska}" th:id="${'terminPolaska' + let.id}"></span></p>
+						<p class="card-text">Trajanje: <span th:text="${let.trajanjeLeta}" th:id="${'trajanje' + let.id}"></span></p>
+						<p class="card-text">Cena po karti: <span th:text="${let.cena}" th:id="${'cena' + let.id}"></span></p>
 						
 						<form action="/PrviMavenVebProjekat/seatoptions" method="GET">
 						<!-- <input type="number" class="form-control" name="brojMesta" placeholder="Broj karata..." required> -->
@@ -114,9 +140,12 @@
 						Stavi let pod akciju</button>
 						
 						<form action="/PrviMavenVebProjekat/letovi/akcija" class="akcijaform" method="POST">
-						<input type="number" id="procenatPopusta" class="form-control mt-2" name="procenatPopusta" placeholder="Procenat popusta..." required>
+						<input type="number" th:id="${'popustzalet' + let.id}" class="form-control mt-2" name="procenatPopusta" placeholder="Procenat popusta..." required>
+						<label for="${'datumvazenjaakcije' + let.id}" class="form-label mt-2">Datum važenja akcije:</label>
+						<input type="date" th:id="${'datumvazenjaakcije' + let.id}" class="form-control mt-2 datumar" name="datumVazenjaAkcije" placeholder="Datum važenja akcije..." required>
 						<input type="hidden" name="letId" th:value="${let.id}">
 						<button class="btn btn-primary mt-2 definisipopustbtn" id="definisipopustbtn" type="button" th:data-let-id="${let.id}">Definisi</button>
+						
 						
 						</form>
 						
@@ -125,6 +154,18 @@
         </div>
     </div>
 </div>
+
+<h3 style="background-color:#CE3936; position: fixed; bottom: 0; right: 0; margin: 10px; border-radius: 10px" class="letjevecnaakciji" id="letjevecnaakciji">
+    Ovaj let je vec na akciji!
+</h3>
+
+<h3 style="background-color:#CE3936; position: fixed; bottom: 0; right: 0; margin: 10px; border-radius: 10px" class="letjevecnaakciji" id="popustjeprazan">
+    Molimo vas unesite procenat popusta!
+</h3>
+<h3 style="background-color:#4B9A4E; position: fixed; bottom: 0; right: 0; margin: 10px; border-radius: 10px" class="akcijauspeh" id="akcijauspeh">
+    Uspesno ste postavili akciju na let!
+</h3>
+
 
     <footer class="text-center bg-dark" th:include="header-footer :: footer"></footer>
     <script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>

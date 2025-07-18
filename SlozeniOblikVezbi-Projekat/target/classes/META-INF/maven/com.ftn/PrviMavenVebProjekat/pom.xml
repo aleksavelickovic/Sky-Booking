@@ -80,6 +80,27 @@
 			<scope>test</scope>
 		</dependency>
 		
+		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+<dependency>
+    <groupId>com.google.code.gson</groupId>
+    <artifactId>gson</artifactId>
+    <version>2.13.1</version>
+</dependency>
+
+
+<dependency>
+  <groupId>com.fasterxml.jackson.core</groupId>
+  <artifactId>jackson-databind</artifactId>
+</dependency>
+<dependency>
+  <groupId>com.fasterxml.jackson.datatype</groupId>
+  <artifactId>jackson-datatype-jsr310</artifactId> <!-- za Java 8+ date/time API -->
+</dependency>
+
+
+
+
+		
 		<!-- Add thymeleaf dependencies-->
 		<!-- uključivanje Thymeleaf biblioteka -->
 		<!-- Thymeleaf je Java XML/XHTML/HTML5 templejt endžin koji se koristi za veb (servlet-based) i ne-veb oruženja -->  
@@ -137,6 +158,8 @@
 		   <artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
 		
+		
+		
 		<!-- webjar bootstrap and jquery dependencies -->
         <dependency>
             <groupId>org.webjars</groupId>
@@ -173,6 +196,14 @@
                 <executable>true</executable>
             </configuration>
         </plugin>
+        <plugin>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-maven-plugin</artifactId>
+  <configuration>
+    <jvmArguments>--add-opens java.base/java.time=ALL-UNNAMED</jvmArguments>
+  </configuration>
+</plugin>
+
 			</plugins>
 	</build>
 </project>

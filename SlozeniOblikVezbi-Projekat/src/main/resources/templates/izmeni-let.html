@@ -113,9 +113,11 @@
 	
 	<input type="hidden" name="naAkciji" th:value="${let.naAkciji}">
     <input type="hidden" name="id" th:value="${let.id}">
-    <input type="hidden" name="brojMesta" th:value="${let.brojMesta}">"
+    <input type="hidden" name="brojMesta" th:value="${let.brojMesta}">
     <p th:text="${poruka}" style="background-color:#ed0c0c;" id="greska">Ispis greske</p>
     <input type="hidden" th:value="${let.razlogOtkaza}" name="razlogOtkaza"/>
+    <input type="hidden" th:value="${let.datumVazenjaAkcije}" name="datumVazenjaAkcije"/>
+    <input type="hidden" th:value="${let.staraCena}" name="staraCena"/>
     <input type="submit" value="Potvrdi">
     <div th:if="${uspeh != null and uspeh == true}">
 			<p th:text="${uspehporuka}" style="background-color:#4A9A4E;" id="uspeh">Ispis uspeha</p>

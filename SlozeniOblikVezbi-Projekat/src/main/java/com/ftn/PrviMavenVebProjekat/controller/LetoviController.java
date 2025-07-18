@@ -39,10 +39,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.ftn.PrviMavenVebProjekat.bean.SecondConfiguration.ApplicationMemory;
 import com.ftn.PrviMavenVebProjekat.model.Aerodrom;
 import com.ftn.PrviMavenVebProjekat.model.Avion;
 import com.ftn.PrviMavenVebProjekat.model.Karta;
+import com.ftn.PrviMavenVebProjekat.model.Kontinenti;
 import com.ftn.PrviMavenVebProjekat.model.Korisnik;
 import com.ftn.PrviMavenVebProjekat.model.Let;
 import com.ftn.PrviMavenVebProjekat.model.Lokacija;
@@ -55,6 +59,7 @@ import com.ftn.PrviMavenVebProjekat.service.KorisniciService;
 import com.ftn.PrviMavenVebProjekat.service.LetoviService;
 import com.ftn.PrviMavenVebProjekat.service.LokacijaService;
 import com.ftn.PrviMavenVebProjekat.service.RezervacijeService;
+import com.google.gson.Gson;
 import com.mysql.cj.Session;
 import com.mysql.cj.x.protobuf.MysqlxExpr.ColumnIdentifier;
 
@@ -85,6 +90,8 @@ public class LetoviController implements ApplicationContextAware {
 	private RezervacijeRepositoryImpl rezervacijeRepository;
 	@Autowired
 	private KorisniciService korisniciService;
+	@Autowired
+	ObjectMapper mapper;
 
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
@@ -95,6 +102,8 @@ public class LetoviController implements ApplicationContextAware {
 	public void init() {
 		bURL = servletContext.getContextPath() + "/";
 		applicationContext.getBean(ApplicationMemory.class);
+
+		mapper.registerModule(new JavaTimeModule());
 
 	}
 
@@ -139,11 +148,37 @@ public class LetoviController implements ApplicationContextAware {
 
 	}
 
-	@PostMapping(value = "/letovi/definisiakciju")
+	@PostMapping(value = "/letovi/definisiakciju", produces = "application/json")
 	@ResponseBody
-	public void definisiakciju(@RequestParam String teststring, @RequestParam String drugiteststring) {
-		System.out.println("Poruka stigla do servera, test string: " + teststring + "Drugi string: " + drugiteststring);
-		return;
+	public String definisiakciju(@RequestParam(required = false) String procenatpopusta, @RequestParam Long letId,
+			@RequestParam String datumVazenjaAkcije) throws JsonProcessingException {
+		System.out.println("Poruka stigla do servera, procenat popusta: " + procenatpopusta + " LetId: " + letId);
+		Let let = service.findOne(letId);
+//		ObjectMapper objectMapper = new ObjectMapper();
+//		Gson gson = new Gson();
+		if (procenatpopusta.equals("") || procenatpopusta.equals(null)) {
+			Let letzavratiti = new Let(-1L, "P", new Aerodrom(-1L, "", new Lokacija("", "", Kontinenti.Afrika)),
+					new Aerodrom(-2L, "", new Lokacija("", "", Kontinenti.Afrika)), new Avion("", 1, 1),
+					LocalDateTime.now(), 0, 0, false, 1, "", LocalDate.EPOCH, 2);
+			return mapper.writeValueAsString(letzavratiti);
+		}
+		if (let.getNaAkciji()) {
+			Let letzavratiti = new Let(-1L, "", new Aerodrom(-1L, "", new Lokacija("", "", Kontinenti.Afrika)),
+					new Aerodrom(-2L, "", new Lokacija("", "", Kontinenti.Afrika)), new Avion("", 1, 1),
+					LocalDateTime.now(), 0, 0, false, 1, "", LocalDate.EPOCH, 2);
+			return mapper.writeValueAsString(letzavratiti);
+		}
+		let.setStaraCena(let.getCena());
+		let.setNaAkciji(true);
+
+		let.setCena((int) Math.ceil(let.getCena() * (1 - (Double.valueOf(procenatpopusta) / 100))));
+
+		System.out.println("NOVA AKCIJSKA CENA LETA: " + let.getCena());
+		let.setDatumVazenjaAkcije(LocalDate.parse(datumVazenjaAkcije));
+		System.out.println("DATUMVAZENJA AKCIJE: " + let.getDatumVazenjaAkcije());
+		service.update(let);
+
+		return mapper.writeValueAsString(let);
 	}
 
 	@GetMapping(value = "/letovi/add")
@@ -228,7 +263,8 @@ public class LetoviController implements ApplicationContextAware {
 			@RequestParam(required = false) Integer cena, @RequestParam(required = false) Long polaziste,
 			@RequestParam(required = false) Long odrediste, @RequestParam(required = false) Long avion,
 			@RequestParam(required = false) Boolean naAkciji, @RequestParam(required = false) Integer brojMesta,
-			@RequestParam(required = false) String razlogOtkaza) {
+			@RequestParam(required = false) String razlogOtkaza,
+			@RequestParam(required = false) String datumVazenjaAkcije, @RequestParam(required = false) int staraCena) {
 		ModelAndView modelAndView = new ModelAndView("izmeni-let");
 //		Let letZaEdit = service.findOne(letId);
 
@@ -272,7 +308,7 @@ public class LetoviController implements ApplicationContextAware {
 
 		Let letEdited = new Let(id, oznaka.toUpperCase(), aerodromiService.findOne(polaziste),
 				aerodromiService.findOne(odrediste), avioniService.findOne(avion), LocalDateTime.parse(polazak),
-				trajanje, cena, naAkciji, brojMesta, razlogOtkaza);
+				trajanje, cena, naAkciji, brojMesta, razlogOtkaza, LocalDate.parse(datumVazenjaAkcije), staraCena);
 		modelAndView.addObject("let", letEdited);
 
 		letEdited.setOznaka(letEdited.getOznaka().toUpperCase());

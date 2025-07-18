@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -59,12 +60,18 @@ public class LetoviRepositoryImpl implements LetoviRepository {
 			Boolean naAkciji = rs.getBoolean(index++);
 			int brojMesta = rs.getInt(index++);
 			String razlogOtkaza = rs.getString(index++);
+			LocalDate datumVazenjaAkcije = LocalDate.parse(rs.getString(index++));
+			int staraCena = rs.getInt(index++);
 
 			Let Let = letovi.get(id);
 			if (Let == null) {
 				Let = new Let(id, oznaka, aerodromService.findOne(polazisteId), aerodromService.findOne(odredisteId),
 						avionService.findOne(avionId), terminPolaska, trajanjeLeta, cena, naAkciji, brojMesta,
-						razlogOtkaza);
+						razlogOtkaza, datumVazenjaAkcije, staraCena);
+				if (Let.getDatumVazenjaAkcije().isBefore(LocalDate.now())) {
+					Let.setCena(staraCena);
+					Let.setNaAkciji(false);
+				}
 				letovi.put(Let.getId(), Let);
 			}
 //			System.out.println("Processed row with ID: " + id);
@@ -102,8 +109,8 @@ public class LetoviRepositoryImpl implements LetoviRepository {
 
 			@Override
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-				String sql = "INSERT INTO letovi (oznaka, polazisteId, odredisteId, avionId, terminPolaska, trajanjeLeta, cena, naAkciji, brojMesta, razlogOtkaza)"
-						+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, '')";
+				String sql = "INSERT INTO letovi (oznaka, polazisteId, odredisteId, avionId, terminPolaska, trajanjeLeta, cena, naAkciji, brojMesta, razlogOtkaza, "
+						+ "datumVazenjaAkcije, staraCena)" + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, '', ?, ?)";
 				PreparedStatement preparedStatement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 				int index = 1;
 				preparedStatement.setString(index++, Let.getOznaka());
@@ -115,6 +122,8 @@ public class LetoviRepositoryImpl implements LetoviRepository {
 				preparedStatement.setInt(index++, Let.getCena());
 				preparedStatement.setBoolean(index++, Let.getNaAkciji());
 				preparedStatement.setInt(index++, Let.getBrojMesta());
+				preparedStatement.setDate(index++, java.sql.Date.valueOf(Let.getDatumVazenjaAkcije()));
+				preparedStatement.setInt(index++, Let.getStaraCena());
 				return preparedStatement;
 			}
 		};
@@ -131,10 +140,12 @@ public class LetoviRepositoryImpl implements LetoviRepository {
 	@Override
 	public int update(Let Let) {
 		String sql = "UPDATE letovi SET oznaka = ?, polazisteId = ?, odredisteId = ?, avionId = ?, terminPolaska = ?, trajanjeLeta = ?, cena = ?, "
-				+ "naAkciji = ?, brojMesta = ?, razlogOtkaza = ?" + " WHERE id = ?";
+				+ "naAkciji = ?, brojMesta = ?, razlogOtkaza = ?, datumVazenjaAkcije = ?, staraCena = ?"
+				+ " WHERE id = ?";
 		boolean uspeh = jdbcTemplate.update(sql, Let.getOznaka(), Let.getPolaziste().getId(),
 				Let.getOdrediste().getId(), Let.getAvion().getId(), java.sql.Timestamp.valueOf(Let.getTerminPolaska()),
-				Let.getTrajanjeLeta(), Let.getCena(), Let.getNaAkciji(), Let.getBrojMesta(), Let.getRazlogOtkaza(), Let.getId()) == 1;
+				Let.getTrajanjeLeta(), Let.getCena(), Let.getNaAkciji(), Let.getBrojMesta(), Let.getRazlogOtkaza(),
+				Let.getDatumVazenjaAkcije(), Let.getStaraCena(), Let.getId()) == 1;
 		if (uspeh) {
 			return 1;
 		} else {

@@ -1,5 +1,6 @@
 package com.ftn.PrviMavenVebProjekat.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Let {
@@ -15,9 +16,13 @@ public class Let {
 	private Boolean naAkciji;
 	private int brojMesta;
 	private String razlogOtkaza;
+	private LocalDate datumVazenjaAkcije;
+
+	private int staraCena;
 
 	public Let(Long id, String oznaka, Aerodrom polaziste, Aerodrom odrediste, Avion avion, LocalDateTime terminPolaska,
-			int trajanjeLeta, int cena, Boolean naAkciji, int brojMesta, String razlogOtkaza) {
+			int trajanjeLeta, int cena, Boolean naAkciji, int brojMesta, String razlogOtkaza,
+			LocalDate datumVazenjaAkcije, int staraCena) {
 		super();
 		this.id = id;
 		this.oznaka = oznaka;
@@ -30,6 +35,8 @@ public class Let {
 		this.naAkciji = naAkciji;
 		this.brojMesta = brojMesta;
 		this.razlogOtkaza = razlogOtkaza;
+		this.datumVazenjaAkcije = datumVazenjaAkcije;
+		this.staraCena = staraCena;
 	}
 
 	public Let(String oznaka, Aerodrom polaziste, Aerodrom odrediste, Avion avion, LocalDateTime terminPolaska,
@@ -47,10 +54,28 @@ public class Let {
 		this.brojMesta = this.avion.getBrojKolona() * this.avion.getBrojRedova();
 
 		this.razlogOtkaza = "";
+		this.datumVazenjaAkcije = LocalDate.EPOCH;
+		this.staraCena = cena;
 	}
 
 	public Let() { // Prazan constructor zbog @ModelAttribute
 		super();
+	}
+	
+	public int getStaraCena() {
+		return staraCena;
+	}
+
+	public void setStaraCena(int staraCena) {
+		this.staraCena = staraCena;
+	}
+
+	public LocalDate getDatumVazenjaAkcije() {
+		return datumVazenjaAkcije;
+	}
+
+	public void setDatumVazenjaAkcije(LocalDate datumVazenjaAkcije) {
+		this.datumVazenjaAkcije = datumVazenjaAkcije;
 	}
 
 	public Long getId() {
