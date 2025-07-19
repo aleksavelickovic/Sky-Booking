@@ -134,7 +134,8 @@ public class LetoviController implements ApplicationContextAware {
 			for (Rezervacija rezervacija : rezervacijeService.findAll()) {
 				if (rezervacija.getKorisnik().getId().equals(ulogovanKorisnik.getId())) {
 					for (Karta karta : rezervacija.getKarte()) {
-						if (!karta.getLet().getRazlogOtkaza().equals("")) {
+						if (!karta.getLet().getRazlogOtkaza().equals("")
+								&& karta.getLet().getTerminPolaska().isAfter(LocalDateTime.now())) {
 							modelAndView.addObject("razlogOtkaza", "Let " + karta.getLet().getOznaka()
 									+ " je otkazan, ukoliko imate Loyalty Karticu, kao kompenzaciju dobili ste 5 loyalty bodova\n"
 									+ System.lineSeparator() + "\nRazlog otkaza: " + karta.getLet().getRazlogOtkaza());
@@ -469,6 +470,8 @@ public class LetoviController implements ApplicationContextAware {
 			@RequestParam String razlogOtkaza) throws IOException {
 		ModelAndView modelAndView = new ModelAndView("index");
 		Let letZaOtkazivanje = service.findOne(letId);
+		List<Let> letovi = service.findAll();
+		modelAndView.addObject("letovi", letovi);
 
 		if (letZaOtkazivanje.getTerminPolaska().minusHours(1).isBefore(LocalDateTime.now())) {
 			modelAndView.addObject("otkazgreska", "Let je za manje od sat vremena, nemoguce je otkazati ga!");
