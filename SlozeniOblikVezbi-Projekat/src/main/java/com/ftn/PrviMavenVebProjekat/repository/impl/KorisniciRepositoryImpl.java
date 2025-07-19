@@ -50,11 +50,13 @@ public class KorisniciRepositoryImpl implements KorisniciRepository {
 			int loyaltyBodovi = rs.getInt(index++);
 			Boolean zahtevaLoyalty = rs.getBoolean(index++);
 			int paraPotroseno = rs.getInt(index++);
+			String listaZelja = rs.getString(index++);
 
 			Korisnik korisnik = korisnici.get(id);
 			if (korisnik == null) {
 				korisnik = new Korisnik(id, korisnickoIme, lozinka, email, ime, prezime, datumRodjenja,
-						datumIVremeRegistracije, uloga, blokiran, loyaltyBodovi, zahtevaLoyalty, paraPotroseno);
+						datumIVremeRegistracije, uloga, blokiran, loyaltyBodovi, zahtevaLoyalty, paraPotroseno,
+						listaZelja);
 				korisnici.put(korisnik.getId(), korisnik);
 			}
 		}
@@ -90,7 +92,7 @@ public class KorisniciRepositoryImpl implements KorisniciRepository {
 
 			@Override
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-				String sql = "INSERT INTO korisnici (korisnickoIme, lozinka, email, ime, prezime, datumRodjenja, uloga, loyaltyBodovi) VALUES (?, ?, ?, ?, ?, ?, 'PUTNIK', ?, 'false', 0)";
+				String sql = "INSERT INTO korisnici (korisnickoIme, lozinka, email, ime, prezime, datumRodjenja, uloga, loyaltyBodovi, listaZelja) VALUES (?, ?, ?, ?, ?, ?, 'PUTNIK', ?, 'false', 0, '')";
 				PreparedStatement preparedStatement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 				int index = 1;
 				preparedStatement.setString(index++, Korisnik.getKorisnickoIme());
@@ -117,16 +119,16 @@ public class KorisniciRepositoryImpl implements KorisniciRepository {
 	}
 
 	@Override
-	public int update(Korisnik korisnik) { // TODO edit korisnika ce se verovatno raditi iz ugla korisnika a ne admina
+	public int update(Korisnik korisnik) {
 
 		String sql = "UPDATE korisnici SET korisnickoIme = ?, lozinka = ?, email = ?, ime = ?, prezime = ?, datumRodjenja = ?, "
-				+ "datumIVremeRegistracije = ?, uloga = ?, blokiran = ?, loyaltyBodovi = ?, zahtevaLoyalty = ?, paraPotroseno = ? WHERE id = ?";
+				+ "datumIVremeRegistracije = ?, uloga = ?, blokiran = ?, loyaltyBodovi = ?, zahtevaLoyalty = ?, paraPotroseno = ?, listaZelja = ? WHERE id = ?";
 
 		boolean uspeh = jdbcTemplate.update(sql, korisnik.getKorisnickoIme(), korisnik.getLozinka(),
 				korisnik.getEmail(), korisnik.getIme(), korisnik.getPrezime(), korisnik.getDatumRodjenja(),
 				korisnik.getDatumIVremeRegistracije(), korisnik.getUloga().name(), korisnik.getBlokiran(),
 				korisnik.getLoyaltyBodovi(), korisnik.getZahtevaLoyalty(), korisnik.getParaPotroseno(),
-				korisnik.getId()) == 1;
+				korisnik.getListaZelja(), korisnik.getId()) == 1;
 
 		if (uspeh) {
 			return 1;

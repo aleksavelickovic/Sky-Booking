@@ -28,6 +28,7 @@
       type="text/javascript"
     ></script>
     <script th:src="@{/assets/js/definisanjeakcije.js}"></script>
+    <script th:src="@{/assets/js/listazelja.js}"></script>
     <script type="text/javascript">
       $(document).ready(function(){
     	  
@@ -58,11 +59,31 @@
 	input[type="checkbox"] {
         display: none;
     }
+    
+    
+.letovi {
+    transform: scale(1);
+    transition: transform 0.2s;
+}
+
+.letovi:hover {
+    transform: scale(1.065);
+}
+
+.card:hover {
+    background-color: #aacfdc;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.card{
+	transition: background-color 0.3s ease, box-shadow 0.3s ease;
+	}
+
 
 </style>
 
 <body style="background-color: #05dff3">
-<nav class="navbar navbar-expand-md bg-dark py-3" data-bs-theme="dark" th:include="header-footer :: navbar"></nav>
+	<nav class="navbar navbar-expand-md bg-dark py-3" data-bs-theme="dark" th:include="header-footer :: navbar"></nav>
 					<div class="container mt-4 mb-2">
 						<h2 th:text="${otkazuspeh}" style="background-color:#4A9A4E;" id="uspeh">Ispis uspeha otkaza</h2>
 						<h2 th:text="${otkazgreska}" style="background-color:#CE3936;" id="neuspeh">Ispis greske otkaza</h2>
@@ -99,13 +120,13 @@
     </div>
     <h1 class="text-center mt-4 mb-4" data-aos="fade-up" data-aos-duration="950" th:text="${nemaletovaporuka}"></h1>
     
-	<div class="container py-4 py-xl-5" data-aos="flip-left" data-aos-duration="950" th:each="let : ${letovi}">
+	<div class="container py-4 py-xl-5 letovi"  th:each="let : ${letovi}">
 		<div class="row gy-4 row-cols-1" >
 			<div class="col">
-				<div class="card" >
+				<div class="card" data-aos="flip-left" data-aos-offset="-50000" data-aos-duration="950">
 					<img class="object-fit-cover card-img-top w-100 d-block" style="height: 200px;"
 						th:src="@{https://cdn.bootstrapstudio.io/placeholders/1400x800.png}">
-					<div class="card-body p-4">
+					<div class="card-body p-4" >
 						<p class="text-primary mb-0 card-text" th:if="${let.naAkciji}" >Akcija!</p>
 						<p class="text-primary mb-0 card-text naakcijilabela" th:id="${'naAkciji' + let.id}">Akcija!</p>
 						<h4 class="card-title">Oznaka:&nbsp;<span th:text="${let.oznaka}" th:id="${'oznaka' + let.id}"></span></h4>
@@ -121,10 +142,14 @@
 						<button class="btn btn-primary" id="rezervisibtn" type="submit" >rezervisi</button>
 						<input class="hidden" type="hidden" name="letId" th:value="${let.id}">
 						</form>
-						<button class="btn btn-primary mt-2" id="listazeljabtn" type="button">dodaj na listu zelja</button>
+						<button th:if="${session.prijavljeniKorisnik != null}" class="btn btn-primary mt-2 listazeljabtn" id="listazeljabtn" type="button" 
+						th:data-let-id="${let.id}">dodaj na listu zelja</button>
+						<h4 class="listazeljalabel" th:id="${'listazeljalabel' + let.id}" style="color: green;">Dodali ste ovaj let na listu zelja!</h4>
+						<h4 class="listazeljagreskalabel" th:id="${'listazeljagreskalabel' + let.id}" style="color: red;">Ovaj let je vec na vasoj listi zelja!</h4>
+
 						<a th:if="${session.prijavljeniKorisnik != null && session.prijavljeniKorisnik.uloga.name() == 'ADMIN'}" 
 						th:href="@{/letovi/edit(letId=${let.id})}">
-						<button class="btn btn-primary mt-2" id="listazeljabtn" type="button">Izmeni let (Samo za administratore)
+						<button class="btn btn-primary mt-2 listazeljabtn" id="listazeljabtn" type="button">Izmeni let (Samo za administratore)
 						
 						</button> </a> 
 						<form th:if="${session.prijavljeniKorisnik != null && session.prijavljeniKorisnik.uloga.name() == 'ADMIN'}" 

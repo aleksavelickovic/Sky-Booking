@@ -75,7 +75,7 @@ public class Rezervacija {
 		String string = "";
 		for (Karta karta : this.karte) {
 			if (!string.contains(karta.getLet().getOznaka())) {
-				string += " " + karta.getLet().getOznaka();
+				string += "  " + karta.getLet().getOznaka();
 			}
 
 		}

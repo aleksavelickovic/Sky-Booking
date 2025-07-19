@@ -149,6 +149,21 @@ public class LetoviController implements ApplicationContextAware {
 
 	}
 
+	@PostMapping(value = "/letovi/dodajnalistuzelja", produces = "application/json")
+	@ResponseBody
+	public String dodajnalistuzelja(@RequestParam Long letId, HttpSession session) throws JsonProcessingException {
+		Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute(KorisniciController.KORISNIK_KEY);
+
+		if (ulogovaniKorisnik.getListaZelja().contains(letId.toString())) {
+			return mapper.writeValueAsString("neuspeh");
+		}
+		ulogovaniKorisnik.setListaZelja(ulogovaniKorisnik.getListaZelja() + letId + ",");
+		korisniciService.update(ulogovaniKorisnik);
+		session.setAttribute(KorisniciController.KORISNIK_KEY, ulogovaniKorisnik);
+
+		return mapper.writeValueAsString("uspeh");
+	}
+
 	@PostMapping(value = "/letovi/definisiakciju", produces = "application/json")
 	@ResponseBody
 	public String definisiakciju(@RequestParam(required = false) String procenatpopusta, @RequestParam Long letId,
