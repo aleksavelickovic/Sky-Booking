@@ -127,7 +127,7 @@ CREATE TABLE letovi (
 
 INSERT INTO letovi (oznaka, polazisteId, odredisteId, avionId, terminPolaska, trajanjeLeta, cena, naAkciji, brojMesta ,razlogOtkaza, 
 datumVazenjaAkcije, staraCena) VALUES
-('FL001', 1, 2, 1, '2025-07-15 08:30:00', 600, 40000, TRUE, 32, '', '2035-11-29', 80000),
+('FL001', 1, 2, 1, '2025-07-15 08:30:00', 600, 40000, TRUE, 31, '', '2035-11-29', 80000),
 ('FL002', 2, 3, 2, '2025-07-16 12:00:00', 840, 55000, TRUE, 50, '', '2035-11-29', 80000),
 ('FL003', 3, 4, 3, '2025-07-17 05:45:00', 540, 38000, TRUE, 10, '', '2035-11-29', 80000),
 ('FL004', 4, 5, 1, '2025-07-18 19:20:00', 420, 30000, FALSE, 32, '', '1970-01-01', 30000),
@@ -155,9 +155,10 @@ CREATE TABLE karte (
 );
 
 INSERT INTO karte (letId, brojSedista, cena, imeIPrezimePutnika, brojPasosa) VALUES
-(1, '2-5', 15000, 'Petar Petrovic', 'SRB123456'),
-(2, '1-3', 200, 'Jovana Jovic', 'SRB654321'),
-(1, '4-7', 15000, 'Nikola Nikolic', 'SRB112233');
+(1, '2-5', 40000, 'Petar Petrovic', 'SRB123456');
+-- (1, '2-5', 15000, 'Petar Petrovic', 'SRB123456'),
+-- (2, '1-3', 200, 'Jovana Jovic', 'SRB654321'),
+-- (1, '4-7', 15000, 'Nikola Nikolic', 'SRB112233');
 
 SELECT * FROM karte k
 ORDER BY k.id;
@@ -171,7 +172,7 @@ CREATE TABLE rezervacije (
 );
 
 INSERT INTO rezervacije (idKorisnika, ukupnaCena) VALUES
-(3, 30000);
+(1, 40000);
 
 SELECT * FROM rezervacije r
 ORDER BY r.id;
@@ -185,8 +186,7 @@ CREATE TABLE rezervacija_karta (
 );
 
 INSERT INTO rezervacija_karta (rezervacijaId, kartaId) VALUES
-(1, 1),
-(1, 3);
+(1, 1);
 
 SELECT *
 FROM rezervacije r

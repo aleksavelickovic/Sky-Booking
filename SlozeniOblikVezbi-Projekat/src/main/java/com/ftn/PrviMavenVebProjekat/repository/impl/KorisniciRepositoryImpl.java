@@ -92,7 +92,8 @@ public class KorisniciRepositoryImpl implements KorisniciRepository {
 
 			@Override
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-				String sql = "INSERT INTO korisnici (korisnickoIme, lozinka, email, ime, prezime, datumRodjenja, uloga, loyaltyBodovi, listaZelja) VALUES (?, ?, ?, ?, ?, ?, 'PUTNIK', ?, 'false', 0, '')";
+				String sql = "INSERT INTO korisnici (korisnickoIme, lozinka, email, ime, prezime, datumRodjenja, uloga, loyaltyBodovi, zahtevaLoyalty, paraPotroseno, listaZelja) "
+						+ "VALUES (?, ?, ?, ?, ?, ?, 'PUTNIK', -1, false, 0, '')";
 				PreparedStatement preparedStatement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 				int index = 1;
 				preparedStatement.setString(index++, Korisnik.getKorisnickoIme());
@@ -101,7 +102,7 @@ public class KorisniciRepositoryImpl implements KorisniciRepository {
 				preparedStatement.setString(index++, Korisnik.getIme());
 				preparedStatement.setString(index++, Korisnik.getPrezime());
 				preparedStatement.setDate(index++, Korisnik.getDatumRodjenja());
-				preparedStatement.setInt(index++, Korisnik.getLoyaltyBodovi());
+//				preparedStatement.setInt(index++, Korisnik.getLoyaltyBodovi());
 //				preparedStatement.setBoolean(index++, false);
 
 				return preparedStatement;

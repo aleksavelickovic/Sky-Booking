@@ -213,7 +213,24 @@ public class LetoviController implements ApplicationContextAware {
 	public ModelAndView statistics(@RequestParam(required = false) String pocetniDatum,
 			@RequestParam(required = false) String krajnjiDatum) {
 		ModelAndView modelAndView = new ModelAndView("izvestaji");
-		List<Karta> karte = karteService.findAll();
+		ArrayList<Karta> karte = new ArrayList<Karta>();
+		
+		try  {
+			
+			for (Rezervacija rezervacija : rezervacijeService.findAll()) {
+				if (rezervacija.getDatumIVremeKreiranja().after(Timestamp.valueOf(LocalDateTime.parse(pocetniDatum + "T00:00:00")))
+						&& rezervacija.getDatumIVremeKreiranja()
+								.before(Timestamp.valueOf(LocalDateTime.parse(krajnjiDatum + "T00:00:00")))) {
+					for (Karta karta : rezervacija.getKarte()) {
+						karte.add(karta);
+					}
+
+				}
+			}
+		}
+		catch (Exception e) {
+			karte = (ArrayList<Karta>) karteService.findAll();
+		}
 
 		Integer ukupanBrojKarata = karte.size();
 		modelAndView.addObject("ukupanBrojKarata", ukupanBrojKarata);
