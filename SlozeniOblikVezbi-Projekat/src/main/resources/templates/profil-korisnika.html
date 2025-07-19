@@ -93,6 +93,7 @@
                     <tr>
                         <th>Oznaka leta</th>
                         <th>Broj preostalih mesta</th>
+                        <th>Rezervisi ovaj let</th>
                         <th>Ukloni iz liste zelja</th>
                     </tr>
                 </thead>
@@ -102,6 +103,11 @@
                         <td th:if="${let.brojMesta > 0}"  th:text="${let.brojMesta}">Broj mesta</td>
                         <td th:if="${let.brojMesta <= 0}">Rasprodat!</td>
                        
+                        <td><form action="/PrviMavenVebProjekat/seatoptions" method="GET">
+						
+						<button class="btn btn-primary" id="rezervisibtn" type="submit" >rezervisi</button>
+						<input class="hidden" type="hidden" name="letId" th:value="${let.id}">
+						</form></td>
                         <td><a th:href="${'/PrviMavenVebProjekat/letovi/ukloniizlistezelja?letId=' + let.id}"><button class="btn btn-primary" type="button">ukloni</button></a></td>
                     </tr>
                     <tr></tr>
