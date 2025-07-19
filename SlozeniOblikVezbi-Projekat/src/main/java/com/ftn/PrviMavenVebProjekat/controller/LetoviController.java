@@ -168,7 +168,7 @@ public class LetoviController implements ApplicationContextAware {
 	public void ukloni(HttpServletResponse response, HttpSession session, @RequestParam String letId)
 			throws IOException {
 		Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute(KorisniciController.KORISNIK_KEY);
-		ulogovaniKorisnik.setListaZelja(ulogovaniKorisnik.getListaZelja().replace(letId + ",", ""));  
+		ulogovaniKorisnik.setListaZelja(ulogovaniKorisnik.getListaZelja().replace(letId + ",", ""));
 		System.out.println("IZBACEN LET IZ LISTE ZELJA!");
 		korisniciService.update(ulogovaniKorisnik);
 		session.setAttribute(KorisniciController.KORISNIK_KEY, ulogovaniKorisnik);
@@ -207,6 +207,25 @@ public class LetoviController implements ApplicationContextAware {
 		service.update(let);
 
 		return mapper.writeValueAsString(let);
+	}
+
+	@GetMapping(value = "/letovi/statistics")
+	public ModelAndView statistics(@RequestParam(required = false) String pocetniDatum,
+			@RequestParam(required = false) String krajnjiDatum) {
+		ModelAndView modelAndView = new ModelAndView("izvestaji");
+		List<Karta> karte = karteService.findAll();
+
+		Integer ukupanBrojKarata = karte.size();
+		modelAndView.addObject("ukupanBrojKarata", ukupanBrojKarata);
+		Integer ukupnaCenaKarata = 0;
+		for (Karta karta : karte) {
+			ukupnaCenaKarata += karta.getCena();
+		}
+		modelAndView.addObject("ukupnaCenaKarata", ukupnaCenaKarata);
+
+		modelAndView.addObject("karte", karte);
+
+		return modelAndView;
 	}
 
 	@GetMapping(value = "/letovi/add")
