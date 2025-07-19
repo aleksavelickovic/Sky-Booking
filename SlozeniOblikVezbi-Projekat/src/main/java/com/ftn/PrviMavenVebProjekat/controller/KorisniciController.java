@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -28,8 +29,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ftn.PrviMavenVebProjekat.bean.SecondConfiguration.ApplicationMemory;
 import com.ftn.PrviMavenVebProjekat.model.Korisnik;
+import com.ftn.PrviMavenVebProjekat.model.Rezervacija;
 import com.ftn.PrviMavenVebProjekat.model.Uloga;
 import com.ftn.PrviMavenVebProjekat.service.KorisniciService;
+import com.ftn.PrviMavenVebProjekat.service.RezervacijeService;
 
 @Controller
 @RequestMapping(value = "/korisnici")
@@ -46,6 +49,8 @@ public class KorisniciController implements ApplicationContextAware {
 	@Autowired
 	@Qualifier("KorisniciDatabaseServis")
 	private KorisniciService service;
+	@Autowired
+	private RezervacijeService rezervacijaService;
 
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
@@ -135,6 +140,32 @@ public class KorisniciController implements ApplicationContextAware {
 			return;
 		}
 		return;
+	}
+
+	@GetMapping(value = "/profile")
+	public ModelAndView profile(HttpSession session) {
+		ModelAndView modelAndView = new ModelAndView("profil-korisnika");
+		modelAndView.addObject("korisnik", session.getAttribute(KORISNIK_KEY));
+
+		List<Rezervacija> rezervacije = rezervacijaService.findAll();
+		System.out.println(rezervacije);
+		List<Rezervacija> rezervacijeZaPrikaz = new ArrayList<Rezervacija>();
+
+		for (Rezervacija rezervacija : rezervacije) {
+			if (rezervacija.getKorisnik().getId().equals(((Korisnik) session.getAttribute(KORISNIK_KEY)).getId())) {
+				System.out.println("DODAVANJE REZERVACIJE.....");
+				rezervacijeZaPrikaz.add(rezervacija);
+			}
+		}
+
+		rezervacijeZaPrikaz.sort(Comparator.comparing(Rezervacija::getDatumIVremeKreiranja).reversed());
+
+		System.out.println(rezervacijeZaPrikaz);
+
+		modelAndView.addObject("rezervacije", rezervacijeZaPrikaz);
+
+		return modelAndView;
+
 	}
 
 	@GetMapping(value = "/edit")

@@ -61,7 +61,7 @@ public class Rezervacija {
 	public void setUkupnaCena(int ukupnaCena) {
 		this.ukupnaCena = ukupnaCena;
 	}
-	
+
 	public Korisnik getKorisnik() {
 		return korisnik;
 	}
@@ -72,8 +72,14 @@ public class Rezervacija {
 
 	@Override
 	public String toString() {
-		return "Rezervacija [id=" + id + ", karte=" + karte + ", datumIVremeKreiranja=" + datumIVremeKreiranja
-				+ ", ukupnaCena=" + ukupnaCena + "]";
+		String string = "";
+		for (Karta karta : this.karte) {
+			if (!string.contains(karta.getLet().getOznaka())) {
+				string += " " + karta.getLet().getOznaka();
+			}
+
+		}
+		return string;
 	}
 
 }
