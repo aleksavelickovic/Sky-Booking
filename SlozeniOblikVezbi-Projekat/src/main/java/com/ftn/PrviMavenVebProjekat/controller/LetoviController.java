@@ -164,6 +164,18 @@ public class LetoviController implements ApplicationContextAware {
 		return mapper.writeValueAsString("uspeh");
 	}
 
+	@GetMapping(value = "/letovi/ukloniizlistezelja")
+	public void ukloni(HttpServletResponse response, HttpSession session, @RequestParam String letId)
+			throws IOException {
+		Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute(KorisniciController.KORISNIK_KEY);
+		ulogovaniKorisnik.setListaZelja(ulogovaniKorisnik.getListaZelja().replace(letId + ",", ""));  
+		System.out.println("IZBACEN LET IZ LISTE ZELJA!");
+		korisniciService.update(ulogovaniKorisnik);
+		session.setAttribute(KorisniciController.KORISNIK_KEY, ulogovaniKorisnik);
+		response.sendRedirect(bURL + "korisnici/profile");
+
+	}
+
 	@PostMapping(value = "/letovi/definisiakciju", produces = "application/json")
 	@ResponseBody
 	public String definisiakciju(@RequestParam(required = false) String procenatpopusta, @RequestParam Long letId,

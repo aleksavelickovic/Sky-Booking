@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
@@ -29,9 +30,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ftn.PrviMavenVebProjekat.bean.SecondConfiguration.ApplicationMemory;
 import com.ftn.PrviMavenVebProjekat.model.Korisnik;
+import com.ftn.PrviMavenVebProjekat.model.Let;
 import com.ftn.PrviMavenVebProjekat.model.Rezervacija;
 import com.ftn.PrviMavenVebProjekat.model.Uloga;
 import com.ftn.PrviMavenVebProjekat.service.KorisniciService;
+import com.ftn.PrviMavenVebProjekat.service.LetoviService;
 import com.ftn.PrviMavenVebProjekat.service.RezervacijeService;
 
 @Controller
@@ -51,6 +54,8 @@ public class KorisniciController implements ApplicationContextAware {
 	private KorisniciService service;
 	@Autowired
 	private RezervacijeService rezervacijaService;
+	@Autowired
+	private LetoviService letoviService;
 
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
@@ -156,6 +161,19 @@ public class KorisniciController implements ApplicationContextAware {
 				System.out.println("DODAVANJE REZERVACIJE.....");
 				rezervacijeZaPrikaz.add(rezervacija);
 			}
+		}
+
+		Korisnik korisnik = (Korisnik) session.getAttribute(KORISNIK_KEY);
+		if (!korisnik.getListaZelja().equals("")) {
+			List<String> listazelja = Arrays
+					.asList(korisnik.getListaZelja().substring(0, korisnik.getListaZelja().length() - 1).split(","));
+			
+			ArrayList<Let> listaletova = new ArrayList<Let>();
+			for (String id : listazelja) {
+				listaletova.add(letoviService.findOne(Long.parseLong(id)));
+			}
+			
+			modelAndView.addObject("letovinalistizelja", listaletova);
 		}
 
 		rezervacijeZaPrikaz.sort(Comparator.comparing(Rezervacija::getDatumIVremeKreiranja).reversed());

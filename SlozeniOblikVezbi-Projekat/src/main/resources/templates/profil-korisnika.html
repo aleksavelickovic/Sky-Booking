@@ -79,7 +79,7 @@
                 </thead>
                 <tbody>
                     <tr th:each="rezervacija : ${rezervacije}">
-                        <td th:text="${rezervacija.datumIVremeKreiranja}"></td>
+                        <td th:text="${rezervacija.datumIVremeKreiranja}">datum i vreme kreiranja</td>
                         <td th:text="${rezervacija}">Letovi</td>
                         <td th:text="${rezervacija.ukupnaCena}">ukupnaCena</td>
                     </tr>
@@ -88,7 +88,7 @@
             </table>
         </div>
         <div>
-            <table class="table table-striped table-hover table-bordered float-start">
+            <table class="table table-striped table-hover table-bordered float-start sortable">
                 <thead>
                     <tr>
                         <th>Oznaka leta</th>
@@ -97,10 +97,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Cell 1</td>
-                        <td>Cell 2</td>
-                        <td><button class="btn btn-primary" type="button">ukloni</button></td>
+                    <tr th:each="let : ${letovinalistizelja}">
+                    	<td th:text="${let.oznaka}">Oznaka leta</td>
+                        <td th:if="${let.brojMesta > 0}"  th:text="${let.brojMesta}">Broj mesta</td>
+                        <td th:if="${let.brojMesta <= 0}">Rasprodat!</td>
+                       
+                        <td><a th:href="${'/PrviMavenVebProjekat/letovi/ukloniizlistezelja?letId=' + let.id}"><button class="btn btn-primary" type="button">ukloni</button></a></td>
                     </tr>
                     <tr></tr>
                 </tbody>
