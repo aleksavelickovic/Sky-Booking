@@ -1,12 +1,21 @@
 package com.ftn.PrviMavenVebProjekat.bean;
 
 import java.util.HashMap;
+import java.util.Locale;
 
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.i18n.CookieLocaleResolver;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 @Configuration
-public class SecondConfiguration {
+public class SecondConfiguration implements WebMvcConfigurer {
 
 	@Bean(name = { "memorijaAplikacije" }, initMethod = "init", destroyMethod = "destroy")
 	public ApplicationMemory getApplicationMemory() {
@@ -31,4 +40,33 @@ public class SecondConfiguration {
 			System.out.println("destroy method called");
 		}
 	}
+
+	@Bean
+	public LocaleResolver localeResolver() {
+		CookieLocaleResolver clr = new CookieLocaleResolver();
+		// postavljanje default lokalizacije
+		clr.setDefaultLocale(Locale.forLanguageTag("sr"));
+		return clr;
+	}
+
+	@Bean
+	public MessageSource messageSource() {
+		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+		messageSource.setBasename("messages"); // base name
+		messageSource.setDefaultEncoding("UTF-8");
+		return messageSource;
+	}
+
+	@Bean
+	public LocaleChangeInterceptor localeChangeInterceptor() {
+		LocaleChangeInterceptor interceptor = new LocaleChangeInterceptor();
+		interceptor.setParamName("lang"); // use ?lang=sr
+		return interceptor;
+	}
+	
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(localeChangeInterceptor());
+	}
+
 }

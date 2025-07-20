@@ -8,7 +8,7 @@
         <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 	<meta http-equiv="Pragma" content="no-cache" />
 	<meta http-equiv="Expires" content="0" />
-    <title>Web Programiranje</title>
+    <!-- <title th:text="#{headerfooter.title}">Web Programiranje</title> -->
     <link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Titillium+Web:400,600,700}">
     <link rel="stylesheet" th:href="@{/assets/css/Animation-Cards-_app.css}">
@@ -25,7 +25,7 @@
 <body>
     <nav class="navbar navbar-expand-md bg-dark py-3 sticky-top" data-bs-theme="dark" th:fragment="navbar">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center" th:href="@{/}">
+            <a class="navbar-brand d-flex align-items-center ms-auto me-auto" th:href="@{/}">
                 <span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-bezier">
                         <path fill-rule="evenodd" d="M0 10.5A1.5 1.5 0 0 1 1.5 9h1A1.5 1.5 0 0 1 4 10.5v1A1.5 1.5 0 0 1 2.5 13h-1A1.5 1.5 0 0 1 0 11.5zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm10.5.5A1.5 1.5 0 0 1 13.5 9h1a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5h-1a1.5 1.5 0 0 1-1.5-1.5zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM6 4.5A1.5 1.5 0 0 1 7.5 3h1A1.5 1.5 0 0 1 10 4.5v1A1.5 1.5 0 0 1 8.5 7h-1A1.5 1.5 0 0 1 6 5.5zM7.5 4a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z"></path>
@@ -43,11 +43,13 @@
                 <a th:href="@{/korisnici/profile}" th:if="${session.prijavljeniKorisnik != null}" class="nav-item nav-link active">
                 	<p class="nav-item nav-link" th:text="${'Prijavljeni ste kao: ' + session.prijavljeniKorisnik.ime + ' ' + session.prijavljeniKorisnik.prezime}"></p>
                 	</a>
-<a class="nav-item" th:if="${session.prijavljeniKorisnik != null && session.prijavljeniKorisnik.uloga.name() == 'ADMIN'}" th:href="@{/korisnici/admin}">Admin stranica</a>
+<a class="nav-item" th:if="${session.prijavljeniKorisnik != null && session.prijavljeniKorisnik.uloga.name() == 'ADMIN'}" th:text="#{headerfooter.admin}" th:href="@{/korisnici/admin}">Admin stranica</a>
 
-                	<li class="nav-item"><a class="nav-link active" th:if="${session.prijavljeniKorisnik != null}" th:href="@{/korisnici/logout}">Odjava</a></li>
-                    <li class="nav-item"><a class="nav-link active" th:if="${session.prijavljeniKorisnik == null}" th:href="@{/korisnici/add}">Registracija</a></li>
-                    <li class="nav-item"><a class="nav-link" th:if="${session.prijavljeniKorisnik == null}" th:href="@{/korisnici/login}">Prijava</a></li>
+                	<li class="nav-item"><a class="nav-link active" th:if="${session.prijavljeniKorisnik != null}" th:text="#{headerfooter.logout}" th:href="@{/korisnici/logout}">Odjava</a></li>
+                    <li class="nav-item"><a class="nav-link active" th:if="${session.prijavljeniKorisnik == null}" th:text="#{headerfooter.register}" th:href="@{/korisnici/add}">Registracija</a></li>
+                    <li class="nav-item"><a class="nav-link" th:if="${session.prijavljeniKorisnik == null}" th:text="#{headerfooter.login}" th:href="@{/korisnici/login}">Prijava</a></li>
+                    <li class="nav-item">
+    
                 </ul>
                 <div class="d-md-none my-2">
                     <button class="btn btn-light me-2" type="button">Button</button>
@@ -55,20 +57,28 @@
                 </div>
                 
             </div>
-            <p class="nav-item nav-link" th:text="${'Vasi loyalty bodovi: ' + session.prijavljeniKorisnik.loyaltyBodovi}" 
+            <p class="nav-item nav-link" th:text="#{headerfooter.loyaltybodovi} + ${session.prijavljeniKorisnik.loyaltyBodovi}" 
                  th:if="${session.prijavljeniKorisnik != null && session.prijavljeniKorisnik.loyaltyBodovi >= 0}">Loyalty bodovi</p>
             
             <div class="d-none d-md-block">
-            <p class="text-center mt-5" style="background-color: #408643;" data-aos="fade-up" data-aos-duration="950" th:if="${#request.getParameter('loyaltyuspeh')}">Podneli ste zahtev za kreiranje loyalty kartice!</p>
-            	<p class="text-center mt-5" style="background-color: #D83F3B;" data-aos="fade-up" data-aos-duration="950" th:if="${#request.getParameter('loyaltyfail')}">Vec ste podneli zahtev za kreiranje loyalty kartice!</p>
+            <p class="text-center mt-5" style="background-color: #408643;" data-aos="fade-up" th:text="#{headerfooter.loyaltyzahtevuspeh}" data-aos-duration="950" th:if="${#request.getParameter('loyaltyuspeh')}">Podneli ste zahtev za kreiranje loyalty kartice!</p>
+            	<p class="text-center mt-5" style="background-color: #D83F3B;" data-aos="fade-up" th:text="#{headerfooter.loyaltyzahtevneuspeh}" data-aos-duration="950" th:if="${#request.getParameter('loyaltyfail')}">Vec ste podneli zahtev za kreiranje loyalty kartice!</p>
             
                 <a class="btn btn-light me-2" role="button" th:if="${session.prijavljeniKorisnik != null && session.prijavljeniKorisnik.loyaltyBodovi < 0}"
-                 th:href="@{/korisnici/loyaltyrequest}">Napravite Loyalty karticu</a>
+                 th:href="@{/korisnici/loyaltyrequest}" th:text="#{headerfooter.napraviloyalty}">Napravite Loyalty karticu</a>
                  
-                <a class="btn btn-primary btn-light" role="button" th:if="${session.prijavljeniKorisnik != null}" th:href="@{/korpa}">Vasa korpa</a>
+                <a class="btn btn-primary btn-light" role="button" th:if="${session.prijavljeniKorisnik != null}" th:href="@{/korpa}" th:text="#{headerfooter.korpabtn}">Vasa korpa</a>
+                
             </div>
             
         </div>
+        <ul class="navbar-nav me-auto">
+        <a class="nav-link" href="?lang=en">🇬🇧 English</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="?lang=sr">🇷🇸 Srpski</a>
+</li>
+</ul>
     </nav>
     <div class="me-4 mb-5"></div>
     <footer class="text-center bg-dark fixed-bottom" th:fragment="footer">

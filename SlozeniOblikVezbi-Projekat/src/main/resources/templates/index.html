@@ -8,7 +8,8 @@
         <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 	<meta http-equiv="Pragma" content="no-cache" />
 	<meta http-equiv="Expires" content="0" />
-    <title>Web Programiranje</title>
+    <title th:text="#{index.title}">Web Programiranje</title>
+    <base th:href="@{/}">
     <link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Titillium+Web:400,600,700}">
     <link rel="stylesheet" th:href="@{/assets/css/aos.min.css}">
@@ -29,6 +30,7 @@
     ></script>
     <script th:src="@{/assets/js/definisanjeakcije.js}"></script>
     <script th:src="@{/assets/js/listazelja.js}"></script>
+    <script th:src="@{/assets/js/internacionalizacija.js}"></script>
     <script type="text/javascript">
       $(document).ready(function(){
     	  
@@ -87,35 +89,35 @@
 					<div class="container mt-4 mb-2">
 						<h2 th:text="${otkazuspeh}" style="background-color:#4A9A4E;" id="uspeh">Ispis uspeha otkaza</h2>
 						<h2 th:text="${otkazgreska}" style="background-color:#CE3936;" id="neuspeh">Ispis greske otkaza</h2>
-						<h5 th:text="${razlogOtkaza}" style="background-color:#CE3936;" id="otkaz">Ispis otkazanog leta</h5>
+						<h5 th:text="${razlogOtkaza}"  style="background-color:#CE3936;" id="otkaz">Ispis otkazanog leta</h5>
 					</div>
     <div class="container">
         <form action="/PrviMavenVebProjekat/filter" method="POST">
-            <input class="form-control" name="polaziste" type="text" th:value="${polaziste}" placeholder="Polaziste">
-            <input class="form-control" name="odrediste" type="text" th:value="${odrediste}" placeholder="Odredište">
+            <input class="form-control" name="polaziste" type="text" th:value="${polaziste}" th:placeholder="#{index.polaziste.filter}">
+            <input class="form-control" name="odrediste" type="text" th:value="${odrediste}" th:placeholder="#{index.odrediste.filter}">
             <input class="form-control" name="oznakaleta" type="text" th:if="${session.prijavljeniKorisnik != null && session.prijavljeniKorisnik.uloga.name() == 'ADMIN'}"
              th:value="${oznakaleta}" placeholder="Oznaka leta (Samo za administratore)">
-            <input class="form-control" type="number" name="brojMesta" th:value="${brojMesta}" placeholder="Broj putnika">
-            <p class="fs-6 fw-lighter lh-sm">Datum polaska:</p>
+            <input class="form-control" type="number" name="brojMesta" th:value="${brojMesta}" th:placeholder="#{index.brojputnika.filter}">
+            <p class="fs-6 fw-lighter lh-sm" th:text="#{index.datumpolaska}">Datum polaska:</p>
             <input class="form-control" name="datumPolaska" th:value="${datumPolaska}" type="date" placeholder="Datum polaska">
             <input type="checkbox" id="traziSlicneLetove" th:checked="${slicnicekirano}" value="OVO JE TEST ZA VREDNOST" name="traziSlicneLetove">
-            <label class="form-label fw-bolder" for="traziSlicneLetove">Trazi letove blizu ovog datuma</label>
+            <label class="form-label fw-bolder" for="traziSlicneLetove" th:text="#{index.slicniletovi}">Trazi letove blizu ovog datuma</label>
             
-            <p class="fs-6 fw-lighter lh-sm">Sortiraj po:</p>
+            <p class="fs-6 fw-lighter lh-sm" th:text="#{index.sortBy}">Sortiraj po:</p>
 			<select class="form-select" name="sortiranjePolje" style="background-color: #05dff3; border-color: #000; border-width: 2px; color: #000;">
-				<option value="nista">Izaberite opciju...</option>
-    			<option value="polaziste">Polaziste</option>
-    			<option value="odrediste">Odredište</option>
-			    <option value="brojPutnika">Broj putnika</option>
-			    <option value="terminPolaska">Datum polaska</option>
+				<option value="nista" th:text="#{index.izaberiopciju}">Izaberite opciju...</option>
+    			<option value="polaziste" th:text="#{index.izaberipolaziste}">Polaziste</option>
+    			<option value="odrediste" th:text="#{index.izaberiodrediste}">Odredište</option>
+			    <option value="brojPutnika" th:text="#{index.izaberibrojputnika}">Broj putnika</option>
+			    <option value="terminPolaska" th:text="#{index.izaberidatumpolaska}">Datum polaska</option>
 			</select>
 
 			<select class="form-select mt-2" name="sortiranjeRedosled" style="background-color: #05dff3; border-color: #000; border-width: 2px; color: #000;">
-			    <option value="rastuce">Rastuce</option>
-			    <option value="opadajuce">Opadajuce</option>
+			    <option value="rastuce" th:text="#{index.izaberirastuce}">Rastuce</option>
+			    <option value="opadajuce" th:text="#{index.izaberiopadajuce}">Opadajuce</option>
 			</select>
             
-            <input class="btn btn-primary d-block mt-2" type="submit" id="pretrazibtn" value="Pretrazi">
+            <input class="btn btn-primary d-block mt-2" type="submit" id="pretrazibtn" th:value="#{index.pretrazibtn}">
         </form>
     </div>
     <h1 class="text-center mt-4 mb-4" data-aos="fade-up" data-aos-duration="950" th:text="${nemaletovaporuka}"></h1>
@@ -127,49 +129,49 @@
 					<img class="object-fit-cover card-img-top w-100 d-block" style="height: 200px;"
 						th:src="@{https://cdn.bootstrapstudio.io/placeholders/1400x800.png}">
 					<div class="card-body p-4" >
-						<p class="text-primary mb-0 card-text" th:if="${let.naAkciji}" >Akcija!</p>
-						<p class="text-primary mb-0 card-text naakcijilabela" th:id="${'naAkciji' + let.id}">Akcija!</p>
-						<h4 class="card-title">Oznaka:&nbsp;<span th:text="${let.oznaka}" th:id="${'oznaka' + let.id}"></span></h4>
-						<p class="card-text">Polaziste: <span th:text="${let.polaziste.oznaka}" th:id="${'polaziste' + let.id}"></span></p>
-						<p class="card-text">Odrediste: <span th:text="${let.odrediste.oznaka}" th:id="${'odrediste' + let.id}"></span></p>
-						<p class="card-text">Avion: <span th:text="${let.avion.naziv}" th:id="${'avion' + let.id}"></span></p>
-						<p class="card-text">Datum i vreme polaska: <span th:text="${let.terminPolaska}" th:id="${'terminPolaska' + let.id}"></span></p>
-						<p class="card-text">Trajanje: <span th:text="${let.trajanjeLeta}" th:id="${'trajanje' + let.id}"></span></p>
-						<p class="card-text">Cena po karti: <span th:text="${let.cena}" th:id="${'cena' + let.id}"></span></p>
+						<p class="text-primary mb-0 card-text" th:if="${let.naAkciji}" th:text="#{index.akcijaoznaka}" >Akcija!</p>
+						<p class="text-primary mb-0 card-text naakcijilabela" th:text="#{index.akcijaoznaka}" th:id="${'naAkciji' + let.id}">Akcija!</p>
+						<h4 class="card-title" th:text="#{index.oznaka}">Oznaka:&nbsp;<span th:text="${let.oznaka}" th:id="${'oznaka' + let.id}"></span></h4>
+						<p class="card-text"><span th:text="#{index.polaziste} + ' ' + ${let.polaziste.oznaka}" th:id="${'polaziste' + let.id}"></span></p>
+						<p class="card-text"><span th:text="#{index.odrediste} + ' ' + ${let.odrediste.oznaka}" th:id="${'odrediste' + let.id}"></span></p>
+						<p class="card-text"><span th:text="#{index.avion} + ' ' + ${let.avion.naziv}" th:id="${'avion' + let.id}"></span></p>
+						<p class="card-text"><span th:text="#{index.datumpolaska} + ' ' + ${let.terminPolaska}" th:id="${'terminPolaska' + let.id}"></span></p>
+						<p class="card-text"><span th:text="#{index.trajanje} + ' ' + ${let.trajanjeLeta}" th:id="${'trajanje' + let.id}"></span></p>
+						<p class="card-text"><span th:text="#{index.cenapokarti} + ' ' + ${let.cena}" th:id="${'cena' + let.id}"></span></p>
 						
 						<form action="/PrviMavenVebProjekat/seatoptions" method="GET">
 						<!-- <input type="number" class="form-control" name="brojMesta" placeholder="Broj karata..." required> -->
-						<button class="btn btn-primary" id="rezervisibtn" type="submit" >rezervisi</button>
+						<button class="btn btn-primary" id="rezervisibtn" type="submit" th:text="#{index.rezervisibtn}">rezervisi</button>
 						<input class="hidden" type="hidden" name="letId" th:value="${let.id}">
 						</form>
 						<button th:if="${session.prijavljeniKorisnik != null}" class="btn btn-primary mt-2 listazeljabtn" id="listazeljabtn" type="button" 
-						th:data-let-id="${let.id}">dodaj na listu zelja</button>
-						<h4 class="listazeljalabel" th:id="${'listazeljalabel' + let.id}" style="color: green;">Dodali ste ovaj let na listu zelja!</h4>
-						<h4 class="listazeljagreskalabel" th:id="${'listazeljagreskalabel' + let.id}" style="color: red;">Ovaj let je vec na vasoj listi zelja!</h4>
+						th:data-let-id="${let.id}" th:text="#{index.dodajnalistuzelja}">dodaj na listu zelja</button>
+						<h4 class="listazeljalabel" th:id="${'listazeljalabel' + let.id}" th:text="#{index.uspesnododavanjenalistuzelja}" style="color: green;">Dodali ste ovaj let na listu zelja!</h4>
+						<h4 class="listazeljagreskalabel" th:id="${'listazeljagreskalabel' + let.id}" th:text="#{index.ovajletjevecpozeljan}" style="color: red;">Ovaj let je vec na vasoj listi zelja!</h4>
 
 						<a th:if="${session.prijavljeniKorisnik != null && session.prijavljeniKorisnik.uloga.name() == 'ADMIN'}" 
 						th:href="@{/letovi/edit(letId=${let.id})}">
-						<button class="btn btn-primary mt-2 listazeljabtn" id="listazeljabtn" type="button">Izmeni let (Samo za administratore)
+						<button class="btn btn-primary mt-2 listazeljabtn" id="listazeljabtn" th:text="#{index.izmeniletbtn}" type="button">Izmeni let (Samo za administratore)
 						
 						</button> </a> 
 						<form th:if="${session.prijavljeniKorisnik != null && session.prijavljeniKorisnik.uloga.name() == 'ADMIN'}" 
 						action="/PrviMavenVebProjekat/otkazi" method="GET">
-						<input type="text" class="form-control mt-2" name="razlogOtkaza" placeholder="Razlog otkazivanja leta..." required>
+						<input type="text" class="form-control mt-2" name="razlogOtkaza" th:placeholder="#{index.otkazletarazlog}" required>
 						<input type="hidden" name="letId" th:value="${let.id}">
-						<button class="btn btn-primary mt-2" id="listazeljabtn" type="submit">Otkazi let (Samo za administratore)
+						<button class="btn btn-primary mt-2" id="listazeljabtn" th:text="#{index.otkaziletbtn}" type="submit">Otkazi let (Samo za administratore)
 
 						</button> </form>
 						
 						<button class="btn btn-primary mt-2 definisiakcijubtn" id="definisiakcijubtn" type="button" 
-						th:if="${session.prijavljeniKorisnik != null && session.prijavljeniKorisnik.uloga.name() == 'ADMIN'}" >
+						th:if="${session.prijavljeniKorisnik != null && session.prijavljeniKorisnik.uloga.name() == 'ADMIN'}"  th:text="#{index.definisiakcijubtn}">
 						Stavi let pod akciju</button>
 						
 						<form action="/PrviMavenVebProjekat/letovi/akcija" class="akcijaform" method="POST">
-						<input type="number" th:id="${'popustzalet' + let.id}" class="form-control mt-2" name="procenatPopusta" placeholder="Procenat popusta..." required>
-						<label for="${'datumvazenjaakcije' + let.id}" class="form-label mt-2">Datum važenja akcije:</label>
+						<input type="number" th:id="${'popustzalet' + let.id}" class="form-control mt-2" name="procenatPopusta" th:placeholder="#{index.procenatpopustaplaceholder}" required>
+						<label for="${'datumvazenjaakcije' + let.id}" class="form-label mt-2" th:text="#{index.datumvazenjaakcijelabel}">Datum važenja akcije:</label>
 						<input type="date" th:id="${'datumvazenjaakcije' + let.id}" class="form-control mt-2 datumar" name="datumVazenjaAkcije" placeholder="Datum važenja akcije..." required>
 						<input type="hidden" name="letId" th:value="${let.id}">
-						<button class="btn btn-primary mt-2 definisipopustbtn" id="definisipopustbtn" type="button" th:data-let-id="${let.id}">Definisi</button>
+						<button class="btn btn-primary mt-2 definisipopustbtn" id="definisipopustbtn" type="button" th:text="#{index.postdefinisiakcijubn}" th:data-let-id="${let.id}">Definisi</button>
 						
 						
 						</form>
@@ -180,14 +182,14 @@
     </div>
 </div>
 
-<h3 style="background-color:#CE3936; position: fixed; bottom: 0; right: 0; margin: 10px; border-radius: 10px" class="letjevecnaakciji" id="letjevecnaakciji">
+<h3 th:text="#{index.ovajletjenaakciji}" style="background-color:#CE3936; position: fixed; bottom: 0; right: 0; margin: 10px; border-radius: 10px" class="letjevecnaakciji" id="letjevecnaakciji">
     Ovaj let je vec na akciji!
 </h3>
 
-<h3 style="background-color:#CE3936; position: fixed; bottom: 0; right: 0; margin: 10px; border-radius: 10px" class="letjevecnaakciji" id="popustjeprazan">
+<h3 th:text="#{index.unesiprocenatpopusta}" style="background-color:#CE3936; position: fixed; bottom: 0; right: 0; margin: 10px; border-radius: 10px" class="letjevecnaakciji" id="popustjeprazan">
     Molimo vas unesite procenat popusta!
 </h3>
-<h3 style="background-color:#4B9A4E; position: fixed; bottom: 0; right: 0; margin: 10px; border-radius: 10px" class="akcijauspeh" id="akcijauspeh">
+<h3 th:text="#{index.postavljanjeakcijeuspeh}" style="background-color:#4B9A4E; position: fixed; bottom: 0; right: 0; margin: 10px; border-radius: 10px" class="akcijauspeh" id="akcijauspeh">
     Uspesno ste postavili akciju na let!
 </h3>
 
