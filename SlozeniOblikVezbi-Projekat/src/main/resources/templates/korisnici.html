@@ -9,7 +9,7 @@
 	<meta http-equiv="Pragma" content="no-cache" />
 	<meta http-equiv="Expires" content="0" />
     
-    <title>Prikaz svih korisnika</title>
+    <title th:text="#{korisnici.title}">Prikaz svih korisnika</title>
     <link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Titillium+Web:400,600,700}">
     <link rel="stylesheet" th:href="@{/assets/css/aos.min.css}">
@@ -42,77 +42,84 @@
 <nav class="navbar navbar-expand-md bg-dark py-3" data-bs-theme="dark" th:include="header-footer :: navbar"></nav>
 <div class="container">
     <form action="/PrviMavenVebProjekat/korisnici/filter" method="POST"><input class="form-control" type="text" name="korImeInput" th:value="${korImeInput}" placeholder="Korisnicko Ime" />
-        <p class="fs-6 fw-lighter lh-sm">Uloga:</p><select class="form-select mb-2" name="UlogaSelect" style="background-color: #05dff3;border-color: #000;border-width: 2px;color: #000;">
-				 <option value="nista" th:selected="${UlogaSelect == 'nista' || UlogaSelect == null}">Izaberite opciju...</option>           
+        <p class="fs-6 fw-lighter lh-sm" th:text="#{korisnici.ulogaseelct}">Uloga:</p><select class="form-select mb-2" name="UlogaSelect" style="background-color: #05dff3;border-color: #000;border-width: 2px;color: #000;">
+				 <option value="nista" th:selected="${UlogaSelect == 'nista' || UlogaSelect == null}" th:text="#{korisnici.izaberiteopciju}">Izaberite opciju...</option>           
                 <option value="putnik" th:selected="${UlogaSelect == 'putnik'}">PUTNIK</option>
                 <option value="admin" th:selected="${UlogaSelect == 'admin'}">ADMIN</option>
  
         </select>
-        <p class="fs-6 fw-lighter lh-sm">Sortiraj po:</p><select class="form-select mb-2" name="SortirajPoSelect" style="background-color: #05dff3;border-color: #000;border-width: 2px;color: #000;">
+        <p class="fs-6 fw-lighter lh-sm" th:text="#{korisnici.sortirajpo}">Sortiraj po:</p><select class="form-select mb-2" name="SortirajPoSelect" style="background-color: #05dff3;border-color: #000;border-width: 2px;color: #000;">
         
-	            <option value="nista" selected>Izaberite opciju...</option>
-                <option value="korisnickoIme" >Korisnickom imenu</option>
-                <option value="uloga">Ulozi</option>
+	            <option value="nista" th:text="#{korisnici.izaberiteopciju}" selected>Izaberite opciju...</option>
+                <option value="korisnickoIme" th:text="#{korisnici.korimefilter}">Korisnickom imenu</option>
+                <option value="uloga" th:text="#{korisnici.ulogafilter}">Ulozi</option>
                 
         </select><select class="form-select mb-2" name="SortOrderSelect" style="background-color: #05dff3;border-color: #000;border-width: 2px;color: #000;">
         
-                <option value="rastuce" selected>Rastuce</option>
-                <option value="opadajuce">Opadajuce</option>
+                <option value="rastuce" th:text="#{korisnici.rastuce}" selected>Rastuce</option>
+                <option value="opadajuce" th:text="#{korisnici.opadajuce}">Opadajuce</option>
 
-        </select><input id="pretrazibtn" class="btn btn-primary d-block" type="submit" value="Pretrazi" />
+        </select><input id="pretrazibtn" class="btn btn-primary d-block" type="submit" th:value="#{korisnici.pretrazibtn}" />
     </form>
 </div>
 <h1 class="text-center mt-4 mb-4" data-aos="fade-up" data-aos-duration="950" th:text="${nemakorisnikaporuka}"></h1>
     <div class="row space-rows mt-4" th:each="itKorisnik, status: ${korisnici}">
         <div class="col" th:id="${itKorisnik.id}">
             <div class="card cards-shadown cards-hover" data-aos="flip-left" data-aos-duration="950">
-                <div class="card-header" style="height: 345px;">
+                <div class="card-header" style="height: 378px;">
                     <div class="cardheader-text">
                     	<div class="mb-3"></div>
-                        <h4 id="heading-card-1" class="inlajn" th:text="${'Korisnik broj: ' + (itKorisnik.id) + ' '}"></h4>
-                        <h4 id="heading-card-1" class="inlajn" th:if="${itKorisnik.blokiran}" th:text="${' (BLOKIRAN!)'}"></h4>
+                        <h4 id="heading-card-1" class="inlajn" th:text="#{korisnici.korisnikbroj} + ' ' + ${itKorisnik.id}"></h4>
+                        <h4 id="heading-card-1" class="inlajn" th:if="${itKorisnik.blokiran}" th:text="'  ' +  #{korisnici.blokiran}"></h4>
                         <!-- <h4 id="heading-card-1" th:text="${itKorisnik.blokiran} ? 'Korisnik broj: ' + (status.index + 1) + '(BLOKIRAN!)' : 'Korisnik broj: ' + (status.index + 1)"></h4> -->                      		
-                        <p id="cardheader-subtext-1" class="mt-3" th:text="${'Korisnicko Ime: ' + itKorisnik.korisnickoIme}"></p>
-                        <p id="cardheader-subtext-1" th:text="${'Lozinka: ' + itKorisnik.lozinka}"></p>
-                        <p id="cardheader-subtext-1" th:text="${'Email: ' + itKorisnik.email}"></p>
-                        <p id="cardheader-subtext-1" th:text="${'Ime I Prezime: ' + itKorisnik.ime + ' ' + itKorisnik.prezime}"></p>
-                        <p id="cardheader-subtext-1" th:text="${'Datum Rodjenja: ' + itKorisnik.datumRodjenja}"></p>
+                        <p id="cardheader-subtext-1" class="mt-3" th:text="#{korisnici.korisnickoime} + ' ' + ${itKorisnik.korisnickoIme}"></p>
+                        <p id="cardheader-subtext-1" th:text="#{korisnici.lozinka} + ' ' + ${itKorisnik.lozinka}"></p>
+                        <p id="cardheader-subtext-1" th:text="#{korisnici.korisniemail} + ' ' + ${itKorisnik.email}"></p>
+                        <p id="cardheader-subtext-1" th:text="#{korisnici.korisnikimeiprezime} + ' ' + ${itKorisnik.ime} + ' ' + ${itKorisnik.prezime}"></p>
+                        <p id="cardheader-subtext-1" th:text="#{korisnici.korisnikdatumrodjenja} + ' ' + ${itKorisnik.datumRodjenja}"></p>
                         <!-- strings.substring zato sto su poslednja 2 karaktera tacka i milisekunde -->
-                        <p id="cardheader-subtext-1" th:text="${#strings.substring('Datum I Vreme registracije: ' + itKorisnik.datumIVremeRegistracije, 0, 47)}"></p>
-                        <p id="cardheader-subtext-1" th:text="${'Uloga: ' + itKorisnik.uloga}"></p>
+                        <p th:text="#{korisnici.datumivremeregistracije}">
+                        <p id="cardheader-subtext-1" th:text="${itKorisnik.datumIVremeRegistracije}"></p>
+                        </p>
+                        <p id="cardheader-subtext-1" th:text="#{korisnici.korisnikuloga} + ' ' + ${itKorisnik.uloga}"></p>
 						<!-- <p id="cardheader-subtext-1" th:if="${itKorisnik.blokiran}" th:text="${'Korisnik je BLOKIRAN!'}"></p> -->
                     </div>
                 </div>
                 <div class="card-body">
-                    <p class="card-text sub-text-color">Akcije:
+                    <p class="card-text sub-text-color" th:text="#{korisnici.akcije}">Akcije:</p>
                        <!--   <a th:href="@{/korisnici/edit(id=${itKorisnik.id})}">
                             <button class="button" type="button" data-hover="Izmeni Korisnika"><span>Izmeni Korisnika</span></button>
                         </a> -->
                        <a th:href="@{/korisnici/odobrizahtevzaloyalty(id=${itKorisnik.id})}" th:if="${itKorisnik.zahtevaLoyalty}">
-    					<button class="button" type="button" data-hover="Da li ste sigurni?">
-        					<span>ODOBRI ZAHTEV ZA LOYALTY KARTICU</span>
+    					<button class="button" type="button" th:data-hover="#{korisnici.dalistesigurni}">
+        					<span th:text="#{korisnici.odobrizahtevzaloyalty}">ODOBRI ZAHTEV ZA LOYALTY KARTICU</span>
    						</button>
 					</a> 
 					
 					<a th:href="@{/korisnici/odbijzahtevzaloyalty(id=${itKorisnik.id})}" th:if="${itKorisnik.zahtevaLoyalty}">
-    					<button class="button" type="button" data-hover="Da li ste sigurni?">
-        					<span>ODBIJ ZAHTEV ZA LOYALTY KARTICU</span>
+    					<button class="button" type="button" th:data-hover="#{korisnici.dalistesigurni}">
+        					<span th:text="#{korisnici.odbijzahtevzaloyalty}">ODBIJ ZAHTEV ZA LOYALTY KARTICU</span>
    						</button>
 					</a> 
                        
 					<a th:href="@{/korisnici/blockunblock(id=${itKorisnik.id})}">
-    					<button class="button" type="button" th:classappend="${itKorisnik.uloga.name() == 'ADMIN'} ? 'blok' : ''" th:disabled="${itKorisnik.uloga.name() == 'ADMIN'} ? 'true' : 'false'" th:data-hover="${itKorisnik.uloga.name() == 'ADMIN'} ? 'NE MOŽETE DA BLOKIRATE ADMINISTRATORA!' : 'Da li ste sigurni?'">
-        					<span th:text="${itKorisnik.blokiran} ? 'ODBLOKIRAJ KORISNIKA' : 'BLOKIRAJ KORISNIKA'"></span>
-   						</button>
-					</a>
-                    </p>
+    <button class="button"
+            type="button"
+            th:classappend="${itKorisnik.uloga.name() == 'ADMIN'} ? 'blok' : ''"
+            th:disabled="${itKorisnik.uloga.name() == 'ADMIN'}"
+            th:data-hover="${itKorisnik.uloga.name() == 'ADMIN'} ? #{korisnici.nemozeteblokiratiadmina} : #{korisnici.dalistesigurni}">
+        <span th:text="${itKorisnik.blokiran} ? #{korisnici.odblokiraj} : #{korisnici.blokiraj}"></span>
+    </button>
+</a>
+
+                    
                 </div>
             </div>
         </div>
     </div>
-    <a th:href="@{/}">
+   <!-- <a th:href="@{/korisnici}">
      	<button class="button floating-button" type="button">Nazad</button>
-     </a>
+     </a> --> 
     <footer class="text-center bg-dark" th:include="header-footer :: footer"></footer>
     <script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
     <script th:src="@{/assets/js/aos.min.js}"></script>
