@@ -13,17 +13,17 @@ CREATE TABLE lokacije (
 
 /*drop table if exists lokacije;*/
 INSERT INTO lokacije (Grad, Drzava, Kontinent, putanjaDoSlike) VALUES
-('Beograd', 'Srbija', 'Evropa', 'plaza.webp'),
-('New York', 'Sjedinjene Američke Države', 'Amerika', 'plaza.webp'),
-('Tokio', 'Japan', 'Azija', 'plaza.webp'),
-('Sidnej', 'Australija', 'Australija', 'plaza.webp'),
-('Kairo', 'Egipat', 'Afrika', 'plaza.webp'),
-('Buenos Aires', 'Argentina', 'Amerika', 'plaza.webp'),
-('Pariz', 'Francuska', 'Evropa', 'plaza.webp'),
-('Kejp Taun', 'Južnoafrička Republika', 'Afrika', 'plaza.webp'),
-('Auckland', 'Novi Zeland', 'Okeanija', 'plaza.webp'),
-('McMurdo Station', 'Antarktik', 'Antartika', 'plaza.webp'),
-('Washington', 'Sjedinjene Američke Države', 'Amerika', 'plaza.webp');
+('Beograd', 'Srbija', 'Evropa', 'turizam1.jpg'),
+('New York', 'Sjedinjene Američke Države', 'Amerika', 'turizam2.jpg'),
+('Tokio', 'Japan', 'Azija', 'turizam3.jpg'),
+('Sidnej', 'Australija', 'Australija', 'turizam4.jpg'),
+('Kairo', 'Egipat', 'Afrika', 'turizam5.jpg'),
+('Buenos Aires', 'Argentina', 'Amerika', 'turizam6.jpg'),
+('Pariz', 'Francuska', 'Evropa', 'turizam7.jpg'),
+('Kejp Taun', 'Južnoafrička Republika', 'Afrika', 'turizam8.jpg'),
+('Auckland', 'Novi Zeland', 'Okeanija', 'turizam9.jpg'),
+('McMurdo Station', 'Antarktik', 'Antartika', 'turizam10.jpg'),
+('Washington', 'Sjedinjene Američke Države', 'Amerika', 'turizam11.jpg');
 
 SELECT * FROM lokacije l
 ORDER BY l.id;
