@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
     
-    <title>Korisnicki profil</title>
+    <title th:text="#{profil.title}">Korisnicki profil</title>
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 	<meta http-equiv="Pragma" content="no-cache" />
 	<meta http-equiv="Expires" content="0" />
@@ -41,40 +41,40 @@
                         
                         
                         <!-- <h4 id="heading-card-1" th:text="${korisnik.blokiran} ? 'Korisnik broj: ' + (status.index + 1) + '(BLOKIRAN!)' : 'Korisnik broj: ' + (status.index + 1)"></h4> -->                      		
-                        <p id="cardheader-subtext-1" class="mt-3" th:text="${'Korisnicko Ime: ' + korisnik.korisnickoIme}"></p>
-                        <p id="cardheader-subtext-1" th:text="${'Lozinka: ' + korisnik.lozinka}"></p>
-                        <p id="cardheader-subtext-1" th:text="${'Email: ' + korisnik.email}"></p>
-                        <p id="cardheader-subtext-1" th:text="${'Ime I Prezime: ' + korisnik.ime + ' ' + korisnik.prezime}"></p>
-                        <p id="cardheader-subtext-1" th:text="${'Datum Rodjenja: ' + korisnik.datumRodjenja}"></p>
+                        <p id="cardheader-subtext-1" class="mt-3" th:text="#{profil.korisnickoime} + ' ' + ${korisnik.korisnickoIme}"></p>
+                        <p id="cardheader-subtext-1" th:text="#{profil.lozinka} + ' ' + ${korisnik.lozinka}"></p>
+                        <p id="cardheader-subtext-1" th:text="#{profil.email} + ' ' + ${korisnik.email}"></p>
+                        <p id="cardheader-subtext-1" th:text="#{profil.imeiprezime} + ' ' + ${korisnik.ime} + ' ' + ${korisnik.prezime}"></p>
+                        <p id="cardheader-subtext-1" th:text="#{profil.datumrodjenja} + ' ' + ${korisnik.datumRodjenja}"></p>
                         <!-- strings.substring zato sto su poslednja 2 karaktera tacka i milisekunde -->
-                        <p id="cardheader-subtext-1" th:text="${#strings.substring('Datum I Vreme registracije: ' + korisnik.datumIVremeRegistracije, 0, 47)}"></p>
-                        <p id="cardheader-subtext-1" th:text="${'Uloga: ' + korisnik.uloga}"></p>
+                        <p id="cardheader-subtext-1" th:text="#{profil.datumivremeregistracije} + ' ' + ${korisnik.datumIVremeRegistracije}"></p>
+                        <p id="cardheader-subtext-1" th:text="#{profil.uloga} + ' ' + ${korisnik.uloga}"></p>
       
 						<!-- <p id="cardheader-subtext-1" th:if="${korisnik.blokiran}" th:text="${'Korisnik je BLOKIRAN!'}"></p> -->
                     </div>
                     </div>
                 </div>
                 <div class="card-body" style="background-color: white; margin-top: -16px;">
-                    <p class="card-text sub-text-color">Akcije:
-                    <div><a href="edit"><button class="button" type="button" data-hover="Stranica za izmenu Vasih podataka"><span>Izmenite Vas profil</span></button></a></div>
-                    <div><a href="/PrviMavenVebProjekat/"><button class="button" type="button" data-hover="Pocetna stranica"><span>Pocetna stranica</span></button></a></div>
+                    <p class="card-text sub-text-color" th:text="#{profil.akcije}">Akcije:
+                    <div><a href="edit"><button class="button" type="button" th:data-hover="#{profil.stranicazaizmenupodataka}"><span th:text="#{profil.izmeni}">Izmenite Vas profil</span></button></a></div>
+                    <div><a href="/PrviMavenVebProjekat/"><button class="button" type="button" th:data-hover="#{profil.pocetna}"><span th:text="#{profil.pocetna}">Pocetna stranica</span></button></a></div>
                     </p>
                 </div>
             </div>
         </div>
     </div>
     <div class="position-absolute d-flex justify-content-start gap-5 container" style="margin-left: 27.5%;">
-        <h1>Vase rezervacije:</h1>
-        <h1>Lista zelja:</h1>
+        <h1 th:text="#{profil.vaserezervacije}">Vase rezervacije:</h1>
+        <h1 th:text="#{profil.listazelja}">Lista zelja:</h1>
     </div>
     <div class="position-absolute d-flex justify-content-start gap-5 container" style="margin-left: 27.5%;margin-top: 140px;">
         <div class="table-responsive">
             <table class="table table-striped table-hover table-bordered sortable">
                 <thead>
                     <tr>
-                        <th>Datum rezervacije</th>
-                        <th>Letovi u rezervaciji</th>
-                        <th>Ukupna cena</th>
+                        <th th:text="#{profil.datumrezervacije}">Datum rezervacije</th>
+                        <th th:text="#{profil.letoviurezervaciji}">Letovi u rezervaciji</th>
+                        <th th:text="#{profil.ukupnacena}">Ukupna cena</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -91,10 +91,10 @@
             <table class="table table-striped table-hover table-bordered float-start sortable">
                 <thead>
                     <tr>
-                        <th>Oznaka leta</th>
-                        <th>Broj preostalih mesta</th>
-                        <th>Rezervisi ovaj let</th>
-                        <th>Ukloni iz liste zelja</th>
+                        <th th:text="#{profil.oznakaleta}">Oznaka leta</th>
+                        <th th:text="#{profil.brojpreostalihmesta}">Broj preostalih mesta</th>
+                        <th th:text="#{profil.rezervisiovajlet}">Rezervisi ovaj let</th>
+                        <th th:text="#{profil.uklonisalistezelja}">Ukloni iz liste zelja</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -105,10 +105,10 @@
                        
                         <td><form action="/PrviMavenVebProjekat/seatoptions" method="GET">
 						
-						<button class="btn btn-primary" id="rezervisibtn" type="submit" >rezervisi</button>
+						<button class="btn btn-primary" id="rezervisibtn" type="submit"  th:text="#{profil.rezervisi}" >rezervisi</button>
 						<input class="hidden" type="hidden" name="letId" th:value="${let.id}">
 						</form></td>
-                        <td><a th:href="${'/PrviMavenVebProjekat/letovi/ukloniizlistezelja?letId=' + let.id}"><button class="btn btn-primary" type="button">ukloni</button></a></td>
+                        <td><a th:href="${'/PrviMavenVebProjekat/letovi/ukloniizlistezelja?letId=' + let.id}"><button class="btn btn-primary"  th:text="#{profil.ukloni}" type="button">ukloni</button></a></td>
                     </tr>
                     <tr></tr>
                 </tbody>

@@ -8,7 +8,7 @@
         <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 	<meta http-equiv="Pragma" content="no-cache" />
 	<meta http-equiv="Expires" content="0" />
-    <title>Rezervacija karata</title>
+    <title th:text="#{rezervacija.title}">Rezervacija karata</title>
     <link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Titillium+Web:400,600,700}">
     <link rel="stylesheet" th:href="@{/assets/css/aos.min.css}">
@@ -39,10 +39,10 @@
 						th:src="@{https://media.istockphoto.com/id/2179810131/vector/a-simple-line-drawing-of-an-airport-check-in-desk.jpg?s=612x612&w=0&k=20&c=FHlqW1RjHSfXw6FX-_xxcJYiOsvMzJht2kbZqxnOHG4=}">
 					<div class="card-body p-4">
 											
-						<h1 th:text="${'Karta broj: ' + brojac}"></h1>
-						<input type="text" class="form-control" name="imeIPrezime" placeholder="Ime I prezime">
+						<h1 th:text="#{rezervacija.kartabroj} + ' ' + ${brojac}"></h1>
+						<input type="text" class="form-control" name="imeIPrezime" th:placeholder="#{rezervacija.imeiprezime}">
 						
-						<input type="text" class="form-control" name="brojPasosa" placeholder="Broj pasosa">
+						<input type="text" class="form-control" name="brojPasosa" th:placeholder="#{rezervacija.brojpasosa}">
 						
 						
 						
@@ -54,7 +54,7 @@
 <input type="hidden" th:value="${sedista}" name="sedista"/>
 <input type="hidden" th:value="${karteBrojac}" name="brojKarata"/>
 <input type="hidden" th:value="${letId}" name="letZaRezervisati"/>
-<button class="btn btn-primary" id="rezervisibtn" type="submit" >Dodaj u korpu</button>
+<button class="btn btn-primary" id="rezervisibtn" type="submit" th:text="#{rezervacija.dodajukorpu}" >Dodaj u korpu</button>
 </form>
 
 
