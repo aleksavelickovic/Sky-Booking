@@ -7,22 +7,23 @@ CREATE TABLE lokacije (
     Grad VARCHAR(100) NOT NULL,
     Drzava VARCHAR(100) NOT NULL,
     Kontinent ENUM("Evropa", "Amerika", "Azija", "Australija", "Afrika", "Antartika", "Okeanija"),
+    putanjaDoSlike VARCHAR(1000) NOT NULL,
     PRIMARY KEY(id)
 );
 
 /*drop table if exists lokacije;*/
-INSERT INTO lokacije (Grad, Drzava, Kontinent) VALUES
-('Beograd', 'Srbija', 'Evropa'),
-('New York', 'Sjedinjene Američke Države', 'Amerika'),
-('Tokio', 'Japan', 'Azija'),
-('Sidnej', 'Australija', 'Australija'),
-('Kairo', 'Egipat', 'Afrika'),
-('Buenos Aires', 'Argentina', 'Amerika'),
-('Pariz', 'Francuska', 'Evropa'),
-('Kejp Taun', 'Južnoafrička Republika', 'Afrika'),
-('Auckland', 'Novi Zeland', 'Okeanija'),
-('McMurdo Station', 'Antarktik', 'Antartika'),
-('Washington', 'Sjedinjene Američke Države', 'Amerika');
+INSERT INTO lokacije (Grad, Drzava, Kontinent, putanjaDoSlike) VALUES
+('Beograd', 'Srbija', 'Evropa', 'plaza.webp'),
+('New York', 'Sjedinjene Američke Države', 'Amerika', 'plaza.webp'),
+('Tokio', 'Japan', 'Azija', 'plaza.webp'),
+('Sidnej', 'Australija', 'Australija', 'plaza.webp'),
+('Kairo', 'Egipat', 'Afrika', 'plaza.webp'),
+('Buenos Aires', 'Argentina', 'Amerika', 'plaza.webp'),
+('Pariz', 'Francuska', 'Evropa', 'plaza.webp'),
+('Kejp Taun', 'Južnoafrička Republika', 'Afrika', 'plaza.webp'),
+('Auckland', 'Novi Zeland', 'Okeanija', 'plaza.webp'),
+('McMurdo Station', 'Antarktik', 'Antartika', 'plaza.webp'),
+('Washington', 'Sjedinjene Američke Države', 'Amerika', 'plaza.webp');
 
 SELECT * FROM lokacije l
 ORDER BY l.id;

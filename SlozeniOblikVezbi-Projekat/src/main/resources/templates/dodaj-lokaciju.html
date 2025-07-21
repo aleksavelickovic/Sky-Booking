@@ -110,7 +110,7 @@ input[type="submit"]:hover {
 </head>
 <body style="background-color: #05dff3;">
 <!-- <nav class="navbar navbar-expand-md bg-dark py-3" data-bs-theme="dark" th:include="header-footer :: navbar">></nav> --> 
-	<form class="flip-left" action="/PrviMavenVebProjekat/lokacije/add" method="post">
+	<form class="flip-left" action="/PrviMavenVebProjekat/lokacije/add" method="post" enctype="multipart/form-data">
 		<label for="grad">Grad:</label> <input type="text" name="grad"
 			id="grad" /> <label for="drzava">Država:</label> <input type="text"
 			name="drzava" id="drzava" /> <label for="kontinent">Kontinent:</label>
@@ -123,6 +123,7 @@ input[type="submit"]:hover {
 			<option value="Antartika">Antartika</option>
 			<option value="Okeanija">Okeanija</option>
 		</select> 
+		<input type="file" name="slika" id="slika"/>
 		<input type="submit" value="Potvrdi">
 	</form>
 	<a th:href="@{/}">

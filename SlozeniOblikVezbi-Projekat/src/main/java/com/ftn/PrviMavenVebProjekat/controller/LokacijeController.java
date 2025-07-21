@@ -1,7 +1,12 @@
 package com.ftn.PrviMavenVebProjekat.controller;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
@@ -19,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ftn.PrviMavenVebProjekat.bean.SecondConfiguration.ApplicationMemory;
@@ -72,12 +78,22 @@ public class LokacijeController implements ApplicationContextAware {
 
 	@PostMapping(value = "/add")
 	public void create(@RequestParam String grad, @RequestParam String drzava, @RequestParam Kontinenti kontinent,
-			HttpServletResponse response) throws IOException {
+			@RequestParam MultipartFile slika, HttpServletResponse response) throws IOException {
 		if (grad.equals("") || drzava.equals("")) {
 			response.sendRedirect(bURL + "greska.html");
 			return;
 		}
-		service.save(new Lokacija(grad, drzava, kontinent));
+		String filename = UUID.randomUUID() + "_" + slika.getOriginalFilename();
+
+        Path uploadDir = Paths.get("uploads");
+        if (!Files.exists(uploadDir)) {
+            Files.createDirectories(uploadDir);
+        }
+
+        Path filePath = uploadDir.resolve(filename);
+		Files.copy(slika.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+		
+		service.save(new Lokacija(grad, drzava, kontinent, filename));
 		response.sendRedirect(bURL + "lokacije");
 		return;
 

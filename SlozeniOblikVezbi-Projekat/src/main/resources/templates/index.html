@@ -127,7 +127,7 @@
 			<div class="col">
 				<div class="card" data-aos="flip-left" data-aos-offset="-50000" data-aos-duration="950">
 					<img class="object-fit-cover card-img-top w-100 d-block" style="height: 200px;"
-						th:src="@{https://cdn.bootstrapstudio.io/placeholders/1400x800.png}">
+						th:src="@{'/uploads/' + ${let.odrediste.lokacija.putanjaDoSlike}}">
 					<div class="card-body p-4" >
 						<p class="text-primary mb-0 card-text" th:if="${let.naAkciji}" th:text="#{index.akcijaoznaka}" >Akcija!</p>
 						<p class="text-primary mb-0 card-text naakcijilabela" th:text="#{index.akcijaoznaka}" th:id="${'naAkciji' + let.id}">Akcija!</p>

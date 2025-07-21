@@ -44,7 +44,8 @@ public class LokacijaServiceImpl implements LokacijaService {
 				String drzava = tokens[2];
 				Kontinenti kontinent = Kontinenti.valueOf(tokens[3]);
 
-				lokacije.put(id, new Lokacija(id, grad, drzava, kontinent));
+				lokacije.put(id, new Lokacija(id, grad, drzava, kontinent, "")); // TODO Ne radi (ne prikazuje slike),
+																					// ali nece ni tebati
 
 				if (nextId < id)
 					nextId = id;

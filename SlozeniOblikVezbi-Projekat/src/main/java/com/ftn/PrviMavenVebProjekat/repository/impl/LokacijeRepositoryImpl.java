@@ -38,10 +38,11 @@ public class LokacijeRepositoryImpl implements LokacijeRepository {
 			String Grad = rs.getString(index++);
 			String Drzava = rs.getString(index++);
 			Kontinenti kontinent = Kontinenti.valueOf(rs.getString(index++));
+			String putanjaDoSlike = rs.getString(index++);
 
 			Lokacija lokacija = lokacije.get(id);
 			if (lokacija == null) {
-				lokacija = new Lokacija(id, Grad, Drzava, kontinent);
+				lokacija = new Lokacija(id, Grad, Drzava, kontinent, putanjaDoSlike);
 				lokacije.put(lokacija.getId(), lokacija);
 			}
 		}
@@ -77,12 +78,13 @@ public class LokacijeRepositoryImpl implements LokacijeRepository {
 
 			@Override
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-				String sql = "INSERT INTO lokacije (Grad, Drzava, Kontinent) VALUES (?, ?, ?)";
+				String sql = "INSERT INTO lokacije (Grad, Drzava, Kontinent, putanjaDoSlike) VALUES (?, ?, ?, ?)";
 				PreparedStatement preparedStatement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 				int index = 1;
 				preparedStatement.setString(index++, lokacija.getGrad());
 				preparedStatement.setString(index++, lokacija.getDrzava());
 				preparedStatement.setString(index++, lokacija.getKontinent().toString());
+				preparedStatement.setString(index++, lokacija.getPutanjaDoSlike());
 				return preparedStatement;
 			}
 		};

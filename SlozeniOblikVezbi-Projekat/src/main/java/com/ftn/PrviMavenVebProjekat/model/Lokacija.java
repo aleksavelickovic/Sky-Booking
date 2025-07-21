@@ -6,23 +6,26 @@ public class Lokacija {
 	private String Grad;
 	private String Drzava;
 	private Kontinenti Kontinent;
+	private String putanjaDoSlike;
 
 	public Lokacija() {
 	} // Default construcor mora postojati zbog @ModelAttribute
 
-	public Lokacija(Long id, String grad, String drzava, Kontinenti kontinent) {
+	public Lokacija(Long id, String grad, String drzava, Kontinenti kontinent, String putanjaDoSlike) {
 		super();
 		this.id = id;
 		Grad = grad;
 		Drzava = drzava;
 		Kontinent = kontinent;
+		this.putanjaDoSlike = putanjaDoSlike;
 	}
 
-	public Lokacija(String grad, String drzava, Kontinenti kontinent) {
+	public Lokacija(String grad, String drzava, Kontinenti kontinent, String putanjaDoSlike) {
 		super();
 		Grad = grad;
 		Drzava = drzava;
 		Kontinent = kontinent;
+		this.putanjaDoSlike = putanjaDoSlike;
 	}
 
 	public Long getId() {
@@ -55,6 +58,14 @@ public class Lokacija {
 
 	public void setKontinent(Kontinenti kontinent) {
 		Kontinent = kontinent;
+	}
+
+	public String getPutanjaDoSlike() {
+		return putanjaDoSlike;
+	}
+
+	public void setPutanjaDoSlike(String putanjaDoSlike) {
+		this.putanjaDoSlike = putanjaDoSlike;
 	}
 
 	@Override

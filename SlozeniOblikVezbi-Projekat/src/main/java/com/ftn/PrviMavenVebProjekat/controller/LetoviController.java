@@ -185,14 +185,14 @@ public class LetoviController implements ApplicationContextAware {
 //		ObjectMapper objectMapper = new ObjectMapper();
 //		Gson gson = new Gson();
 		if (procenatpopusta.equals("") || procenatpopusta.equals(null)) {
-			Let letzavratiti = new Let(-1L, "P", new Aerodrom(-1L, "", new Lokacija("", "", Kontinenti.Afrika)),
-					new Aerodrom(-2L, "", new Lokacija("", "", Kontinenti.Afrika)), new Avion("", 1, 1),
+			Let letzavratiti = new Let(-1L, "P", new Aerodrom(-1L, "", new Lokacija("", "", Kontinenti.Afrika, "")),
+					new Aerodrom(-2L, "", new Lokacija("", "", Kontinenti.Afrika, "")), new Avion("", 1, 1),
 					LocalDateTime.now(), 0, 0, false, 1, "", LocalDate.EPOCH, 2);
 			return mapper.writeValueAsString(letzavratiti);
 		}
 		if (let.getNaAkciji()) {
-			Let letzavratiti = new Let(-1L, "", new Aerodrom(-1L, "", new Lokacija("", "", Kontinenti.Afrika)),
-					new Aerodrom(-2L, "", new Lokacija("", "", Kontinenti.Afrika)), new Avion("", 1, 1),
+			Let letzavratiti = new Let(-1L, "", new Aerodrom(-1L, "", new Lokacija("", "", Kontinenti.Afrika, "")),
+					new Aerodrom(-2L, "", new Lokacija("", "", Kontinenti.Afrika, "")), new Avion("", 1, 1),
 					LocalDateTime.now(), 0, 0, false, 1, "", LocalDate.EPOCH, 2);
 			return mapper.writeValueAsString(letzavratiti);
 		}
@@ -214,11 +214,12 @@ public class LetoviController implements ApplicationContextAware {
 			@RequestParam(required = false) String krajnjiDatum) {
 		ModelAndView modelAndView = new ModelAndView("izvestaji");
 		ArrayList<Karta> karte = new ArrayList<Karta>();
-		
-		try  {
-			
+
+		try {
+
 			for (Rezervacija rezervacija : rezervacijeService.findAll()) {
-				if (rezervacija.getDatumIVremeKreiranja().after(Timestamp.valueOf(LocalDateTime.parse(pocetniDatum + "T00:00:00")))
+				if (rezervacija.getDatumIVremeKreiranja()
+						.after(Timestamp.valueOf(LocalDateTime.parse(pocetniDatum + "T00:00:00")))
 						&& rezervacija.getDatumIVremeKreiranja()
 								.before(Timestamp.valueOf(LocalDateTime.parse(krajnjiDatum + "T00:00:00")))) {
 					for (Karta karta : rezervacija.getKarte()) {
@@ -227,8 +228,7 @@ public class LetoviController implements ApplicationContextAware {
 
 				}
 			}
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			karte = (ArrayList<Karta>) karteService.findAll();
 		}
 
