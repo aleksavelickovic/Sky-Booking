@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html data-bs-theme="light" lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 	<meta http-equiv="Pragma" content="no-cache" />
 	<meta http-equiv="Expires" content="0" />
-	<title>Vasa korpa</title>
+	<title th:text="#{korpa.title}">Vaša korpa</title>
+
 	<link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
 	<link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Titillium+Web:400,600,700}">
 	<link rel="stylesheet" th:href="@{/assets/css/aos.min.css}">
@@ -37,46 +37,44 @@
 			<div class="card cards-shadown cards-hover" data-aos="flip-left" data-aos-duration="950">
 				<div class="card-header" style="height: 200px;">
 					<div class="cardheader-text">
-						<p id="cardheader-subtext-1" th:text="${'Let: ' + karta.let.oznaka}">Let:</p>
-						<p id="cardheader-subtext-1" th:text="${'Ime I prezime: ' + karta.imeIPrezimePutnika}">Ime I
-							prezime:</p>
-						<p id="cardheader-subtext-1" th:text="${'Broj Pasosa: ' + karta.brojPasosa}">Broj pasosa:</p>
-						<p id="cardheader-subtext-1" th:text="${'Broj sedista: ' + karta.brojSedista}">Broj sedista:</p>
-						<p id="cardheader-subtext-1" th:text="${'Cena: ' + karta.cena}">Cena:</p>
+						<p id="cardheader-subtext-1" th:text="#{korpa.let} + ' ' + ${karta.let.oznaka}">Let:</p>
+						<p id="cardheader-subtext-1" th:text="#{korpa.imeiprezime} + ' ' + ${karta.imeIPrezimePutnika}">Ime i prezime:</p>
+						<p id="cardheader-subtext-1" th:text="#{korpa.brojpasosa} + ' ' + ${karta.brojPasosa}">Broj pasoša:</p>
+						<p id="cardheader-subtext-1" th:text="#{korpa.brojsedista} + ' ' + ${karta.brojSedista}">Broj sedišta:</p>
+						<p id="cardheader-subtext-1" th:text="#{korpa.cena} + ' ' + ${karta.cena}">Cena:</p>
 					</div>
 				</div>
 				<form action="/PrviMavenVebProjekat/korpa/uklonistavku" method="GET">
 					<input type="hidden" th:value="${karta.id}" name="kartaZaIzbris" />
-					<button class="btn btn-primary" type="submit">Izbriši kartu iz korpe</button>
+					<button class="btn btn-primary" type="submit" th:text="#{korpa.izbrisikartu}">Izbriši kartu iz korpe</button>
 				</form>
 			</div>
 		</div>
 	</div>
 
 	<h1 class="text-center mt-4 mb-4" data-aos="fade-up" data-aos-duration="950" th:text="${praznakorpaporuka}"></h1>
+
 	<p th:if="${praznakorpaporuka == null}" class="text-center">
-		Ukupna cena: <span th:text="${ukupnacenarezervacije}"></span> RSD
+		<span th:text="#{korpa.ukupnacena}">Ukupna cena:</span>
+		<span th:text="${ukupnacenarezervacije}"></span> RSD
 	</p>
 
 	<div class="container py-4 py-xl-5">
 		<form th:if="${praznakorpaporuka == null}" action="/PrviMavenVebProjekat/reservation" method="POST">
 			<input type="number" class="form-control mb-3" name="loyaltyBodovi"
 				th:if="${session.prijavljeniKorisnik != null && session.prijavljeniKorisnik.loyaltyBodovi >= 0}"
+				th:placeholder="#{korpa.loyalty.placeholder}"
 				placeholder="Iskoristite loyalty bodove" min="1" max="10" />
-			<button class="btn btn-primary" id="rezervisibtn" type="submit">Rezervisi ove karte</button>
+			<button class="btn btn-primary" id="rezervisibtn" type="submit" th:text="#{korpa.rezervisi}">Rezerviši ove karte</button>
 		</form>
 	</div>
 
-	<!-- <a th:href="@{/}">
-        <button class="button floating-button" type="button">Nazad</button>
-    </a> -->
-
 	<footer class="text-center bg-dark" th:include="header-footer :: footer"></footer>
-	<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
-    <script th:src="@{/assets/js/aos.min.js}"></script>
-    <script th:src="@{/assets/js/bs-init.js}"></script>
-    <script th:src="@{/assets/js/button-materialize-materialize.min.js}"></script>
-    <script th:src="@{/assets/js/Button-Ripple-Effect-Animation-Wave-Pulse-button-ripple-effect.js}"></script>
-</body>
 
+	<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+	<script th:src="@{/assets/js/aos.min.js}"></script>
+	<script th:src="@{/assets/js/bs-init.js}"></script>
+	<script th:src="@{/assets/js/button-materialize-materialize.min.js}"></script>
+	<script th:src="@{/assets/js/Button-Ripple-Effect-Animation-Wave-Pulse-button-ripple-effect.js}"></script>
+</body>
 </html>
