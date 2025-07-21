@@ -10,7 +10,7 @@
 	<meta http-equiv="Pragma" content="no-cache" />
 	<meta http-equiv="Expires" content="0" />
     
-    <title>Web Programiranje</title>
+    <title th:text="#{prijava.title}">Web Programiranje</title>
     <link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Titillium+Web:400,600,700}">
     <link rel="stylesheet" th:href="@{/assets/css/aos.min.css}">
@@ -32,18 +32,18 @@
         <p class="profile-name-card"> </p>
         <form class="form-signin" action="/PrviMavenVebProjekat/korisnici/login" method="post">
             <span class="reauth-email"> </span>
-            <input class="form-control" type="text" id="korisnickoIme" name="korisnickoIme" placeholder="Korisnicko Ime" autofocus="">
-            <input class="form-control" type="text" id="lozinka" name="lozinka" placeholder="Lozinka">
+            <input class="form-control" type="text" id="korisnickoIme" name="korisnickoIme" th:placeholder="#{prijava.korisnickoime}" autofocus="">
+            <input class="form-control" type="text" id="lozinka" name="lozinka" th:placeholder="#{prijava.lozinka}">
             <div class="checkbox">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="formCheck-1">
                     <p th:text="${poruka}" style="background-color:#ed0c0c;" id="greska">Ispis greske</p>
-                    <label class="form-check-label" for="formCheck-1">Zapamti me</label>
+                    <label class="form-check-label" for="formCheck-1" th:text="#{profil.zapamtime}">Zapamti me</label>
                 </div>
             </div>
             <input type="hidden" name="letZaRezervisati" th:value="${letZaRezervisati}"/>
             <input type="hidden" name="brojMesta" th:value="${brojMesta}"/>
-            <button class="btn btn-primary btn-lg d-block btn-signin w-100" type="submit">prijava</button>
+            <button class="btn btn-primary btn-lg d-block btn-signin w-100" type="submit" th:text="#{profil.prijava}">prijava</button>
         </form>
     </div>
     <footer class="text-center bg-dark" th:include="header-footer :: footer"></footer>

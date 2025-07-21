@@ -145,50 +145,52 @@
     <form
       class="flip-left"
       action="/PrviMavenVebProjekat/korisnici/add"
-      method="post"
-    >
-      <h1>REGISTRACIJA</h1>
-
+      method="post">
+      
       <div class="form-group">
-        <label for="username">Korisničko ime:</label>
-        <input type="text" id="username" name="korime" />
-      </div>
+    <label for="username" th:text="#{registracija.korisnickoime}">Korisničko ime:</label>
+    <input type="text" id="username" name="korime" th:placeholder="#{registracija.korisnickoime.placeholder}" />
+</div>
 
-      <div class="form-group">
-        <label for="password">Lozinka:</label>
-        <input class="lozinput" type="password" id="password" name="lozinka" />
-      </div>
+<div class="form-group">
+    <label for="password" th:text="#{registracija.lozinka}">Lozinka:</label>
+    <input class="lozinput" type="password" id="password" name="lozinka" th:placeholder="#{registracija.lozinka.placeholder}" />
+</div>
 
-      <div class="form-group">
-        <label for="password_repeat">Ponovite lozinku:</label>
-        <input class="lozinput" type="password" id="password_repeat" name="lozinkaopet" />
-        <p class="lozp"><input type="checkbox" class="loz" /> Prikazi Lozinke</p> 
-      </div>
+<div class="form-group">
+    <label for="password_repeat" th:text="#{registracija.ponovilozinku}">Ponovite lozinku:</label>
+    <input class="lozinput" type="password" id="password_repeat" name="lozinkaopet" th:placeholder="#{registracija.ponovilozinku.placeholder}" />
+    <p class="lozp">
+        <input type="checkbox" class="loz" />
+        <span th:text="#{registracija.prikazilozinku}">Prikaži Lozinke</span>
+    </p>
+</div>
 
-      <div class="form-group">
-        <label for="email">Email adresa:</label>
-        <input type="email" id="email" name="email" />
-      </div>
+<div class="form-group">
+    <label for="email" th:text="#{registracija.email}">Email adresa:</label>
+    <input type="email" id="email" name="email" th:placeholder="#{registracija.email.placeholder}" />
+</div>
 
-      <div class="form-group">
-        <label for="first_name">Ime:</label>
-        <input type="text" id="first_name" name="ime" />
-      </div>
+<div class="form-group">
+    <label for="first_name" th:text="#{registracija.ime}">Ime:</label>
+    <input type="text" id="first_name" name="ime" th:placeholder="#{registracija.ime.placeholder}" />
+</div>
 
-      <div class="form-group">
-        <label for="last_name">Prezime:</label>
-        <input type="text" id="last_name" name="prezime" />
-      </div>
+<div class="form-group">
+    <label for="last_name" th:text="#{registracija.prezime}">Prezime:</label>
+    <input type="text" id="last_name" name="prezime" th:placeholder="#{registracija.prezime.placeholder}" />
+</div>
 
-      <div class="form-group">
-        <label for="birth_date">Datum rođenja:</label>
-        <input type="date" id="birth_date" name="datumrodjenja" min="1900-01-01" />
-      </div>
+<div class="form-group">
+    <label for="birth_date" th:text="#{registracija.datumrodjenja}">Datum rođenja:</label>
+    <input type="date" id="birth_date" name="datumrodjenja" min="1900-01-01" />
+</div>
 
-      <button type="submit">Registruj se</button>
+<button type="submit" th:text="#{registracija.dugme}">Registruj se</button>
+
     </form>
     <a th:href="@{/}">
-     	<button class="button floating-button" type="button">Nazad</button>
+     	<button class="button floating-button" type="button" th:text="#{dodajkorisnika.nazad}">Nazad</button>
      </a>
     <!-- <footer class="text-center bg-dark" th:include="header-footer :: footer"></footer>
     

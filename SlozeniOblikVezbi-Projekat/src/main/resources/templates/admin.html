@@ -1,7 +1,5 @@
-
 <!DOCTYPE html>
 <html data-bs-theme="light" lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -9,7 +7,8 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
 
-    <title>Web Programiranje</title>
+    <title th:text="#{admin.title}">Web Programiranje</title>
+    
     <link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Titillium+Web:400,600,700}">
     <link rel="stylesheet" th:href="@{/assets/css/aos.min.css}">
@@ -28,38 +27,40 @@
 
 <body style="background-color: #05dff3;">
     <nav class="navbar navbar-expand-md bg-dark py-3" data-bs-theme="dark" th:include="header-footer :: navbar"></nav>
+
     <div class="m-5">
         <div class="text-center m-3" data-aos="flip-right" data-aos-duration="1500">
-            <a th:href="@{/lokacije}" class="waves-effect waves-light btn btn-lg">Prikaži sve lokacije</a>
+            <a th:href="@{/lokacije}" class="waves-effect waves-light btn btn-lg" th:text="#{admin.prikazilokacije}">Prikaži sve lokacije</a>
         </div>
         <div class="text-center m-3" data-aos="flip-right" data-aos-duration="1500">
-            <a th:href="@{/lokacije/add}" class="waves-effect waves-light btn btn-lg">Dodaj novu lokaciju</a>
+            <a th:href="@{/lokacije/add}" class="waves-effect waves-light btn btn-lg" th:text="#{admin.dodajlokaciju}">Dodaj novu lokaciju</a>
         </div>
         <div class="text-center m-3" data-aos="flip-left" data-aos-duration="1500">
-            <a th:href="@{/korisnici}" class="waves-effect waves-light btn btn-lg">Prikaži sve korisnike</a>
+            <a th:href="@{/korisnici}" class="waves-effect waves-light btn btn-lg" th:text="#{admin.prikazikorisnike}">Prikaži sve korisnike</a>
         </div>
         <div class="text-center m-3" data-aos="flip-left" data-aos-duration="1500">
-            <a th:href="@{/korisnici/add}" class="waves-effect waves-light btn btn-lg">Registracija korisnika</a>
+            <a th:href="@{/korisnici/add}" class="waves-effect waves-light btn btn-lg" th:text="#{admin.registracijakorisnika}">Registracija korisnika</a>
         </div>
         <div class="text-center m-3" data-aos="flip-left" data-aos-duration="1500">
-            <a th:href="@{/avioni/add}" class="waves-effect waves-light btn btn-lg">Dodavanje novog aviona</a>
+            <a th:href="@{/avioni/add}" class="waves-effect waves-light btn btn-lg" th:text="#{admin.dodajavion}">Dodavanje novog aviona</a>
         </div>
         <div class="text-center m-3" data-aos="flip-left" data-aos-duration="1500">
-            <a th:href="@{/aerodromi/add}" class="waves-effect waves-light btn btn-lg">Dodavanje novog aerodroma</a>
+            <a th:href="@{/aerodromi/add}" class="waves-effect waves-light btn btn-lg" th:text="#{admin.dodajaerodrom}">Dodavanje novog aerodroma</a>
         </div>
         <div class="text-center m-3" data-aos="flip-left" data-aos-duration="1500">
-            <a th:href="@{/letovi/add}" class="waves-effect waves-light btn btn-lg">Kreiranje novog leta</a>
+            <a th:href="@{/letovi/add}" class="waves-effect waves-light btn btn-lg" th:text="#{admin.dodajlet}">Kreiranje novog leta</a>
         </div>
         <div class="text-center m-3" data-aos="flip-left" data-aos-duration="1500">
-            <a th:href="@{/letovi/statistics}" class="waves-effect waves-light btn btn-lg">Izvestaji</a>
+            <a th:href="@{/letovi/statistics}" class="waves-effect waves-light btn btn-lg" th:text="#{admin.izvestaji}">Izveštaji</a>
         </div>
     </div>
+
     <footer class="text-center bg-dark" th:include="header-footer :: footer"></footer>
+
     <script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
     <script th:src="@{/assets/js/aos.min.js}"></script>
     <script th:src="@{/assets/js/bs-init.js}"></script>
     <script th:src="@{/assets/js/button-materialize-materialize.min.js}"></script>
     <script th:src="@{/assets/js/Button-Ripple-Effect-Animation-Wave-Pulse-button-ripple-effect.js}"></script>
 </body>
-
 </html>
