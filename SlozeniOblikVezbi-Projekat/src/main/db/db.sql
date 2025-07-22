@@ -66,8 +66,38 @@ CREATE TABLE `avioni` (
 
 LOCK TABLES `avioni` WRITE;
 /*!40000 ALTER TABLE `avioni` DISABLE KEYS */;
-INSERT INTO `avioni` VALUES (1,'Boeing 747',8,19),(2,'Airbus A330',4,10),(3,'Cessna C52',3,7);
+INSERT INTO `avioni` VALUES (1,'Boeing 747',4,8),(2,'Airbus A330',5,10),(3,'Cessna C52',2,5);
 /*!40000 ALTER TABLE `avioni` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `karte`
+--
+
+DROP TABLE IF EXISTS `karte`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `karte` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `letId` bigint DEFAULT NULL,
+  `brojSedista` varchar(10) NOT NULL,
+  `cena` int NOT NULL,
+  `imeIPrezimePutnika` varchar(100) NOT NULL,
+  `brojPasosa` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `letId` (`letId`),
+  CONSTRAINT `karte_ibfk_1` FOREIGN KEY (`letId`) REFERENCES `letovi` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `karte`
+--
+
+LOCK TABLES `karte` WRITE;
+/*!40000 ALTER TABLE `karte` DISABLE KEYS */;
+INSERT INTO `karte` VALUES (1,1,'2-5',40000,'Petar Petrovic','SRB123456');
+/*!40000 ALTER TABLE `karte` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -88,6 +118,10 @@ CREATE TABLE `korisnici` (
   `datumIVremeRegistracije` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `uloga` enum('PUTNIK','ADMIN') DEFAULT NULL,
   `blokiran` tinyint(1) DEFAULT NULL,
+  `loyaltyBodovi` int DEFAULT NULL,
+  `zahtevaLoyalty` tinyint(1) DEFAULT NULL,
+  `paraPotroseno` int DEFAULT NULL,
+  `listaZelja` varchar(85) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -98,7 +132,7 @@ CREATE TABLE `korisnici` (
 
 LOCK TABLES `korisnici` WRITE;
 /*!40000 ALTER TABLE `korisnici` DISABLE KEYS */;
-INSERT INTO `korisnici` VALUES (1,'pera','pera123','petar.petrovic@gmail.com','Petar','Petrović','1976-06-24','2023-11-05 00:32:48','ADMIN',0),(2,'marko','marko123','marko.petrovic@example.com','Marko','Petrović','1990-03-15','2024-12-21 16:34:22','PUTNIK',0),(3,'ana.j','securepass','ana.jovanovic@example.com','Ana','Jovanović','1985-07-10','2024-12-21 17:45:30','PUTNIK',0),(4,'ivan.n','mypassword','ivan.nikolic@example.com','Ivan','Nikolić','2000-01-25','2024-12-21 18:12:10','PUTNIK',0),(5,'milica.s','qwerty123','milica.stankovic@example.com','Milica','Stanković','1995-11-05','2024-12-21 19:05:50','PUTNIK',0),(6,'stefan.p','abc12345','stefan.popovic@example.com','Stefan','Popović','1988-09-12','2024-12-21 20:30:15','PUTNIK',0),(7,'jelena.k','jelena2024','jelena.kovac@example.com','Jelena','Kovač','1993-06-18','2024-12-21 21:10:05','PUTNIK',0),(8,'nikola.t','tesla987','nikola.tesla@example.com','Nikola','Tesla','1976-01-07','2024-12-21 22:45:30','PUTNIK',0),(9,'dragana.b','dragon789','dragana.bogdanovic@example.com','Dragana','Bogdanović','1992-04-22','2024-12-21 23:15:40','PUTNIK',1),(10,'aleksandar.v','alex123','aleksandar.vukovsic@example.com','Aleksandar','Vuković','1998-11-30','2024-12-22 00:30:00','PUTNIK',1),(11,'milos','milos123','aleksandar.vukovsic@example.com','Aleksandar','Vuković','1998-11-30','2024-12-22 00:30:00','PUTNIK',1),(12,'katarina.m','katy2024','katarina.milosevic@example.com','Katarina','Milošević','1994-08-15','2024-12-22 01:20:50','PUTNIK',0);
+INSERT INTO `korisnici` VALUES (1,'pera','pera123','petar.petrovic@gmail.com','Petar','Petrović','1976-06-24','2023-11-05 00:32:48','ADMIN',0,5,0,0,''),(2,'marko','marko123','marko.petrovic@example.com','Marko','Petrović','1990-03-15','2024-12-21 16:34:22','PUTNIK',0,6,0,0,''),(3,'nikola','nikola123','nikola.tesla@example.com','Nikola','Tesla','1976-01-07','2024-12-21 22:45:30','PUTNIK',0,-1,0,0,''),(4,'ana.j','securepass','ana.jovanovic@example.com','Ana','Jovanović','1985-07-10','2024-12-21 17:45:30','PUTNIK',0,-1,0,0,''),(5,'ivan.n','mypassword','ivan.nikolic@example.com','Ivan','Nikolić','2000-01-25','2024-12-21 18:12:10','PUTNIK',0,-1,0,0,''),(6,'milica.s','qwerty123','milica.stankovic@example.com','Milica','Stanković','1995-11-05','2024-12-21 19:05:50','PUTNIK',0,-1,0,0,''),(7,'stefan.p','abc12345','stefan.popovic@example.com','Stefan','Popović','1988-09-12','2024-12-21 20:30:15','PUTNIK',0,-1,0,0,''),(8,'jelena.k','jelena2024','jelena.kovac@example.com','Jelena','Kovač','1993-06-18','2024-12-21 21:10:05','PUTNIK',0,-1,0,0,''),(9,'dragana.b','dragon789','dragana.bogdanovic@example.com','Dragana','Bogdanović','1992-04-22','2024-12-21 23:15:40','PUTNIK',1,-1,0,0,''),(10,'aleksandar.v','alex123','aleksandar.vukovsic@example.com','Aleksandar','Vuković','1998-11-30','2024-12-22 00:30:00','PUTNIK',1,-1,0,0,''),(11,'milos','milos123','aleksandar.vukovsic@example.com','Aleksandar','Vuković','1998-11-30','2024-12-22 00:30:00','PUTNIK',1,-1,0,0,''),(12,'katarina.m','katy2024','katarina.milosevic@example.com','Katarina','Milošević','1994-08-15','2024-12-22 01:20:50','PUTNIK',0,-1,0,0,'');
 /*!40000 ALTER TABLE `korisnici` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -119,6 +153,10 @@ CREATE TABLE `letovi` (
   `trajanjeLeta` int NOT NULL,
   `cena` int NOT NULL,
   `naAkciji` tinyint(1) NOT NULL,
+  `brojMesta` int NOT NULL,
+  `razlogOtkaza` varchar(100) NOT NULL,
+  `datumVazenjaAkcije` date NOT NULL,
+  `staraCena` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `polazisteId` (`polazisteId`),
   KEY `odredisteId` (`odredisteId`),
@@ -126,7 +164,7 @@ CREATE TABLE `letovi` (
   CONSTRAINT `letovi_ibfk_1` FOREIGN KEY (`polazisteId`) REFERENCES `aerodromi` (`id`),
   CONSTRAINT `letovi_ibfk_2` FOREIGN KEY (`odredisteId`) REFERENCES `aerodromi` (`id`),
   CONSTRAINT `letovi_ibfk_3` FOREIGN KEY (`avionId`) REFERENCES `avioni` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -135,7 +173,7 @@ CREATE TABLE `letovi` (
 
 LOCK TABLES `letovi` WRITE;
 /*!40000 ALTER TABLE `letovi` DISABLE KEYS */;
-INSERT INTO `letovi` VALUES (1,'FL001',1,2,1,'2025-07-15 08:30:00',600,40000,1),(2,'FL002',2,3,2,'2025-07-16 12:00:00',840,55000,1),(3,'FL003',3,4,3,'2025-07-17 05:45:00',540,38000,1),(4,'FL004',4,5,1,'2025-07-18 19:20:00',420,30000,0),(5,'FL005',5,6,2,'2025-07-19 07:10:00',720,47000,1),(6,'FL006',8,2,1,'2025-07-15 08:30:00',600,40000,0),(7,'FL007',9,3,2,'2025-07-16 12:00:00',840,55000,0),(8,'FL008',10,4,3,'2025-07-17 05:45:00',540,38000,0),(9,'FL009',2,4,1,'2025-07-18 19:20:00',420,30000,0),(10,'FL010',1,9,2,'2025-07-19 07:10:00',720,47000,0),(11,'FL011',1,2,1,'2025-07-16 08:30:00',600,40000,0),(12,'FL012',1,12,1,'2025-07-16 08:30:00',600,40000,0);
+INSERT INTO `letovi` VALUES (1,'FL001',1,2,1,'2025-07-15 08:30:00',600,40000,1,31,'','2035-11-29',80000),(2,'FL002',2,3,2,'2025-07-16 12:00:00',840,55000,1,50,'','2035-11-29',80000),(3,'FL003',3,4,3,'2025-07-17 05:45:00',540,38000,1,10,'','2035-11-29',80000),(4,'FL004',4,5,1,'2025-07-18 19:20:00',420,30000,0,32,'','1970-01-01',30000),(5,'FL005',5,6,2,'2025-07-19 07:10:00',720,47000,1,50,'','2035-11-29',80000),(6,'FL006',8,2,1,'2025-07-15 08:30:00',600,40000,0,32,'','1970-01-01',40000),(7,'FL007',9,3,2,'2025-07-16 12:00:00',840,55000,0,50,'','1970-01-01',55000),(8,'FL008',10,4,3,'2025-07-17 05:45:00',540,38000,0,10,'','1970-01-01',38000),(9,'FL009',2,4,1,'2025-07-18 19:20:00',420,30000,0,32,'','1970-01-01',30000),(10,'FL010',1,9,2,'2025-07-19 07:10:00',720,47000,0,50,'','1970-01-01',47000),(11,'FL011',1,2,1,'2025-07-16 08:30:00',600,40000,0,32,'','1970-01-01',40000),(12,'FL012',1,12,1,'2025-07-16 08:30:00',600,40000,0,32,'','1970-01-01',40000),(13,'FLT',4,9,2,'2027-04-26 13:15:00',555,5000,0,50,'','1970-01-01',5000),(14,'FL0013',1,8,1,'2025-07-31 07:00:00',162,45000,0,32,'','1970-01-01',45000),(15,'FL0014',8,12,2,'2025-07-31 10:00:00',437,92500,0,50,'','1970-01-01',92500),(16,'FL0015',12,2,1,'2025-07-31 16:30:00',151,51400,0,32,'','1970-01-01',51400);
 /*!40000 ALTER TABLE `letovi` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -151,6 +189,7 @@ CREATE TABLE `lokacije` (
   `Grad` varchar(100) NOT NULL,
   `Drzava` varchar(100) NOT NULL,
   `Kontinent` enum('Evropa','Amerika','Azija','Australija','Afrika','Antartika','Okeanija') DEFAULT NULL,
+  `putanjaDoSlike` varchar(1000) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -161,8 +200,63 @@ CREATE TABLE `lokacije` (
 
 LOCK TABLES `lokacije` WRITE;
 /*!40000 ALTER TABLE `lokacije` DISABLE KEYS */;
-INSERT INTO `lokacije` VALUES (1,'Beograd','Srbija','Evropa'),(2,'New York','Sjedinjene Američke Države','Amerika'),(3,'Tokio','Japan','Azija'),(4,'Sidnej','Australija','Australija'),(5,'Kairo','Egipat','Afrika'),(6,'Buenos Aires','Argentina','Amerika'),(7,'Pariz','Francuska','Evropa'),(8,'Kejp Taun','Južnoafrička Republika','Afrika'),(9,'Auckland','Novi Zeland','Okeanija'),(10,'McMurdo Station','Antarktik','Antartika'),(11,'Washington','Sjedinjene Američke Države','Amerika');
+INSERT INTO `lokacije` VALUES (1,'Beograd','Srbija','Evropa','turizam1.jpg'),(2,'New York','Sjedinjene Američke Države','Amerika','turizam2.jpg'),(3,'Tokio','Japan','Azija','turizam9.jpg'),(4,'Sidnej','Australija','Australija','turizam4.jpg'),(5,'Kairo','Egipat','Afrika','turizam5.jpg'),(6,'Buenos Aires','Argentina','Amerika','turizam6.jpg'),(7,'Pariz','Francuska','Evropa','turizam7.jpg'),(8,'Kejp Taun','Južnoafrička Republika','Afrika','turizam8.jpg'),(9,'Auckland','Novi Zeland','Okeanija','turizam9.jpg'),(10,'McMurdo Station','Antarktik','Antartika','turizam10.jpg'),(11,'Washington','Sjedinjene Američke Države','Amerika','turizam11.jpg');
 /*!40000 ALTER TABLE `lokacije` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `rezervacija_karta`
+--
+
+DROP TABLE IF EXISTS `rezervacija_karta`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `rezervacija_karta` (
+  `rezervacijaId` bigint NOT NULL,
+  `kartaId` bigint NOT NULL,
+  PRIMARY KEY (`rezervacijaId`,`kartaId`),
+  KEY `kartaId` (`kartaId`),
+  CONSTRAINT `rezervacija_karta_ibfk_1` FOREIGN KEY (`rezervacijaId`) REFERENCES `rezervacije` (`id`),
+  CONSTRAINT `rezervacija_karta_ibfk_2` FOREIGN KEY (`kartaId`) REFERENCES `karte` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rezervacija_karta`
+--
+
+LOCK TABLES `rezervacija_karta` WRITE;
+/*!40000 ALTER TABLE `rezervacija_karta` DISABLE KEYS */;
+INSERT INTO `rezervacija_karta` VALUES (1,1);
+/*!40000 ALTER TABLE `rezervacija_karta` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `rezervacije`
+--
+
+DROP TABLE IF EXISTS `rezervacije`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `rezervacije` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `idKorisnika` bigint NOT NULL,
+  `datumIVremeKreiranja` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `ukupnaCena` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idKorisnika` (`idKorisnika`),
+  CONSTRAINT `rezervacije_ibfk_1` FOREIGN KEY (`idKorisnika`) REFERENCES `korisnici` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rezervacije`
+--
+
+LOCK TABLES `rezervacije` WRITE;
+/*!40000 ALTER TABLE `rezervacije` DISABLE KEYS */;
+INSERT INTO `rezervacije` VALUES (1,1,'2025-07-22 02:39:58',40000);
+/*!40000 ALTER TABLE `rezervacije` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -174,4 +268,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-07-11  5:15:12
+-- Dump completed on 2025-07-22  4:49:29
