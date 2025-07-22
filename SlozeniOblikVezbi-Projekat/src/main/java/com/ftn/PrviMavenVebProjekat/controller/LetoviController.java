@@ -577,6 +577,7 @@ public class LetoviController implements ApplicationContextAware {
 		ModelAndView modelAndView = new ModelAndView("index");
 //		modelAndView.addObject("pretragaInicirana}", true);
 		List<Let> sviletovi = service.findAll();
+		Integer brojletova = -1;
 
 		if (polaziste != null && !polaziste.isEmpty()) {
 			System.out.println("POLAZISTE nije prazno");
@@ -593,6 +594,7 @@ public class LetoviController implements ApplicationContextAware {
 					&& !l.getOdrediste().getLokacija().getGrad().equalsIgnoreCase(odrediste)
 					&& !l.getOdrediste().getLokacija().getDrzava().equalsIgnoreCase(odrediste));
 		}
+
 		if (sviletovi.isEmpty()) {
 			List<Let> sviletoviponovo = service.findAll();
 			for (Let let : sviletoviponovo) {
@@ -610,6 +612,7 @@ public class LetoviController implements ApplicationContextAware {
 								modelAndView.addObject("nemaletovaporuka",
 										"Nema direktnog leta izmedju zadatih lokacija,"
 												+ " medjutim nasli smo 2 leta izmedju kojih mozete napraviti presedanje, a koji i dalje ispunjavaju ostale kriterijume:");
+								brojletova = 2;
 //								return modelAndView;
 							} else {
 								for (Let let3 : sviletoviponovo) {
@@ -625,6 +628,7 @@ public class LetoviController implements ApplicationContextAware {
 										modelAndView.addObject("nemaletovaporuka",
 												"Nema direktnog leta izmedju zadatih lokacija,"
 														+ " medjutim nasli smo 3 leta izmedju kojih mozete napraviti presedanja, a koji i dalje ispunjavaju ostale kriterijume:");
+										brojletova = 3;
 //										return modelAndView;
 									}
 								}
@@ -709,8 +713,10 @@ public class LetoviController implements ApplicationContextAware {
 			}
 		}
 
-		if (sviletovi.isEmpty()) {
-			modelAndView.addObject("nemaletovaporuka", "Nema letova koji odgovaraju zadatim kriterijumima!");
+		if (sviletovi.isEmpty() || sviletovi.size() != brojletova) {
+			if (brojletova != -1) {
+				modelAndView.addObject("nemaletovaporuka", "Nema letova koji odgovaraju zadatim kriterijumima!");
+			}
 		}
 
 		System.out.println("Letovi za prikaz: " + sviletovi);
