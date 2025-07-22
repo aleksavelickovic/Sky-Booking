@@ -140,7 +140,6 @@ datumVazenjaAkcije, staraCena) VALUES
 -- ('FL012', 1, 12, 1, '2025-07-16 08:30:00', 600, 40000, FALSE, 32, '', '1970-01-01', 40000),
 ('FLT', 4, 9, 2, '2027-04-26 13:15:00', 555, 5000, FALSE, 50, '', '1970-01-01', 5000);
 
-
 SELECT * FROM letovi lt
 ORDER BY lt.id;
 
