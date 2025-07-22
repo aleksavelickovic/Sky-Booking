@@ -15,7 +15,7 @@ CREATE TABLE lokacije (
 INSERT INTO lokacije (Grad, Drzava, Kontinent, putanjaDoSlike) VALUES
 ('Beograd', 'Srbija', 'Evropa', 'turizam1.jpg'),
 ('New York', 'Sjedinjene Američke Države', 'Amerika', 'turizam2.jpg'),
-('Tokio', 'Japan', 'Azija', 'turizam3.jpg'),
+('Tokio', 'Japan', 'Azija', 'turizam9.jpg'),
 ('Sidnej', 'Australija', 'Australija', 'turizam4.jpg'),
 ('Kairo', 'Egipat', 'Afrika', 'turizam5.jpg'),
 ('Buenos Aires', 'Argentina', 'Amerika', 'turizam6.jpg'),

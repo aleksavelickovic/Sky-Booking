@@ -131,7 +131,7 @@
 					<div class="card-body p-4" >
 						<p class="text-primary mb-0 card-text" th:if="${let.naAkciji}" th:text="#{index.akcijaoznaka}" >Akcija!</p>
 						<p class="text-primary mb-0 card-text naakcijilabela" th:text="#{index.akcijaoznaka}" th:id="${'naAkciji' + let.id}">Akcija!</p>
-						<h4 class="card-title" th:text="#{index.oznaka}">Oznaka:&nbsp;<span th:text="${let.oznaka}" th:id="${'oznaka' + let.id}"></span></h4>
+						<h4 class="card-title">Oznaka:&nbsp;<span th:text="#{index.oznaka} + ' ' + ${let.oznaka}" th:id="${'oznaka' + let.id}"></span></h4>
 						<p class="card-text"><span th:text="#{index.polaziste} + ' ' + ${let.polaziste.oznaka}" th:id="${'polaziste' + let.id}"></span></p>
 						<p class="card-text"><span th:text="#{index.odrediste} + ' ' + ${let.odrediste.oznaka}" th:id="${'odrediste' + let.id}"></span></p>
 						<p class="card-text"><span th:text="#{index.avion} + ' ' + ${let.avion.naziv}" th:id="${'avion' + let.id}"></span></p>
