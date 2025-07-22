@@ -128,7 +128,6 @@ CREATE TABLE letovi (
 
 INSERT INTO letovi (oznaka, polazisteId, odredisteId, avionId, terminPolaska, trajanjeLeta, cena, naAkciji, brojMesta ,razlogOtkaza, 
 datumVazenjaAkcije, staraCena) VALUES
-('FL001', 1, 2, 1, '2025-07-15 08:30:00', 600, 40000, TRUE, 31, '', '2035-11-29', 80000),
 ('FL002', 2, 3, 2, '2025-07-16 12:00:00', 840, 55000, TRUE, 50, '', '2035-11-29', 80000),
 ('FL003', 3, 4, 3, '2025-07-17 05:45:00', 540, 38000, TRUE, 10, '', '2035-11-29', 80000),
 ('FL004', 4, 5, 1, '2025-07-18 19:20:00', 420, 30000, FALSE, 32, '', '1970-01-01', 30000),
@@ -138,7 +137,6 @@ datumVazenjaAkcije, staraCena) VALUES
 ('FL008', 10, 4, 3, '2025-07-17 05:45:00', 540, 38000, FALSE, 10, '', '1970-01-01', 38000),
 ('FL009', 2, 4, 1, '2025-07-18 19:20:00', 420, 30000, FALSE, 32, '', '1970-01-01', 30000),
 ('FL010', 1, 9, 2, '2025-07-19 07:10:00', 720, 47000, FALSE, 50, '', '1970-01-01', 47000),
-('FL011', 1, 2, 1, '2025-07-16 08:30:00', 600, 40000, FALSE, 32, '', '1970-01-01', 40000),
 ('FL012', 1, 12, 1, '2025-07-16 08:30:00', 600, 40000, FALSE, 32, '', '1970-01-01', 40000),
 ('FLT', 4, 9, 2, '2027-04-26 13:15:00', 555, 5000, FALSE, 50, '', '1970-01-01', 5000);
 
@@ -156,7 +154,7 @@ CREATE TABLE karte (
 );
 
 INSERT INTO karte (letId, brojSedista, cena, imeIPrezimePutnika, brojPasosa) VALUES
-(1, '2-5', 40000, 'Petar Petrovic', 'SRB123456');
+(4, '2-5', 40000, 'Petar Petrovic', 'SRB123456');
 -- (1, '2-5', 15000, 'Petar Petrovic', 'SRB123456'),
 -- (2, '1-3', 200, 'Jovana Jovic', 'SRB654321'),
 -- (1, '4-7', 15000, 'Nikola Nikolic', 'SRB112233');

@@ -37,6 +37,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.jsf.FacesContextUtils;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -592,6 +593,47 @@ public class LetoviController implements ApplicationContextAware {
 					&& !l.getOdrediste().getLokacija().getGrad().equalsIgnoreCase(odrediste)
 					&& !l.getOdrediste().getLokacija().getDrzava().equalsIgnoreCase(odrediste));
 		}
+		if (sviletovi.isEmpty()) {
+			List<Let> sviletoviponovo = service.findAll();
+			for (Let let : sviletoviponovo) {
+//				Let kandidat;
+				if (let.getPolaziste().getOznaka().equalsIgnoreCase(polaziste)) {
+					for (Let let2 : sviletoviponovo) {
+						if (let2.getPolaziste().getOznaka().equalsIgnoreCase(let.getOdrediste().getOznaka())) {
+							if (let2.getOdrediste().getOznaka().equals(odrediste)
+									&& let.getTerminPolaska().plusMinutes(let.getTrajanjeLeta())
+											.isBefore(let2.getTerminPolaska().minusHours(1))) {
+								sviletovi.add(let);
+								sviletovi.add(let2);
+//								System.out.println("Letovi za prikaz: " + sviletovi);
+								modelAndView.addObject("letovi", sviletovi);
+								modelAndView.addObject("nemaletovaporuka",
+										"Nema direktnog leta izmedju zadatih lokacija,"
+												+ " medjutim nasli smo 2 leta izmedju kojih mozete napraviti presedanje, a koji i dalje ispunjavaju ostale kriterijume:");
+//								return modelAndView;
+							} else {
+								for (Let let3 : sviletoviponovo) {
+									if (let3.getPolaziste().getOznaka().equals(let2.getOdrediste().getOznaka())
+											&& let2.getTerminPolaska().plusMinutes(let2.getTrajanjeLeta())
+													.isBefore(let3.getTerminPolaska().minusHours(1))
+											&& let3.getOdrediste().getOznaka().equals(odrediste)) {
+										sviletovi.add(let);
+										sviletovi.add(let2);
+										sviletovi.add(let3);
+//										System.out.println("Letovi za prikaz: " + sviletovi);
+//										modelAndView.addObject("letovi", sviletovi);
+										modelAndView.addObject("nemaletovaporuka",
+												"Nema direktnog leta izmedju zadatih lokacija,"
+														+ " medjutim nasli smo 3 leta izmedju kojih mozete napraviti presedanja, a koji i dalje ispunjavaju ostale kriterijume:");
+//										return modelAndView;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 
 		if (brojMesta != null) {
 			System.out.println("Broj mesta nije prazan!");
@@ -670,6 +712,7 @@ public class LetoviController implements ApplicationContextAware {
 		if (sviletovi.isEmpty()) {
 			modelAndView.addObject("nemaletovaporuka", "Nema letova koji odgovaraju zadatim kriterijumima!");
 		}
+
 		System.out.println("Letovi za prikaz: " + sviletovi);
 		modelAndView.addObject("letovi", sviletovi);
 		return modelAndView;
