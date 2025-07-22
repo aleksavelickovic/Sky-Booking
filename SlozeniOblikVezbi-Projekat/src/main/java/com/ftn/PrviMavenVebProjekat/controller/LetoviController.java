@@ -713,10 +713,16 @@ public class LetoviController implements ApplicationContextAware {
 			}
 		}
 
-		if (sviletovi.isEmpty() || sviletovi.size() != brojletova) {
+		if (sviletovi.size() != brojletova) {
 			if (brojletova != -1) {
 				modelAndView.addObject("nemaletovaporuka", "Nema letova koji odgovaraju zadatim kriterijumima!");
+				System.out.println("Letovi za prikaz: " + sviletovi);
+				modelAndView.addObject("letovi", sviletovi);
+				return modelAndView;
 			}
+		}
+		if (sviletovi.isEmpty()) {
+			modelAndView.addObject("nemaletovaporuka", "Nema letova koji odgovaraju zadatim kriterijumima!");
 		}
 
 		System.out.println("Letovi za prikaz: " + sviletovi);
