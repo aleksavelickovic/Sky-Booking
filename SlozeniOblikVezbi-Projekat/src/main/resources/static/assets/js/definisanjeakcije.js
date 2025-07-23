@@ -5,6 +5,7 @@ $(document).ready(function(){
      $('#popustjeprazan').hide();
      $('#akcijauspeh').hide();
      $('.naakcijilabela').hide();
+     $('#popustveciodsto').hide();
 
     var formaPrikazana = false;
 
@@ -54,6 +55,13 @@ $(document).ready(function(){
                 setTimeout(function() {
                     $('#popustjeprazan').hide(200);
                 }, 3000);
+            }
+            else if (response == "V"){
+                console.log("Popust je VECI od 99%!")
+                $('#popustveciodsto').show(200);
+                setTimeout(function(){
+                    $('#popustveciodsto').hide(200);
+                }, 3000)
             }
             else{
                 console.log('Akcija uspešno definisana!');

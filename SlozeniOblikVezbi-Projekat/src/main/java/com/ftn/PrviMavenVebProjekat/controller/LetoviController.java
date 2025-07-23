@@ -197,6 +197,9 @@ public class LetoviController implements ApplicationContextAware {
 					LocalDateTime.now(), 0, 0, false, 1, "", LocalDate.EPOCH, 2);
 			return mapper.writeValueAsString(letzavratiti);
 		}
+		if (Double.valueOf(procenatpopusta) > 99) {
+			return mapper.writeValueAsString("V");
+		}
 		let.setStaraCena(let.getCena());
 		let.setNaAkciji(true);
 
