@@ -132,13 +132,13 @@
 					<div class="card-body p-4" >
 						<p class="text-primary mb-0 card-text" th:if="${let.naAkciji}" th:text="#{index.akcijaoznaka}" >Akcija!</p>
 						<p class="text-primary mb-0 card-text naakcijilabela" th:text="#{index.akcijaoznaka}" th:id="${'naAkciji' + let.id}">Akcija!</p>
-						<h4 class="card-title">Oznaka:&nbsp;<span th:text="#{index.oznaka} + ' ' + ${let.oznaka}" th:id="${'oznaka' + let.id}"></span></h4>
-						<p class="card-text"><span th:text="#{index.polaziste} + ' ' + ${let.polaziste.oznaka}" th:id="${'polaziste' + let.id}"></span></p>
-						<p class="card-text"><span th:text="#{index.odrediste} + ' ' + ${let.odrediste.oznaka}" th:id="${'odrediste' + let.id}"></span></p>
+						<h4 class="card-title"><span th:text="#{index.oznaka} + ' ' + ${let.oznaka}" th:id="${'oznaka' + let.id}"></span></h4>
+						<p class="card-text"><span th:text="#{index.polaziste} + ' ' + ${let.polaziste.oznaka} + ', ' + ${let.polaziste.lokacija.grad}  + ', ' + ${let.polaziste.lokacija.drzava}" th:id="${'polaziste' + let.id}"></span></p>
+						<p class="card-text"><span th:text="#{index.odrediste} + ' ' + ${let.odrediste.oznaka} + ', ' + ${let.odrediste.lokacija.grad}  + ', ' + ${let.odrediste.lokacija.drzava}" th:id="${'odrediste' + let.id}"></span></p>
 						<p class="card-text"><span th:text="#{index.avion} + ' ' + ${let.avion.naziv}" th:id="${'avion' + let.id}"></span></p>
 						<p class="card-text"><span th:text="#{index.datumpolaska} + ' ' + ${let.terminPolaska}" th:id="${'terminPolaska' + let.id}"></span></p>
-						<p class="card-text"><span th:text="#{index.trajanje} + ' ' + ${let.trajanjeLeta}" th:id="${'trajanje' + let.id}"></span></p>
-						<p class="card-text"><span th:text="#{index.cenapokarti} + ' ' + ${let.cena}" th:id="${'cena' + let.id}"></span></p>
+						<p class="card-text"><span th:text="#{index.trajanje} + ' ' + ${let.trajanjeLeta} + ' ' + #{index.minuti}" th:id="${'trajanje' + let.id}"></span></p>
+						<p class="card-text"><span th:text="#{index.cenapokarti} + ' ' + ${let.cena} + ' RSD'" th:id="${'cena' + let.id}"></span></p>
 						
 						<form action="/PrviMavenVebProjekat/seatoptions" method="GET">
 						<!-- <input type="number" class="form-control" name="brojMesta" placeholder="Broj karata..." required> -->
