@@ -121,6 +121,7 @@
         </form>
     </div>
     <h1 class="text-center mt-4 mb-4" data-aos="fade-up" data-aos-duration="950" th:text="${nemaletovaporuka}"></h1>
+    <h1 class="text-center mt-4 mb-4" data-aos="fade-up" style="background-color:#CE3936;" data-aos-duration="950" th:text="${rezervisanekarte}"></h1>
     
 	<div class="container py-4 py-xl-5 letovi"  th:each="let : ${letovi}">
 		<div class="row gy-4 row-cols-1" >
@@ -151,9 +152,17 @@
 
 						<a th:if="${session.prijavljeniKorisnik != null && session.prijavljeniKorisnik.uloga.name() == 'ADMIN'}" 
 						th:href="@{/letovi/edit(letId=${let.id})}">
-						<button class="btn btn-primary mt-2 listazeljabtn" id="listazeljabtn" th:text="#{index.izmeniletbtn}" type="button">Izmeni let (Samo za administratore)
+						<button class="btn btn-primary mt-2 listazeljabtn" id="izmeniletbtn" th:text="#{index.izmeniletbtn}" type="button">Izmeni let (Samo za administratore)
 						
 						</button> </a> 
+						
+						<a th:if="${session.prijavljeniKorisnik != null && session.prijavljeniKorisnik.uloga.name() == 'ADMIN'}" 
+						th:href="@{/letovi/delete(letId=${let.id})}">
+						<button class="btn btn-primary mt-2 listazeljabtn" id="obrisiletbtn" th:text="#{index.obrisiletbtn}" type="button">Obrisi let (Samo za administratore)
+						
+						</button> </a> 
+						
+						
 						<form th:if="${session.prijavljeniKorisnik != null && session.prijavljeniKorisnik.uloga.name() == 'ADMIN'}" 
 						action="/PrviMavenVebProjekat/otkazi" method="GET">
 						<input type="text" class="form-control mt-2" name="razlogOtkaza" th:placeholder="#{index.otkazletarazlog}" required>

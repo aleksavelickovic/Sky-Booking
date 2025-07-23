@@ -325,6 +325,23 @@ public class LetoviController implements ApplicationContextAware {
 
 	}
 
+	@GetMapping(value = "/letovi/delete")
+	public ModelAndView delete(@RequestParam Long letId, HttpServletResponse response) throws IOException {
+		ModelAndView modelAndView = new ModelAndView("index");
+		Let letZaBrisanje = service.findOne(letId);
+		Avion avionLeta = letZaBrisanje.getAvion();
+
+		if (letZaBrisanje.getBrojMesta() < (avionLeta.getBrojKolona() * avionLeta.getBrojRedova())) {
+			modelAndView.addObject("rezervisanekarte",
+					"Na ovom letu postoje rezervisane karte, stoga ga ne mozete obrisati!");
+			return modelAndView;
+		}
+		
+		service.delete(letId);
+		response.sendRedirect(bURL);
+		return null;
+	}
+
 	@PostMapping(value = "/letovi/edit")
 	public ModelAndView edit(@RequestParam Long id, @RequestParam(required = false) String oznaka,
 			@RequestParam(required = false) String polazak, @RequestParam(required = false) Integer trajanje,
