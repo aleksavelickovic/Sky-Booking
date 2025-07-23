@@ -109,7 +109,8 @@ public class LetoviController implements ApplicationContextAware {
 	}
 
 	@GetMapping
-	public ModelAndView index(HttpServletResponse response, HttpSession session) {
+	public ModelAndView index(HttpServletResponse response, HttpSession session,
+			@CookieValue(required = false) String zapamcenkorisnik) {
 		Integer setovanCookie = (Integer) session.getAttribute("setovanCookie");
 
 		if (setovanCookie == null) {
@@ -118,6 +119,11 @@ public class LetoviController implements ApplicationContextAware {
 			cookie.setPath("/"); // Dostupan je na celom sajtu
 			response.addCookie(cookie);
 			session.setAttribute("setovanCookie", 1);
+		}
+		if (zapamcenkorisnik != null) {
+			session.setAttribute(KorisniciController.KORISNIK_KEY,
+					korisniciService.findOne(Long.valueOf(zapamcenkorisnik)));
+			System.out.println("SETOVANJE ULOGOVANOG KORISNIKA PO COOKIE-U!");
 		}
 
 		ArrayList<Let> letovi = new ArrayList<Let>();
@@ -336,7 +342,7 @@ public class LetoviController implements ApplicationContextAware {
 					"Na ovom letu postoje rezervisane karte, stoga ga ne mozete obrisati!");
 			return modelAndView;
 		}
-		
+
 		service.delete(letId);
 		response.sendRedirect(bURL);
 		return null;

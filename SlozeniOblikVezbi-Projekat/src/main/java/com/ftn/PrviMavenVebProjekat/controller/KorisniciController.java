@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -42,6 +43,7 @@ import com.ftn.PrviMavenVebProjekat.service.RezervacijeService;
 public class KorisniciController implements ApplicationContextAware {
 
 	public static final String KORISNIK_KEY = "prijavljeniKorisnik";
+	public static final String ZAPAMCEN_KORISNIK_KEY = "zapamcenkorisnik";
 
 	@Autowired
 	private ApplicationContext applicationContext;
@@ -167,12 +169,12 @@ public class KorisniciController implements ApplicationContextAware {
 		if (!korisnik.getListaZelja().equals("")) {
 			List<String> listazelja = Arrays
 					.asList(korisnik.getListaZelja().substring(0, korisnik.getListaZelja().length() - 1).split(","));
-			
+
 			ArrayList<Let> listaletova = new ArrayList<Let>();
 			for (String id : listazelja) {
 				listaletova.add(letoviService.findOne(Long.parseLong(id)));
 			}
-			
+
 			modelAndView.addObject("letovinalistizelja", listaletova);
 		}
 
@@ -227,12 +229,14 @@ public class KorisniciController implements ApplicationContextAware {
 		modelAndView.addObject("letZaRezervisati", letZaRezervsati);
 		modelAndView.addObject("brojMesta", brojMesta);
 //		modelAndView.addObject("poruka", "");
+
 		return modelAndView;
 	}
 
 	@PostMapping(value = "/login")
 	public ModelAndView login(@RequestParam String korisnickoIme, @RequestParam String lozinka, HttpSession session,
-			HttpServletResponse response, @RequestParam Long letZaRezervisati) throws IOException {
+			HttpServletResponse response, @RequestParam Long letZaRezervisati,
+			@RequestParam(required = false) String zapamtiMe) throws IOException {
 		ModelAndView rezultat = new ModelAndView("prijava");
 		for (Korisnik korisnik : service.findAll()) {
 			if (korisnik.getKorisnickoIme().equals(korisnickoIme) && korisnik.getLozinka().equals(lozinka)) {
@@ -244,6 +248,14 @@ public class KorisniciController implements ApplicationContextAware {
 					return rezultat;
 				} else {
 					session.setAttribute(KorisniciController.KORISNIK_KEY, korisnik);
+					if (zapamtiMe != null) {
+						Cookie cookie = new Cookie(ZAPAMCEN_KORISNIK_KEY, korisnik.getId().toString());
+						cookie.setMaxAge(7 * 24 * 60 * 60); // Istice za 7 dana
+						cookie.setPath("/"); // Dostupan svugde na serveru
+						response.addCookie(cookie);
+						System.out.println("PRAVLJENJE KUKIJA ZA ZAPAMTIME");
+					}
+
 					if (letZaRezervisati != null) {
 						System.out.println("USPESNA PRIJAVA SA PREBACIVANJEM NA REZERVACIJU");
 						response.sendRedirect(bURL + "seatoptions?letId=" + letZaRezervisati);
@@ -276,6 +288,10 @@ public class KorisniciController implements ApplicationContextAware {
 	public void logout(HttpSession session, HttpServletResponse response) throws IOException {
 		session.invalidate();
 		System.out.println("Korisnik je odjavljen!");
+		Cookie cookie = new Cookie(ZAPAMCEN_KORISNIK_KEY, null);
+		cookie.setMaxAge(0);
+		cookie.setPath("/");
+		response.addCookie(cookie);
 		response.sendRedirect(bURL);
 	}
 
