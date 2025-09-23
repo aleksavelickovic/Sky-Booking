@@ -30,9 +30,9 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.version>1.8</java.version>
+		<java.version>21</java.version>
 		<!-- zamena za java version -->
-		<!--  
+		<!--
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		-->
@@ -187,7 +187,9 @@
 					<configuration>
         				<mainClass>com.ftn.PrviMavenVebProjekat.PrviMavenVebProjekatApplication</mainClass>
     					<excludeDevtools>false</excludeDevtools>
-    				</configuration>	
+                        <source>11</source>
+                        <target>11</target>
+                    </configuration>
 				</plugin>
 				<plugin>
             <groupId>org.springframework.boot</groupId>

@@ -86,7 +86,7 @@ public class KorpaKontroller implements ApplicationContextAware {
 		}
 		modelAndView.addObject("ukupnacenarezervacije", ukupnacenarezervacije);
 
-		Long poslednjiIdKarte = karteService.findAll().getLast().getId();
+		Long poslednjiIdKarte = karteService.findAll().get(karteService.findAll().size() - 1).getId();
 		System.out.println("ID POSLEDNJE KARTE " + poslednjiIdKarte);
 		modelAndView.addObject("poslednjiIdKarte", poslednjiIdKarte);
 
@@ -145,9 +145,9 @@ public class KorpaKontroller implements ApplicationContextAware {
 		for (String sediste : sedista) {
 			sediste = sediste.replace("]", "");
 			sediste = sediste.replace("[", "");
-			System.out.println(karteService.findAll().getLast());
-			System.out.println(karteService.findAll().getLast().getId());
-			Karta karta = new Karta(karteService.findAll().getLast().getId() + 1, let, sediste, imeIPrezime.get(index),
+			System.out.println(karteService.findAll().get(karteService.findAll().size() - 1));
+			System.out.println(karteService.findAll().get(karteService.findAll().size() - 1).getId());
+			Karta karta = new Karta(karteService.findAll().get(karteService.findAll().size() - 1).getId() + 1, let, sediste, imeIPrezime.get(index),
 					brojPasosa.get(index));
 			karteService.save(karta);
 			karteUKorpi.add(karta.getId().toString());
