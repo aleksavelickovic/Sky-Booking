@@ -126,6 +126,8 @@ public class KorpaKontroller implements ApplicationContextAware {
 			@RequestParam ArrayList<String> brojPasosa, @RequestParam Integer brojKarata,
 			@RequestParam ArrayList<String> sedista, HttpServletResponse response,
 			@CookieValue(required = false) String karteukorpi) throws IOException {
+//        System.out.println("NAPUNIKIORPU KONTROLLER JE AKTIVAN!");
+
 		imeIPrezime.removeIf(ip -> ip.equals(""));
 		brojPasosa.removeIf(ip -> ip.equals(""));
 
